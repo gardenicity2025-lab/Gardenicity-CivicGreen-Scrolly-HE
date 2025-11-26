@@ -83,7 +83,7 @@
 /* Section running text → Liebling Pro Light (300) (S15 remains regular) */
 .s1-text p,
 .s2-text p,
-.sGeddes-text p, /* NEW */
+.sGeddes-text p,
 .s4-text p,
 .s5-text p,
 .s9-text p,
@@ -136,7 +136,7 @@ html, body {
 --s4:0; --s4Overlay:0; --s4Y:0px; --s4ImgOpacity:0;
 
 /* NEW MAP SECTION */
---sMapA:0; --sMapAImgOpacity:0; /* --sMapAScale removed */
+--sMapA:0; --sMapAImgOpacity:0;
 
 /* S5 */
 --s5:0; --s5Overlay:0; --s5Y:0px; --s5ImgOpacity:0;
@@ -209,105 +209,6 @@ object-fit: contain;
 display: block;
 }
 
-/* === MapA: base state (MODIFIED for GL JS DIV) === */
-.sMapA-frame {
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-opacity: var(--sMapAImgOpacity);
-z-index: 4;
-}
-
-/* FIX: Ensure full-bleed layout in V21 */
-.sMapA-frame {
-position: fixed !important;
-width: 100% !important;
-height: 100% !important;
-inset: 0 !important; /* Equivalent to top/right/bottom/left = 0 */
-}
-
-/* Mapbox container must also stretch fully */
-#mapA-container {
-width: 100% !important;
-height: 100% !important;
-position: relative;
-}
-
-/* Exit button stays above everything */
-#exit-map-button {
-position: absolute;
-top: 20px;
-left: 20px; /* REVERTED to LTR Position (Top-Left) as requested */
-right: auto;
-z-index: 200 !important;
-}
-
-/* === Map container (GL JS DIV) === */
-#mapA-container { /* TARGETING THE NEW DIV */
-width: 100%;
-height: 100%;
-position: relative; /* Mapbox needs a defined size */
-/* Starts disabled, JS enables when visible */
-pointer-events: none;
-}
-/* IMPORTANT: Mapbox GL JS map container must have a fixed size */
-.sMapA-frame, #mapA-container {
-width: 100%;
-height: 100%;
-}
-
-/* === When map active (visible) === */
-.sMapA-frame.active #mapA-container {
-pointer-events: auto;
-z-index: 10 !important;
-}
-
-/* === Disable map when faded === */
-.sMapA-frame[style*="opacity:0"] {
-pointer-events: none !important;
-}
-
-/* ======================================================
-Map Exit Button CSS (REVERTED TO LTR POSITION)
-====================================================== */
-#exit-map-button {
-position: absolute; /* Keeps it inside the frame without affecting flow */
-top: 20px;
-left: 20px; /* REVERTED to LTR Position (Top-Left) */
-right: auto; /* Ensure right is reset */
-z-index: 100; /* Above the map (z-index 10) */
-
-background-color: #00A86B; /* Civic Green */
-color: white;
-border: none;
-border-radius: 4px;
-padding: 10px 15px;
-font-size: 16px;
-font-weight: 600;
-line-height: 1;
-text-transform: none;
-cursor: pointer;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-transition: background-color 0.2s ease, opacity 0.3s ease;
-
-/* Hidden by default */
-opacity: 0;
-pointer-events: none;
-}
-
-#exit-map-button:hover {
-background-color: #007A50;
-}
-
-/* Only show when map section is active */
-.sMapA-frame.active #exit-map-button {
-opacity: 1;
-pointer-events: auto;
-}
-/* ====================================================== */
-
-
 /* S1 image LEFT (text right) (RTL Fix) */
 .s1-frame {
 top: 96px;
@@ -364,11 +265,98 @@ left: 82px; /* SWAP: right position becomes left */
 opacity: var(--s4ImgOpacity);
 }
 
-/* MapA full-bleed (MODIFIED FOR GL JS) (unchanged) */
-.sMapA-frame{
-top:0; right:0; bottom:0; left:0;
-opacity:var(--sMapAImgOpacity);
+/* === MapA: base state (MODIFIED for GL JS DIV) === */
+.sMapA-frame {
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+opacity: var(--sMapAImgOpacity);
+z-index: 4;
+/* FIX: Ensure full-bleed layout */
+position: fixed !important;
+width: 100% !important;
+height: 100% !important;
+inset: 0 !important; /* Equivalent to top/right/bottom/left = 0 */
 }
+
+/* Mapbox container must also stretch fully */
+#mapA-container {
+width: 100% !important;
+height: 100% !important;
+position: relative;
+}
+
+/* Exit button stays above everything */
+#exit-map-button {
+position: absolute;
+top: 20px;
+left: 20px; /* REVERTED to LTR Position (Top-Left) as requested */
+right: auto;
+z-index: 200 !important;
+}
+
+/* === Map container (GL JS DIV) === */
+#mapA-container {
+width: 100%;
+height: 100%;
+position: relative;
+pointer-events: none;
+}
+/* IMPORTANT: Mapbox GL JS map container must have a fixed size */
+.sMapA-frame, #mapA-container {
+width: 100%;
+height: 100%;
+}
+
+/* === When map active (visible) === */
+.sMapA-frame.active #mapA-container {
+pointer-events: auto;
+z-index: 10 !important;
+}
+
+/* === Disable map when faded === */
+.sMapA-frame[style*="opacity:0"] {
+pointer-events: none !important;
+}
+
+/* ======================================================
+Map Exit Button CSS (REVERTED TO LTR POSITION)
+====================================================== */
+#exit-map-button {
+position: absolute;
+top: 20px;
+left: 20px; /* REVERTED to LTR Position (Top-Left) */
+right: auto;
+z-index: 100;
+
+background-color: #00A86B; /* Civic Green */
+color: white;
+border: none;
+border-radius: 4px;
+padding: 10px 15px;
+font-size: 16px;
+font-weight: 600;
+line-height: 1;
+text-transform: none;
+cursor: pointer;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+transition: background-color 0.2s ease, opacity 0.3s ease;
+
+opacity: 0;
+pointer-events: none;
+}
+
+#exit-map-button:hover {
+background-color: #007A50;
+}
+
+/* Only show when map section is active */
+.sMapA-frame.active #exit-map-button {
+opacity: 1;
+pointer-events: auto;
+}
+/* ====================================================== */
 
 /* S5 image RIGHT (RTL Fix) */
 .s5-frame{
@@ -479,9 +467,9 @@ will-change: transform;
 
 /* ===== SECTION DRIVERS (unchanged) ===== */
 .s1-wrap, .s2-wrap, .galA-left-wrap,
-.sGeddes-wrap, /* NEW */
+.sGeddes-wrap,
 .s3-wrap, .s4-wrap, .s5-wrap,
-.sMapA-wrap, /* NEW */
+.sMapA-wrap,
 .galB-center-wrap, .s8-wrap, .s9-wrap, .galC-left-wrap, .s11-wrap, .s12-wrap,
 .s13-wrap, .s14-wrap, .s15-wrap{
 position:relative; height:280vh; background:#f8fbf2;
@@ -493,7 +481,7 @@ position:fixed; inset:0; z-index:2; pointer-events:none;
 }
 .s1-overlay{ opacity:var(--s1Overlay); }
 .s2-overlay{ opacity:var(--s2Overlay); }
-.sGeddes-overlay{ opacity:var(--sGeddesOverlay); } /* NEW */
+.sGeddes-overlay{ opacity:var(--sGeddesOverlay); }
 .s4-overlay{ opacity:var(--s4Overlay); }
 .s5-overlay{ opacity:var(--s5Overlay); }
 .s9-overlay{ opacity:var(--s9Overlay); }
@@ -513,15 +501,15 @@ position:absolute; top:0; bottom:0; left:96px; width:460px; overflow:hidden; /* 
 }
 
 /* Text Alignment (RTL Fix) */
-.s1-text{ transform:translateY(var(--s1Y)); color:#111; text-align:right; } /* FIX: text-align:right */
-.s2-text{ transform:translateY(var(--s2Y)); color:#111; text-align:right; } /* FIX: text-align:right */
-.sGeddes-text{ transform:translateY(var(--sGeddesY)); color:#111; text-align:right; } /* NEW FIX: text-align:right */
-.s4-text{ transform:translateY(var(--s4Y)); color:#111; text-align:right; } /* FIX: text-align:right */
-.s5-text{ transform:translateY(var(--s5Y)); color:#111; text-align:right; } /* FIX: text-align:right */
-.s9-text{ transform:translateY(var(--s9Y)); color:#111; text-align:right; } /* FIX: text-align:right */
-.s11-text{ transform:translateY(var(--s11Y)); color:#111; text-align:right; } /* FIX: text-align:right */
-.s13-text{ transform:translateY(var(--s13Y)); color:#111; text-align:right; } /* FIX: text-align:right */
-.s14-text{ transform:translateY(var(--s14Y)); color:#111; text-align:right; } /* FIX: text-align:right */
+.s1-text{ transform:translateY(var(--s1Y)); color:#111; text-align:right; }
+.s2-text{ transform:translateY(var(--s2Y)); color:#111; text-align:right; }
+.sGeddes-text{ transform:translateY(var(--sGeddesY)); color:#111; text-align:right; }
+.s4-text{ transform:translateY(var(--s4Y)); color:#111; text-align:right; }
+.s5-text{ transform:translateY(var(--s5Y)); color:#111; text-align:right; }
+.s9-text{ transform:translateY(var(--s9Y)); color:#111; text-align:right; }
+.s11-text{ transform:translateY(var(--s11Y)); color:#111; text-align:right; }
+.s13-text{ transform:translateY(var(--s13Y)); color:#111; text-align:right; }
+.s14-text{ transform:translateY(var(--s14Y)); color:#111; text-align:right; }
 
 /* ===== S15: CENTER COLUMN OVERLAY (centered text) (RTL Fix) ===== */
 .s15-rail{
@@ -577,7 +565,7 @@ background:#f8fbf2;
 
 /* ==== HERO (RTL Fix) ==== */
 .hero-media {
-top:20px; bottom:20px; right:20px; left:20px; /* SWAP: left/right (or just keep L/R, inset will fix it, but swap for consistency) */
+top:20px; bottom:20px; right:20px; left:20px;
 }
 .hero-title {
 font-size:72px;
@@ -600,7 +588,7 @@ background:#f8fbf2;
 .s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
 .s9-frame, .s11-frame, .s13-frame, .s14-frame {
 position:fixed;
-top:20px; bottom:20px; left:20px; right:20px; /* inset fixes this */
+top:20px; bottom:20px; left:20px; right:20px;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -650,8 +638,8 @@ right:auto !important;
 transform: none !important;
 }
 .s15-rail {
-right: 0 !important; /* SWAP: left->right */
-left: 0 !important; /* SWAP: right->left */
+right: 0 !important;
+left: 0 !important;
 transform: none !important;
 margin: 0 auto !important;
 }
@@ -662,7 +650,7 @@ margin: 0 auto !important;
 .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
 transform:none !important;
 color:#111;
-text-align:right; /* FIX: text-align:right */
+text-align:right;
 font-size:18px;
 line-height:26px;
 margin:80px 0 80px 0;
@@ -678,8 +666,8 @@ max-width: 100% !important;
 width: 100% !important;
 
 position: relative !important;
-right: 50% !important; /* SWAP: left->right */
-transform: translateX(50%) !important; /* SWAP: translateX(-50%)->(50%) */
+right: 50% !important;
+transform: translateX(50%) !important;
 }
 
 /* S15 Link Fixes (unchanged) */
@@ -755,8 +743,8 @@ z-index: 5 !important;
 .s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
 .s9-frame, .s11-frame, .s13-frame, .s14-frame {
 position: absolute !important;
-right: 50% !important; /* SWAP: left->right */
-transform: translateX(50%) !important; /* SWAP: translateX(-50%)->(50%) */
+right: 50% !important;
+transform: translateX(50%) !important;
 width: 600px !important;
 margin: 0 auto !important;
 top: 0 !important; bottom: 0 !important;
@@ -771,14 +759,14 @@ left: auto !important;
 transform: none !important;
 max-width: 100% !important;
 width: auto !important;
-text-align: right !important; /* FIX: text-align:right */
+text-align: right !important;
 }
 /* S15 Text (Centering Fix) (RTL Fix) */
 .s15-text {
 text-align: center !important;
 color: #fff !important;
-right: 50% !important; /* SWAP: left->right */
-transform: translateX(50%) !important; /* SWAP: translateX(-50%)->(50%) */
+right: 50% !important;
+transform: translateX(50%) !important;
 }
 
 /* 5. Galleries and Full-bleed remain full-bleed (RTL Fix) */
@@ -825,175 +813,195 @@ pointer-events: none !important;
 </div>
 </div>
 
-<section class="driver" id="driver"></section>
-
 <figure class="frame s1-frame" aria-hidden="true"><img id="s1-img" src="assets/section1.jpg" alt=""></figure>
 <figure class="frame s2-frame" aria-hidden="true"><img id="s2-img" src="assets/section2.jpg" alt=""></figure>
-
 <figure class="frame galA-left-frame" aria-hidden="true">
-<img id="galA-img0" src="assets/gallery-A.jpg" alt="">
-<img id="galA-img1" src="assets/gallery-A1.jpg" alt="">
-<img id="galA-img2" src="assets/gallery-A2.jpg" alt="">
-<img id="galA-img3" src="assets/gallery-A3.jpg" alt="">
+    <img id="galA-img0" src="assets/gallery-A.jpg" alt="">
+    <img id="galA-img1" src="assets/gallery-A1.jpg" alt="">
+    <img id="galA-img2" src="assets/gallery-A2.jpg" alt="">
+    <img id="galA-img3" src="assets/gallery-A3.jpg" alt="">
 </figure>
-
-<section class="sGeddes-wrap" id="sGeddes-wrap"></section>
 <figure class="frame sGeddes-frame" aria-hidden="true"><img id="sGeddes-img" src="assets/geddesplan.jpg" alt=""></figure>
-<div class="sGeddes-overlay">
-<div class="sGeddes-rail">
-<div class="sGeddes-text" id="sGeddes-text">
-<p><bdo dir="rtl"><strong>תוכנית גדס</strong></bdo></p>
-<p><bdo dir="rtl">תוכן הטקסט שלך לתוכנית גדס נמצא כאן...</bdo></p>
-<p><bdo dir="rtl">הוא מתנהג בדיוק כמו חלק 2 (מסילה ימנית / תמונה שמאלית).</bdo></p>
-</div>
-</div>
-</div>
-
-<section class="s3-wrap" id="s3-wrap"></section>
 <figure class="frame s3-frame" aria-hidden="true"><img id="s3-img" src="assets/section3.jpg" alt=""></figure>
-
-<section class="s4-wrap" id="s4-wrap"></section>
 <figure class="frame s4-frame" aria-hidden="true"><img id="s4-img" src="assets/section4.jpg" alt=""></figure>
-<div class="s4-overlay">
-<div class="s4-rail">
-<div class="s4-text" id="s4-text">
-<p><bdo dir="rtl"><strong>חלק רביעי</strong> חוזר למסגרת הצפופה...</bdo></p>
-<p><bdo dir="rtl">הנרטיב של המסילה הימנית ממשיך את החוט...</bdo></p>
-<p><bdo dir="rtl">התמונה האופקית יושבת יציבה משמאל...</bdo></p>
-<p><bdo dir="rtl">השוליים והקצב תואמים לחלק הראשון...</bdo></p>
-<p><bdo dir="rtl">ומחזור הנופים נמשך.</bdo></p>
-</div>
-</div>
-</div>
 
-<section class="sMapA-wrap" id="sMapA-wrap"></section>
 <figure class="frame sMapA-frame" aria-hidden="true" id="mapSection">
-<div id="mapA-container"></div>
-<button id="exit-map-button"><bdo dir="rtl">יציאה מהמפה ↓</bdo></button>
+    <div id="mapA-container"></div>
+    <button id="exit-map-button"><bdo dir="rtl">יציאה מהמפה ↓</bdo></button>
 </figure>
-<section class="s5-wrap" id="s5-wrap"></section>
 <figure class="frame s5-frame" aria-hidden="true"><img id="s5-img" src="assets/section5.jpg" alt=""></figure>
-<div class="s5-overlay">
-<div class="s5-rail">
-<div class="s5-text" id="s5-text">
-<p><bdo dir="rtl"><strong>חלק חמישי</strong> מחליף שוב את המסילה...</bdo></p>
-<p><bdo dir="rtl">כעת הנרטיב מחבק את השוליים השמאליים...</bdo></p>
-<p><bdo dir="rtl">בעוד התמונה מחזיקה את שדה הראייה הימני...</bdo></p>
-<p><bdo dir="rtl">וממסגר את הפנייה הבאה בסיפור...</bdo></p>
-<p><bdo dir="rtl">באותו קצב ומקצב.</bdo></p>
-</div>
-</div>
-</div>
-
-<section class="galB-center-wrap" id="galB-wrap"></section>
 <figure class="frame galB-center-frame" aria-hidden="true">
-<img id="galB-img0" src="assets/gallery-B.jpg" alt="">
-<img id="galB-img1" src="assets/gallery-B1.jpg" alt="">
-<img id="galB-img2" src="assets/gallery-B2.jpg" alt="">
-<img id="galB-img3" src="assets/gallery-B3.jpg" alt="">
-<img id="galB-img4" src="assets/gallery-B4.jpg" alt="">
+    <img id="galB-img0" src="assets/gallery-B.jpg" alt="">
+    <img id="galB-img1" src="assets/gallery-B1.jpg" alt="">
+    <img id="galB-img2" src="assets/gallery-B2.jpg" alt="">
+    <img id="galB-img3" src="assets/gallery-B3.jpg" alt="">
+    <img id="galB-img4" src="assets/gallery-B4.jpg" alt="">
 </figure>
-
-<section class="s8-wrap" id="s8-wrap"></section>
 <figure class="frame s8-frame" aria-hidden="true">
-<img id="s8-img" src="assets/section8.jpg" alt="">
+    <img id="s8-img" src="assets/section8.jpg" alt="">
 </figure>
-
-<section class="s9-wrap" id="s9-wrap"></section>
 <figure class="frame s9-frame" aria-hidden="true"><img id="s9-img" src="assets/section9.jpg" alt=""></figure>
-<div class="s9-overlay">
-<div class="s9-rail">
-<div class="s9-text" id="s9-text">
-<p><bdo dir="rtl"><strong>חלק תשיעי</strong> מחזיר אותנו למסגרת הצפופה...</bdo></p>
-<p><bdo dir="rtl">המסילה הימנית נושאת את הנרטיב קדימה...</bdo></p>
-<p><bdo dir="rtl">משמאל, התמונה מייצבת את הסצנה...</bdo></p>
-<p><bdo dir="rtl">השוליים, הקצב והפעימות משקפים את חלק אחד...</bdo></p>
-<p><bdo dir="rtl">כך שהסיפור נושם בקצב מוכר.</bdo></p>
-</div>
-</div>
-</div>
-
-<section class="galC-left-wrap" id="galC-wrap"></section>
 <figure class="frame galC-left-frame" aria-hidden="true">
-<img id="galC-img0" src="assets/gallery-C.jpg" alt="">
-<img id="galC-img1" src="assets/gallery-C1.jpg" alt="">
-<img id="galC-img2" src="assets/gallery-C2.jpg" alt="">
-<img id="galC-img3" src="assets/gallery-C3.jpg" alt="">
-<img id="galC-img4" src="assets/gallery-C4.jpg" alt="">
-<img id="galC-img5" src="assets/gallery-C5.jpg" alt="">
+    <img id="galC-img0" src="assets/gallery-C.jpg" alt="">
+    <img id="galC-img1" src="assets/gallery-C1.jpg" alt="">
+    <img id="galC-img2" src="assets/gallery-C2.jpg" alt="">
+    <img id="galC-img3" src="assets/gallery-C3.jpg" alt="">
+    <img id="galC-img4" src="assets/gallery-C4.jpg" alt="">
+    <img id="galC-img5" src="assets/gallery-C5.jpg" alt="">
 </figure>
-
-<section class="s11-wrap" id="s11-wrap"></section>
 <figure class="frame s11-frame" aria-hidden="true"><img id="s11-img" src="assets/section11.jpg" alt=""></figure>
-<div class="s11-overlay">
-<div class="s11-rail">
-<div class="s11-text" id="s11-text">
-<p><bdo dir="rtl"><strong>חלק אחד עשר</strong> ממשיך את החוט...</bdo></p>
-<p><bdo dir="rtl">חוזר למסילה הימנית; התמונה מעגנת את השמאל...</bdo></p>
-<p><bdo dir="rtl">השוליים והקצב ללא שינוי...</bdo></p>
-<p><bdo dir="rtl">קרוספיידים סטנדרטיים שומרים על הקצב...</bdo></p>
-<p><bdo dir="rtl">כשהסיפור מתיישב במיקוד.</bdo></p>
-</div>
-</div>
-</div>
-
-<section class="s12-wrap" id="s12-wrap"></section>
 <figure class="frame s12-frame" aria-hidden="true">
-<img id="s12-img" src="assets/section12.jpg" alt="">
+    <img id="s12-img" src="assets/section12.jpg" alt="">
 </figure>
-
-<section class="s13-wrap" id="s13-wrap"></section>
 <figure class="frame s13-frame" aria-hidden="true"><img id="s13-img" src="assets/section13.jpg" alt=""></figure>
-<div class="s13-overlay">
-<div class="s13-rail">
-<div class="s13-text" id="s13-text">
-<p><bdo dir="rtl"><strong>חלק שלוש עשרה</strong> חוזר למסגרת הצפופה...</bdo></p>
-<p><bdo dir="rtl">הנרטיב של המסילה הימנית מושך אותנו קדימה...</bdo></p>
-<p><bdo dir="rtl">התמונה השמאלית מייצבת את הסצנה...</bdo></p>
-<p><bdo dir="rtl">השוליים והקצב מהדהדים את חלק אחד...</bdo></p>
-<p><bdo dir="rtl">נושם בקצב המוכר.</bdo></p>
-</div>
-</div>
-</div>
-
-<section class="s14-wrap" id="s14-wrap"></section>
 <figure class="frame s14-frame" aria-hidden="true"><img id="s14-img" src="assets/section14.jpg" alt=""></figure>
-<div class="s14-overlay">
-<div class="s14-rail">
-<div class="s14-text" id="s14-text">
-<p><bdo dir="rtl"><strong>חלק ארבעה עשר</strong> הופך את המסילה...</bdo></p>
-<p><bdo dir="rtl">טקסט לשמאל, תמונה לימין...</bdo></p>
-<p><bdo dir="rtl">הקצב והדהיות תואמים לחלק שני...</bdo></p>
-<p><bdo dir="rtl">כשהנוף מתרחב ומתיישב...</bdo></p>
-<p><bdo dir="rtl">אל הקצב הבא.</bdo></p>
-</div>
-</div>
-</div>
-
-<section class="s15-wrap" id="s15-wrap"></section>
 <figure class="frame s15-frame" aria-hidden="true">
-<img id="s15-img" src="assets/section15.jpg" alt="">
+    <img id="s15-img" src="assets/section15.jpg" alt="">
 </figure>
-<div class="s15-overlay">
-<div class="s15-rail">
-<div class="s15-text" id="s15-text">
-<p><bdo dir="rtl"><strong>גרדניסיטי</strong> כתיבה, עיצוב, אוצרות:<br>
-מגמה / רבקה שטרנברג, קרן אבני</bdo></p>
-<p><bdo dir="rtl"><strong>קרדיטים לצילום:</strong><br>
-1 - המכון הלאומי למפות (מפ"י); 2-10, 15-25 - אוסף הצילומים של מטסון (ג. אריק ואדית), LOC;
-11-14 - בוריס כרמי, הספרייה הלאומית; 26 - תומר אפלבאום</bdo></p>
-<p>
-<a href="#sGeddes-wrap"><bdo dir="rtl">מה ראה גדס?</bdo></a><br>
-<a href="#s3-wrap"><bdo dir="rtl">צמיחה</bdo></a><br>
-<a href="#s8-wrap"><bdo dir="rtl">ירוק אזרחי</bdo></a><br>
-<a href="#s12-wrap"><bdo dir="rtl">עלי SDGs</bdo></a><br>
-<a href="https://www.megama.net" target="_blank"><bdo dir="rtl">עב / <bdo dir="ltr">&#x200E;EN</bdo></bdo></a>
-</p>
-</div>
-</div>
+
+<div class="s1-overlay">
+    <div class="s1-rail">
+        <div class="s1-text" id="s1-text">
+            <p><bdo dir="rtl"><strong>כותרת חלק ראשון.</strong> הטקסט במסילה הימנית זורם...</bdo></p>
+            <p><bdo dir="rtl">הטקסט ממלא את הפס הרחב על ידי גלילת חלון התצוגה...</bdo></p>
+            <p><bdo dir="rtl">בצד שמאל התמונה מקובעת, עוברת בינתיים שינוי מבוקר ושקוף.</bdo></p>
+            <p><bdo dir="rtl">כאשר הטקסט מסיים להיגלל, אנו עוברים לקטע הבא.</bdo></p>
+        </div>
+    </div>
 </div>
 
+<div class="s2-overlay">
+    <div class="s2-rail">
+        <div class="s2-text" id="s2-text">
+            <p><bdo dir="rtl"><strong>כותרת חלק שני.</strong> הקטע השני הופך את התמונה והטקסט...</bdo></p>
+            <p><bdo dir="rtl">המסילה הופכת לצד שמאל (שוליים שמאליים), כשהתמונה משתלבת בימין.</bdo></p>
+            <p><bdo dir="rtl">זה שומר על דפוס ויזואלי ברור, לסירוגין מצד לצד.</bdo></p>
+            <p><bdo dir="rtl">וממשיך לשמור על קצב קבוע.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="sGeddes-overlay">
+    <div class="sGeddes-rail">
+        <div class="sGeddes-text" id="sGeddes-text">
+            <p><bdo dir="rtl"><strong>תוכנית גדס</strong></bdo></p>
+            <p><bdo dir="rtl">תוכן הטקסט שלך לתוכנית גדס נמצא כאן. הוא ממוקם במסילה השמאלית (text left/image right) בדיוק כמו קטע 2.</bdo></p>
+            <p><bdo dir="rtl">יש להבטיח כי יש מספיק טקסט כדי ליצור גלילה חלקה באזור זה.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="s4-overlay">
+    <div class="s4-rail">
+        <div class="s4-text" id="s4-text">
+            <p><bdo dir="rtl"><strong>חלק רביעי</strong> חוזר למסגרת הצפופה...</bdo></p>
+            <p><bdo dir="rtl">הנרטיב של המסילה הימנית ממשיך את החוט...</bdo></p>
+            <p><bdo dir="rtl">התמונה האופקית יושבת יציבה משמאל...</bdo></p>
+            <p><bdo dir="rtl">השוליים והקצב תואמים לחלק הראשון...</bdo></p>
+            <p><bdo dir="rtl">ומחזור הנופים נמשך.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="s5-overlay">
+    <div class="s5-rail">
+        <div class="s5-text" id="s5-text">
+            <p><bdo dir="rtl"><strong>חלק חמישי</strong> מחליף שוב את המסילה...</bdo></p>
+            <p><bdo dir="rtl">כעת הנרטיב מחבק את השוליים השמאליים...</bdo></p>
+            <p><bdo dir="rtl">בעוד התמונה מחזיקה את שדה הראייה הימני...</bdo></p>
+            <p><bdo dir="rtl">וממסגר את הפנייה הבאה בסיפור...</bdo></p>
+            <p><bdo dir="rtl">באותו קצב ומקצב.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="s9-overlay">
+    <div class="s9-rail">
+        <div class="s9-text" id="s9-text">
+            <p><bdo dir="rtl"><strong>חלק תשיעי</strong> מחזיר אותנו למסגרת הצפופה...</bdo></p>
+            <p><bdo dir="rtl">המסילה הימנית נושאת את הנרטיב קדימה...</bdo></p>
+            <p><bdo dir="rtl">משמאל, התמונה מייצבת את הסצנה...</bdo></p>
+            <p><bdo dir="rtl">השוליים, הקצב והפעימות משקפים את חלק אחד...</bdo></p>
+            <p><bdo dir="rtl">כך שהסיפור נושם בקצב מוכר.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="s11-overlay">
+    <div class="s11-rail">
+        <div class="s11-text" id="s11-text">
+            <p><bdo dir="rtl"><strong>חלק אחד עשר</strong> ממשיך את החוט...</bdo></p>
+            <p><bdo dir="rtl">חוזר למסילה הימנית; התמונה מעגנת את השמאל...</bdo></p>
+            <p><bdo dir="rtl">השוליים והקצב ללא שינוי...</bdo></p>
+            <p><bdo dir="rtl">קרוספיידים סטנדרטיים שומרים על הקצב...</bdo></p>
+            <p><bdo dir="rtl">כשהסיפור מתיישב במיקוד.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="s13-overlay">
+    <div class="s13-rail">
+        <div class="s13-text" id="s13-text">
+            <p><bdo dir="rtl"><strong>חלק שלוש עשרה</strong> חוזר למסגרת הצפופה...</bdo></p>
+            <p><bdo dir="rtl">הנרטיב של המסילה הימנית מושך אותנו קדימה...</bdo></p>
+            <p><bdo dir="rtl">התמונה השמאלית מייצבת את הסצנה...</bdo></p>
+            <p><bdo dir="rtl">השוליים והקצב מהדהדים את חלק אחד...</bdo></p>
+            <p><bdo dir="rtl">נושם בקצב המוכר.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="s14-overlay">
+    <div class="s14-rail">
+        <div class="s14-text" id="s14-text">
+            <p><bdo dir="rtl"><strong>חלק ארבעה עשר</strong> הופך את המסילה...</bdo></p>
+            <p><bdo dir="rtl">טקסט לשמאל, תמונה לימין...</bdo></p>
+            <p><bdo dir="rtl">הקצב והדהיות תואמים לחלק שני...</bdo></p>
+            <p><bdo dir="rtl">כשהנוף מתרחב ומתיישב...</bdo></p>
+            <p><bdo dir="rtl">אל הקצב הבא.</bdo></p>
+        </div>
+    </div>
+</div>
+
+<div class="s15-overlay">
+    <div class="s15-rail">
+        <div class="s15-text" id="s15-text">
+            <p><bdo dir="rtl"><strong>גרדניסיטי</strong> כתיבה, עיצוב, אוצרות:<br>
+            מגמה / רבקה שטרנברג, קרן אבני</bdo></p>
+            <p><bdo dir="rtl"><strong>קרדיטים לצילום:</strong><br>
+            1 - המכון הלאומי למפות (מפ"י); 2-10, 15-25 - אוסף הצילומים של מטסון (ג. אריק ואדית), LOC;
+            11-14 - בוריס כרמי, הספרייה הלאומית; 26 - תומר אפלבאום</bdo></p>
+            <p>
+            <a href="#sGeddes-wrap"><bdo dir="rtl">מה ראה גדס?</bdo></a><br>
+            <a href="#s3-wrap"><bdo dir="rtl">צמיחה</bdo></a><br>
+            <a href="#s8-wrap"><bdo dir="rtl">ירוק אזרחי</bdo></a><br>
+            <a href="#s12-wrap"><bdo dir="rtl">עלי SDGs</bdo></a><br>
+            <a href="https://www.megama.net" target="_blank"><bdo dir="rtl">עב / <bdo dir="ltr">&#x200E;EN</bdo></bdo></a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="driver" id="driver"></section>
+<section class="s1-wrap" id="s1-wrap"></section>
+<section class="s2-wrap" id="s2-wrap"></section>
+<section class="galA-left-wrap" id="galA-wrap"></section>
+<section class="sGeddes-wrap" id="sGeddes-wrap"></section>
+<section class="s3-wrap" id="s3-wrap"></section>
+<section class="s4-wrap" id="s4-wrap"></section>
+<section class="sMapA-wrap" id="sMapA-wrap"></section>
+<section class="s5-wrap" id="s5-wrap"></section>
+<section class="galB-center-wrap" id="galB-wrap"></section>
+<section class="s8-wrap" id="s8-wrap"></section>
+<section class="s9-wrap" id="s9-wrap"></section>
+<section class="galC-left-wrap" id="galC-wrap"></section>
+<section class="s11-wrap" id="s11-wrap"></section>
+<section class="s12-wrap" id="s12-wrap"></section>
+<section class="s13-wrap" id="s13-wrap"></section>
+<section class="s14-wrap" id="s14-wrap"></section>
+<section class="s15-wrap" id="s15-wrap"></section>
 <section class="after"></section>
+
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
 <script>
@@ -1223,12 +1231,12 @@ let galAGroup = 0;
 if (gateS2A && getComputedStyle(root).getPropertyValue('--galAReady')==='1') galAGroup = x2A;
 if (gateS2A) s2Alpha = s2Alpha * (1 - x2A);
 
-/* gallery-A → Geddes (MODIFIED) */
+/* gallery-A → Geddes */
 const xAGeddes = clamp(sGeddes/FADE_FRAC, 0, 1);
 let sGeddesAlpha = xAGeddes;
 const galAOut = (1 - xAGeddes);
 
-/* Geddes → S3 (MODIFIED) */
+/* Geddes → S3 */
 const xGeddes3 = clamp(s3/FADE_FRAC, 0, 1);
 const s3Alpha = xGeddes3;
 sGeddesAlpha = sGeddesAlpha * (1 - xGeddes3);
@@ -1319,7 +1327,7 @@ const g2=step(tA, TA2, A_FADE); a1*= (1 - g2); a2 = Math.max(a2, g2);
 const g3=step(tA, TA3, A_FADE); a2*= (1 - g3); a3 = Math.max(a3, g3);
 
 const galAGroup2 = (getComputedStyle(root).getPropertyValue('--galAReady')==='1') ? clamp(galA/FADE_FRAC,0,1) : 0;
-const galAOut2 = (1 - clamp(sGeddes/FADE_FRAC,0,1)); /* MODIFIED: fades out on sGeddes */
+const galAOut2 = (1 - clamp(sGeddes/FADE_FRAC,0,1));
 
 root.style.setProperty('--galAImg0Opacity', (a0 * galAGroup2 * galAOut2).toFixed(3));
 root.style.setProperty('--galAImg1Opacity', (a1 * galAGroup2 * galAOut2).toFixed(3));
@@ -1354,7 +1362,7 @@ root.style.setProperty('--galBImg4Opacity', (b4 * galBGroup2 * galBOut2).toFixed
 /* gallery-C (now 6 imgs, stepped crossfade) */
 const INTERNAL_START_C = FADE_FRAC;
 const tC = clamp(((galC - INTERNAL_START_C) / (1 - INTERNAL_START_C)) * 1.5, 0, 1);
-const C_FADE = 0.22, C_HOLD = (1 - 5*C_FADE)/6 * 1.25; /* match style of B */
+const C_FADE = 0.22, C_HOLD = (1 - 5*C_FADE)/6 * 1.25;
 const normC = 1/(6*C_HOLD + 5*C_FADE);
 const CF=C_FADE*normC, CH=C_HOLD*normC;
 const TC1=CH, TC2=TC1+CF+CH, TC3=TC2+CF+CH, TC4=TC3+CF+CH, TC5=TC4+CF+CH;
@@ -1423,7 +1431,7 @@ init();
 
 <script>
 /* ---------------------------------------------------- */
-/* MAPBOX LOGIC (REVERTED TO ORIGINAL ENGLISH) */
+/* MAPBOX LOGIC (REVERTED TO ORIGINAL ENGLISH LTR LOGIC) */
 /* ---------------------------------------------------- */
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
@@ -1497,25 +1505,37 @@ if (isCentered) {
 mapFrame.classList.add('active');
 // Show button
 if(exitButton) exitButton.classList.add('visible');
+// Enable map interactions (scrollZoom only, pan/drag on mouseenter)
+map.scrollZoom.enable();
 } else {
 mapFrame.classList.remove('active');
 // Hide button
 if(exitButton) exitButton.classList.remove('visible');
+// Disable map interactions
+map.scrollZoom.disable();
 }
 }
 
-// Original Map Handover Logic
+// Original Map Handover Logic (For drag/pan control)
 mapContainer.addEventListener('mouseenter', () => {
-const rect = mapSection.getBoundingClientRect();
-const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
-if (map && isCentered) {
-map.scrollZoom.enable();
-}
+    const rect = mapSection.getBoundingClientRect();
+    const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+    if (map && isCentered) {
+        // Enable drag/pan on mouseenter (scroll zoom is enabled/disabled by scroll logic above)
+        map.dragPan.enable();
+        map.doubleClickZoom.enable();
+        map.touchZoomRotate.enable();
+        map.getCanvas().style.cursor = 'grab';
+    }
 });
 mapContainer.addEventListener('mouseleave', () => {
-if (map) {
-map.scrollZoom.disable();
-}
+    if (map) {
+        // Disable drag/pan on mouseleave
+        map.dragPan.disable();
+        map.doubleClickZoom.disable();
+        map.touchZoomRotate.disable();
+        map.getCanvas().style.cursor = ''; // Reset cursor
+    }
 });
 
 // Add listeners for the main scrollytelling control
