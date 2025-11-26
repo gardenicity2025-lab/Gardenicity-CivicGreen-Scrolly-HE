@@ -239,7 +239,8 @@ position: relative;
 #exit-map-button {
 position: absolute;
 top: 20px;
-right: 20px; /* RTL SWAP */
+left: 20px; /* REVERTED to LTR Position (Top-Left) for Map UX */
+right: auto;
 z-index: 200 !important;
 }
 
@@ -274,15 +275,15 @@ pointer-events: none !important;
 }
 
 /* ======================================================
-ADDED: Explicit Exit Button CSS (RTL Fix)
-Position: Absolute within .sMapA-frame (Top-Right)
+ADDED: Explicit Exit Button CSS (REVERTED TO LTR POSITION)
+Position: Absolute within .sMapA-frame (Top-Left)
 Visibility: Controlled by parent .active class
 ====================================================== */
 #exit-map-button {
 position: absolute; /* Keeps it inside the frame without affecting flow */
 top: 20px;
-right: 20px; /* RTL SWAP */
-left: auto; /* Ensure left is reset */
+left: 20px; /* REVERTED to LTR Position (Top-Left) */
+right: auto; /* Ensure right is reset */
 z-index: 100; /* Above the map (z-index 10) */
 
 background-color: #00A86B; /* Civic Green */
@@ -822,11 +823,11 @@ pointer-events: none !important;
 <span class="line"><bdo dir="rtl">ירוק אזרחי</bdo></span>
 </h1>
 <nav class="hero-links" id="hero-links" aria-label="Primary">
-<a href="https://www.megama.net"><bdo dir="rtl">גרדניסיטי: מה ראה גדס?</bdo></a>
-<a href="https://www.megama.net"><bdo dir="rtl">צמיחה</bdo></a>
-<a href="https://www.megama.net"><bdo dir="rtl">מחיה</bdo></a>
-<a href="https://www.megama.net"><bdo dir="rtl">SDGs עלים</bdo></a>
-<a href="https://www.megama.net"><bdo dir="rtl">עב / <bdo dir="ltr">&#x200E;EN</bdo></bdo></a>
+<a href="#sGeddes-wrap"><bdo dir="rtl">מה ראה גדס?</bdo></a>
+<a href="#s3-wrap"><bdo dir="rtl">צמיחה</bdo></a>
+<a href="#s8-wrap"><bdo dir="rtl">ירוק אזרחי</bdo></a>
+<a href="#s12-wrap"><bdo dir="rtl">עלי SDGs</bdo></a>
+<a href="https://www.megama.net"><bdo dir="rtl">עב | <bdo dir="ltr">EN</bdo></bdo></a>
 </nav>
 </div>
 </div>
@@ -1030,11 +1031,11 @@ pointer-events: none !important;
 1 - המכון הלאומי למפות (מפ"י); 2-10, 15-25 - אוסף הצילומים של מטסון (ג. אריק ואדית), LOC;
 11-14 - בוריס כרמי, הספרייה הלאומית; 26 - תומר אפלבאום</bdo></p>
 <p>
-<a href="https://www.megama.net" target="_blank"><bdo dir="rtl">ירוק אזרחי</bdo></a><br>
-<a href="https://www.megama.net" target="_blank"><bdo dir="rtl">גרדניסיטי: מה ראה גדס?</bdo></a><br>
-<a href="https://www.megama.net" target="_blank"><bdo dir="rtl">צמיחה</bdo></a><br>
-<a href="https://www.megama.net" target="_blank"><bdo dir="rtl">SDGs עלים</bdo></a><br>
-<a href="https://www.megama.net" target="_blank"><bdo dir="rtl">עב / <bdo dir="ltr">&#x200E;EN</bdo></bdo></a>
+<a href="#sGeddes-wrap"><bdo dir="rtl">מה ראה גדס?</bdo></a><br>
+<a href="#s3-wrap"><bdo dir="rtl">צמיחה</bdo></a><br>
+<a href="#s8-wrap"><bdo dir="rtl">ירוק אזרחי</bdo></a><br>
+<a href="#s12-wrap"><bdo dir="rtl">עלי SDGs</bdo></a><br>
+<a href="https://www.megama.net" target="_blank"><bdo dir="rtl">עב | <bdo dir="ltr">EN</bdo></bdo></a>
 </p>
 </div>
 </div>
@@ -1471,7 +1472,7 @@ init();
 
 <script>
 /* ---------------------------------------------------- */
-/* ADDED: EXPLICIT EXIT BUTTON LOGIC (RTL fix in button text) */
+/* MAPBOX LOGIC (Standard LTR implementation) */
 /* ---------------------------------------------------- */
 function handleExitClickSimple() {
 if (!map) return;
