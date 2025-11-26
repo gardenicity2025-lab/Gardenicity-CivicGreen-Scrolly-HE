@@ -239,7 +239,7 @@ position: relative;
 #exit-map-button {
 position: absolute;
 top: 20px;
-left: 20px; /* REVERTED to LTR Position (Top-Left) for Map UX */
+left: 20px; /* REVERTED to LTR Position (Top-Left) as requested */
 right: auto;
 z-index: 200 !important;
 }
@@ -1472,28 +1472,46 @@ init();
 
 <script>
 /* ---------------------------------------------------- */
-/* MAPBOX LOGIC (Standard LTR implementation) */
+/* MAPBOX LOGIC (REVERTED TO ORIGINAL ENGLISH) */
 /* ---------------------------------------------------- */
-function handleExitClickSimple() {
-if (!map) return;
-const nextSectionElement = document.getElementById('s5-wrap'); // Target S5
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
-// 1. Disable ALL map controls (explicitly releases the scroll lock)
+const MAP_START_CENTER = [34.770081, 32.079031]; // Lon, Lat
+const MAP_START_ZOOM = 15.99;
+
+const mapFrame = document.querySelector('.sMapA-frame');
+const mapContainer = document.getElementById('mapA-container');
+const exitButton = document.getElementById('exit-map-button');
+const mapSection = document.querySelector('#sMapA-wrap');
+
+const map = new mapboxgl.Map({
+container: 'mapA-container', // HTML element ID
+style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1', // Your Style URL
+center: MAP_START_CENTER,
+zoom: MAP_START_ZOOM,
+interactive: false // Start non-interactive
+});
+
+// Original handleExitClick function
+function handleExitClick() {
+if (!map) return;
+const nextSectionElement = document.getElementById('s5-wrap');
+
+// Disable ALL map controls
 map.scrollZoom.disable();
 map.dragPan.disable();
 map.doubleClickZoom.disable();
 map.touchZoomRotate.disable();
 map.getCanvas().style.cursor = ''; // Reset cursor
 
-// 2. Force scroll down to the next section (S5)
+// Force scroll down to the next section (S5)
 if (nextSectionElement) {
 window.scrollTo({
 top: nextSectionElement.offsetTop,
 behavior: 'smooth'
 });
 
-// 3. Safety: Remove 'active' class from map frame
-// This ensures the implicit scroll listeners don't re-engage the map.
+// Safety: Remove 'active' class from map frame
 if (mapFrame) {
 mapFrame.classList.remove('active');
 }
@@ -1504,26 +1522,6 @@ exitButton.classList.remove('visible');
 }
 }
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
-
-const MAP_START_CENTER = [34.770081, 32.079031]; // Lon, Lat
-const MAP_START_ZOOM = 15.99;
-
-const mapFrame = document.querySelector('.sMapA-frame');
-const mapContainer = document.getElementById('mapA-container');
-const exitButton = document.getElementById('exit-map-button'); // NEW: Get button
-const mapSection = document.querySelector('#sMapA-wrap');
-
-// Initialize the Mapbox GL JS Map
-const map = new mapboxgl.Map({
-container: 'mapA-container', // HTML element ID
-style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1', // Your Style URL
-center: MAP_START_CENTER,
-zoom: MAP_START_ZOOM,
-interactive: false // Start non-interactive
-});
-
-// Disable interaction methods initially
 map.on('load', () => {
 map.scrollZoom.disable();
 map.dragPan.disable();
@@ -1533,57 +1531,41 @@ map.touchZoomRotate.disable();
 
 
 if (exitButton) {
-exitButton.addEventListener('click', handleExitClickSimple);
+exitButton.addEventListener('click', handleExitClick);
 }
 
+// Original toggleMapPointer function
 function toggleMapPointer() {
 if (!mapFrame || !mapSection) return;
 
-// Visibility check (same logic as used in the main JS)
+// Check visibility based on the map's driver element
 const rect = mapSection.getBoundingClientRect();
-const visible = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
 
-if (visible) {
+if (isCentered) {
 mapFrame.classList.add('active');
-// Show button (via class 'visible' on the button itself)
+// Show button
 if(exitButton) exitButton.classList.add('visible');
-
-// Enable map interactions when visible
-map.scrollZoom.enable();
-map.dragPan.enable();
-map.doubleClickZoom.enable();
-map.touchZoomRotate.enable();
 } else {
 mapFrame.classList.remove('active');
-
 // Hide button
 if(exitButton) exitButton.classList.remove('visible');
-
-// Disable map interactions when hidden, releasing the scroll lock
-map.scrollZoom.disable();
-map.dragPan.disable();
-map.doubleClickZoom.disable();
-map.touchZoomRotate.disable();
 }
 }
 
-// === HANDOVER FIX ===
-// The core fix: when the mouse leaves the map container, we immediately disable scrollZoom
-// This means the next scroll wheel input will control the main page, not the map.
+// Original Map Handover Logic
+mapContainer.addEventListener('mouseenter', () => {
+const rect = mapSection.getBoundingClientRect();
+const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+if (map && isCentered) {
+map.scrollZoom.enable();
+}
+});
 mapContainer.addEventListener('mouseleave', () => {
 if (map) {
 map.scrollZoom.disable();
 }
 });
-// When the mouse enters, if the map section is visible, we re-enable scrollZoom
-mapContainer.addEventListener('mouseenter', () => {
-const rect = mapSection.getBoundingClientRect();
-const visible = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
-if (map && visible) {
-map.scrollZoom.enable();
-}
-});
-
 
 // Add listeners for the main scrollytelling control
 window.addEventListener('scroll', toggleMapPointer, { passive: true });
