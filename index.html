@@ -83,7 +83,7 @@
 /* Section running text → Liebling Pro Light (300) (S15 remains regular) */
 .s1-text p,
 .s2-text p,
-.sGeddes-text p, /* ADDED */
+.sGeddes-text p, 
 .s4-text p,
 .s5-text p,
 .s9-text p,
@@ -105,7 +105,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    /* IMPORTANT: Height 100% on body ensures body doesn't shrink, but must be paired with content to make it scrollable */
+    height: 100%; 
     background: #f8fbf2;
     color: #fff;
     font-family: "Liebling Pro", "Acumin Pro", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -165,11 +166,25 @@ html, body {
 /* ===== HERO (RTL Swap logic preserved on LTR page) ===== */
 
 .hero-media{
-position:absolute; top:96px; bottom:96px; right:96px; left:82px; /* Layout is LTR based, positions are fixed for visual RTL flow */
+position:absolute; top:96px; bottom:96px; right:96px; left:82px; 
 display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden;
 }
 
-.hero-fixed{ position:fixed; inset:0; z-index:3; opacity:var(--heroAlpha); filter:blur(calc(var(--heroBlur)*10px)); pointer-events:auto; will-change:opacity,filter; }
+.hero-fixed{ 
+    position:fixed; 
+    inset:0; 
+    z-index:3; 
+    opacity:var(--heroAlpha); 
+    filter:blur(calc(var(--heroBlur)*10px)); 
+    pointer-events:auto; /* Auto by default for links */
+    will-change:opacity,filter; 
+}
+
+/* FIX: Explicitly disable pointer events when the section has been scrolled past */
+.hero-fixed[data-faded="true"] {
+    pointer-events: none !important;
+}
+
 .hero-bg{ position:absolute; inset:0; background:url("assets/hero1cg.jpg") center/cover no-repeat; opacity:0; animation:heroIn 900ms ease-out forwards; pointer-events:none; }
 @keyframes heroIn{ from{opacity:0} to{opacity:1} }
 
@@ -183,7 +198,15 @@ display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden;
 
 /* ===== PINNED FRAMES (Positioning preserved for visual RTL flow on LTR page) ===== */
 figure.frame { margin: 0; }
-.frame { position: fixed; z-index: 1; pointer-events: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.frame { 
+    position: fixed; 
+    z-index: 1; 
+    pointer-events: none; /* Base is none, Mapbox handles auto when active */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden; 
+}
 .frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 /* S1 image LEFT (text right) */
@@ -247,8 +270,7 @@ opacity: var(--s4ImgOpacity);
 }
 
 /* ======================================================
-   MapA: Map Section CSS (UNCHANGED LTR BASE CODE)
-   Map is now guaranteed to load in an LTR context
+   MapA: Map Section CSS 
    ======================================================
 */
 .sMapA-frame {
@@ -264,7 +286,7 @@ opacity: var(--s4ImgOpacity);
     inset: 0 !important;
 }
 
-/* Mapbox container must also stretch fully */
+/* Mapbox container must also stretch fully, but is non-interactive by default */
 #mapA-container {
     width: 100% !important;
     height: 100% !important;
@@ -272,11 +294,17 @@ opacity: var(--s4ImgOpacity);
     pointer-events: none;
 }
 
+/* When active (scrolling over its section), the map container becomes interactive */
+.sMapA-frame.active #mapA-container { 
+    pointer-events: auto; 
+    z-index: 10 !important; 
+}
+
 /* Exit button position (RTL Fix: move to top-right) */
 #exit-map-button {
     position: absolute;
     top: 20px;
-    right: 20px; /* FIXED: Top right for RTL user experience */
+    right: 20px; 
     left: auto;
     z-index: 100;
     
@@ -298,8 +326,6 @@ opacity: var(--s4ImgOpacity);
 
 #exit-map-button:hover { background-color: #007A50; }
 .sMapA-frame.active #exit-map-button { opacity: 1; pointer-events: auto; }
-.sMapA-frame.active #mapA-container { pointer-events: auto; z-index: 10 !important; }
-.sMapA-frame[style*="opacity:0"], .sMapA-frame[style*="opacity: 0"] { pointer-events: none !important; }
 /* ====================================================== */
 
 
@@ -499,7 +525,7 @@ color:#00A86B;
 
 /*
 =====================================================
-MOBILE RESPONSIVE (max-width:600px) - DEDICATED MOBILE VIEW (Positioning preserved)
+MOBILE RESPONSIVE (max-width:600px) - DEDICATED MOBILE VIEW 
 =====================================================
 */
 @media (max-width:600px){
@@ -522,7 +548,7 @@ font-size:20px;
 line-height:26px;
 }
 
-/* ==== SECTION WRAPS (unchanged) ==== */
+/* ==== SECTION WRAPS ==== */
 .s1-wrap, .s2-wrap, .sGeddes-wrap, .s4-wrap, .s5-wrap,
 .s9-wrap, .s11-wrap, .s13-wrap, .s14-wrap {
 position:relative;
@@ -530,7 +556,7 @@ min-height:200vh;
 background:#f8fbf2;
 }
 
-/* ==== SECTION IMAGES (unchanged) */
+/* ==== SECTION IMAGES */
 .s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
 .s9-frame, .s11-frame, .s13-frame, .s14-frame {
 position:fixed;
@@ -542,7 +568,7 @@ z-index:1;
 pointer-events:none;
 }
 
-/* ==== TEXT OVERLAY (Base Structure & BACKGROUND) (unchanged) ==== */
+/* ==== TEXT OVERLAY (Base Structure & BACKGROUND) ==== */
 .s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay,
 .s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay {
 position:relative !important;
@@ -556,7 +582,7 @@ background:#f8fbf2 !important; /* Base background for S1-S14 */
 z-index:2;
 }
 
-/* S15 Overlay Overrides (unchanged) */
+/* S15 Overlay Overrides */
 .s15-overlay {
 background: transparent !important;
 max-width: 100% !important;
@@ -584,7 +610,7 @@ margin: 0 auto !important;
 }
 
 
-/* ==== TEXT (Margins & Color) (Text alignment forced right) ==== */
+/* ==== TEXT (Margins & Color) ==== */
 .s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text,
 .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
 transform:none !important;
@@ -609,7 +635,7 @@ right: 50% !important;
 transform: translateX(50%) !important; 
 }
 
-/* S15 Link Fixes (unchanged) */
+/* S15 Link Fixes */
 .s15-text a {
 color:#fff !important;
 text-decoration: none !important;
@@ -624,7 +650,7 @@ opacity: 1 !important;
 }
 
 
-/* ==== GALLERIES & FULL BLEEDS (Updated to include MapA) (unchanged) ==== */
+/* ==== GALLERIES & FULL BLEEDS (Updated to include MapA) ==== */
 .galA-left-frame, .galB-center-frame, .galC-left-frame {
 left:20px; right:20px;
 }
@@ -635,12 +661,12 @@ left:0; right:0; top:0; bottom:0;
 
 /*
 =====================================================
-TABLET RESPONSIVE (min-width:601px and max-width:1023px) - FINAL FIXES + DYNAMIC HERO TEXT (Positioning preserved)
+TABLET RESPONSIVE (min-width:601px and max-width:1023px)
 =====================================================
 */
 @media (min-width:601px) and (max-width:1023px) {
 
-/* Hero Text Scaling (New Addition) (unchanged) */
+/* Hero Text Scaling (New Addition) */
 .hero-title {
 /* Title remains Dynamic and scales smoothly */
 font-size: clamp(80px, 12vw, 100px) !important;
@@ -652,16 +678,14 @@ font-size: 24px !important;
 line-height: 28px !important;
 }
 
-/* Structural & Containment Fixes (From previous successful steps) (unchanged) */
-
-/* 1. Ensure sections are scrollable and have background (unchanged) */
+/* 1. Ensure sections are scrollable and have background */
 .s1-wrap, .s2-wrap, .sGeddes-wrap, .s4-wrap, .s5-wrap,
 .s9-wrap, .s11-wrap, .s13-wrap, .s14-wrap {
 min-height: 200vh !important;
 background: #f8fbf2 !important;
 }
 
-/* 2. Base content wrappers are restricted and centered (Text/Overlay Column) (unchanged) */
+/* 2. Base content wrappers are restricted and centered (Text/Overlay Column) */
 .s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay,
 .s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay {
 max-width: 600px !important;
@@ -691,7 +715,7 @@ top: 0 !important; bottom: 0 !important;
 padding: 20px !important;
 }
 
-/* 4. Text Rail and Inner Text (Text alignment forced right) */
+/* 4. Text Rail and Inner Text */
 .s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text, .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
 padding: 0 20px !important;
 margin: 80px auto 80px auto !important;
@@ -709,7 +733,7 @@ right: 50% !important;
 transform: translateX(50%) !important; 
 }
 
-/* 5. Galleries and Full-bleed remain full-bleed (unchanged) */
+/* 5. Galleries and Full-bleed remain full-bleed */
 .galA-left-frame, .galB-center-frame, .galC-left-frame {
 /* No change, they naturally expand to fill the area around the text rail */
 }
@@ -719,12 +743,13 @@ left: 0 !important;
 right: 0 !important;
 }
 
-/* === Global scroll restore === (unchanged) */
+/* === Global scroll restore === */
 body, html {
 overscroll-behavior: auto;
 }
 
-/* Prevent invisible fixed frames (like MapA when faded) from blocking mouse scroll (unchanged) */
+/* Prevent fixed frames (like MapA when faded) from blocking mouse scroll. 
+   The .frame rule above already handles this for transparent frames. */
 .frame[style*="opacity:0"],
 .frame[style*="opacity: 0"] {
 pointer-events: none !important;
@@ -735,7 +760,7 @@ pointer-events: none !important;
 </head>
 <body>
 
-<div class="hero-fixed" id="hero" dir="rtl">
+<div class="hero-fixed" id="hero" dir="rtl" data-faded="false">
 <div class="hero-bg" aria-hidden="true"></div>
 <div class="hero-media" id="hero-media">
 <div class="col" id="hero-col">
@@ -842,7 +867,7 @@ pointer-events: none !important;
     <div class="s4-rail">
         <div class="s4-text" id="s4-text">
             <p><strong>חלק רביעי</strong> חוזר למסגרת הצפופה...</p>
-            <p>הנרטיב של המסילה הימנית ממשיך את החוט...</p>
+            <p>הנרטיב של המסילה הימנית זורם...</p>
             <p>התמונה האופקית יושבת יציבה משמאל...</p>
             <p>השוליים והקצב תואמים לחלק הראשון...</p>
             <p>ומחזור הנופים נמשך.</p>
@@ -960,6 +985,7 @@ const easePow=(t,p)=>Math.pow(t,p);
 
 /* ---------- HERO ---------- */
 const driver=document.getElementById('driver');
+const heroFixed=document.getElementById('hero'); /* GET THE FIXED HERO CONTAINER */
 const heroMedia=document.getElementById('hero-media');
 const heroCol=document.getElementById('hero-col');
 const heroTitle=document.getElementById('hero-title');
@@ -1132,8 +1158,13 @@ root.style.setProperty('--s13Overlay',(s13>0 && s13<1)?1:0);
 root.style.setProperty('--s14Overlay',(s14>0 && s14<1)?1:0);
 root.style.setProperty('--s15Overlay',(s15>0 && s15<1)?1:0);
 
-root.style.setProperty('--heroAlpha',(1-s1).toFixed(3));
+/* HERO FIX: Fades out based on S1 progress */
+const heroAlpha = (1-s1).toFixed(3);
+root.style.setProperty('--heroAlpha', heroAlpha);
 root.style.setProperty('--heroBlur',(s1*0.8).toFixed(3));
+/* Set data-attribute to disable pointer events when fully faded */
+heroFixed.setAttribute('data-faded', s1 > 0.999 ? 'true' : 'false');
+
 
 /* Text sweeps (consistent curves) */
 const E=0.8;
