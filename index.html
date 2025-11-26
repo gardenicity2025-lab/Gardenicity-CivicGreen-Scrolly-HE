@@ -289,6 +289,7 @@ height: 100% !important;
 position: relative;
 pointer-events: none;
 direction: ltr !important; /* CRITICAL FIX: Ensure map environment is LTR */
+visibility: hidden; /* **NEW: Hide map by default for better resize handling** */
 }
 
 /* Exit button stays above everything */
@@ -304,10 +305,12 @@ z-index: 200 !important;
 .sMapA-frame.active #mapA-container {
 pointer-events: auto;
 z-index: 10 !important;
+visibility: visible; /* **NEW: Show map when active** */
 }
 
 /* === Disable map when faded === */
-.sMapA-frame[style*="opacity:0"] {
+.sMapA-frame[style*="opacity:0"], 
+.sMapA-frame[style*="opacity: 0"] {
 pointer-events: none !important;
 }
 
@@ -1486,29 +1489,46 @@ exitButton.addEventListener('click', handleExitClick);
 
 // Map visibility and interaction toggle
 function toggleMapPointer() {
-if (!mapFrame || !mapSection) return;
+    if (!mapFrame || !mapSection) return;
 
-// Check visibility based on the map's driver element
-const rect = mapSection.getBoundingClientRect();
-const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+    // Check visibility based on the map's driver element
+    const rect = mapSection.getBoundingClientRect();
+    const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
 
-if (isCentered) {
-    // === CRITICAL FIX: map.resize() on first activation ===
-    if (!mapFrame.classList.contains('active')) {
-         if (map) {
-            map.resize(); // FORCES Mapbox to recalculate dimensions, resolving the zero-size bug
-         }
+    if (isCentered) {
+        const wasInactive = !mapFrame.classList.contains('active');
+        
+        mapFrame.classList.add('active'); // מפעיל visibility: visible ב-CSS
+
+        // === CRITICAL FIX V2: map.resize() *after* DOM update ===
+        if (wasInactive) {
+             if (map) {
+                // נשתמש ב-setTimeout קטן כדי לוודא שהדפדפן סיים לעדכן את גודל 100%
+                // לאחר ש-visibility: visible הופעל על ידי class.active
+                setTimeout(() => { 
+                     map.resize(); // כופה חישוב מחדש של גודל הקנבס
+                     // וודא שאינטראקציות המפה מושבתות אם לא מרחפים
+                     map.scrollZoom.disable(); 
+                }, 10); 
+             }
+        }
+        // =======================================================
+        
+        // Show button
+        if(exitButton) exitButton.classList.add('visible');
+    } else {
+        mapFrame.classList.remove('active');
+        // Hide button
+        if(exitButton) exitButton.classList.remove('visible');
+        
+        // Disable map interactions when hidden, releasing the scroll lock
+        if (map) {
+            map.scrollZoom.disable();
+            map.dragPan.disable();
+            map.doubleClickZoom.disable();
+            map.touchZoomRotate.disable();
+        }
     }
-    // =======================================================
-    
-    mapFrame.classList.add('active');
-    // Show button
-    if(exitButton) exitButton.classList.add('visible');
-} else {
-    mapFrame.classList.remove('active');
-    // Hide button
-    if(exitButton) exitButton.classList.remove('visible');
-}
 }
 
 // Original Map Handover Logic
