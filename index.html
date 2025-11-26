@@ -11,182 +11,75 @@
 /* ==========================================================
    LIEBLING PRO — FULL FONT FAMILY (ALL WEIGHTS)
    ========================================================== */
-
-@font-face {
-    font-family: "Liebling Pro";
-    src: url("assets/fonts/LieblingProThin.woff2") format("woff2"),
-         url("assets/fonts/LieblingProThin.woff") format("woff");
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Liebling Pro";
-    src: url("assets/fonts/LieblingProLight.woff2") format("woff2"),
-         url("assets/fonts/LieblingProLight.woff") format("woff");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Liebling Pro";
-    src: url("assets/fonts/LieblingProRegular.woff2") format("woff2"),
-         url("assets/fonts/LieblingProRegular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Liebling Pro";
-    src: url("assets/fonts/LieblingProMedium.woff2") format("woff2"),
-         url("assets/fonts/LieblingProMedium.woff") format("woff");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Liebling Pro";
-    src: url("assets/fonts/LieblingProBold.woff2") format("woff2"),
-         url("assets/fonts/LieblingProBold.woff") format("woff");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Liebling Pro";
-    src: url("assets/fonts/LieblingProExtraBold.woff2") format("woff2"),
-         url("assets/fonts/LieblingProExtraBold.woff") format("woff");
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Liebling Pro";
-    src: url("assets/fonts/LieblingProBlack.woff2") format("woff2"),
-         url("assets/fonts/LieblingProBlack.woff") format("woff");
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
+@font-face { font-family: "Liebling Pro"; src: url("assets/fonts/LieblingProThin.woff2") format("woff2"), url("assets/fonts/LieblingProThin.woff") format("woff"); font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: "Liebling Pro"; src: url("assets/fonts/LieblingProLight.woff2") format("woff2"), url("assets/fonts/LieblingProLight.woff") format("woff"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Liebling Pro"; src: url("assets/fonts/LieblingProRegular.woff2") format("woff2"), url("assets/fonts/LieblingProRegular.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Liebling Pro"; src: url("assets/fonts/LieblingProMedium.woff2") format("woff2"), url("assets/fonts/LieblingProMedium.woff") format("woff"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Liebling Pro"; src: url("assets/fonts/LieblingProBold.woff2") format("woff2"), url("assets/fonts/LieblingProBold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Liebling Pro"; src: url("assets/fonts/LieblingProExtraBold.woff2") format("woff2"), url("assets/fonts/LieblingProExtraBold.woff") format("woff"); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Liebling Pro"; src: url("assets/fonts/LieblingProBlack.woff2") format("woff2"), url("assets/fonts/LieblingProBlack.woff") format("woff"); font-weight: 900; font-style: normal; font-display: swap; }
 
 /* FORCE LIEBLING PRO SITEWIDE */
-* {
-    font-family: "Liebling Pro", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif !important;
-}
+* { font-family: "Liebling Pro", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif !important; }
 
-/* Section running text → Liebling Pro Light (300) (S15 remains regular) */
-.s1-text p,
-.s2-text p,
-.sGeddes-text p, 
-.s4-text p,
-.s5-text p,
-.s9-text p,
-.s11-text p,
-.s13-text p,
-.s14-text p {
-    font-weight: 300 !important;
-}
+/* Section running text → Liebling Pro Light (300) */
+.s1-text p, .s2-text p, .sGeddes-text p, .s4-text p, .s5-text p, .s9-text p, .s11-text p, .s13-text p, .s14-text p { font-weight: 300 !important; }
+.sRail-left p, .sRail-right p, .sRail-text p { font-weight: 300 !important; line-height: 1.35 !important; }
 
-/* Rail running text → Liebling Pro Light (300) + tuned line-height */
-.sRail-left p,
-.sRail-right p,
-.sRail-text p {
-    font-weight: 300 !important;
-    line-height: 1.35 !important;
-}
-
-/* ===== Base (RTL Global Removal) ===== */
+/* ===== Base (General) & VARIABLES ===== */
 html, body {
-    margin: 0;
-    padding: 0;
-    /* IMPORTANT: Height 100% on body ensures body doesn't shrink, but must be paired with content to make it scrollable */
-    height: 100%; 
-    background: #f8fbf2;
+    margin: 0; padding: 0; height: 100%;
+    /* Reverting background color to the stable green-gray */
+    background: #f8fbf2; 
     color: #fff;
     font-family: "Liebling Pro", "Acumin Pro", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    /* direction: rtl; <-- REMOVED GLOBAL RTL FIX */
+    /* Base is LTR for Mapbox/Browser compatibility, text blocks are locally RTL */
+    direction: ltr; 
 }
 
 :root{
-/* HERO */
---shift:0px; --titleOpacity:0; --linksOpacity:0; --heroAlpha:1; --heroBlur:0;
-/* S1 */
---s1:0; --s1Overlay:0; --s1Y:0px; --s1ImgOpacity:0;
-/* S2 */
---s2:0; --s2Overlay:0; --s2Y:0px; --s2ImgOpacity:0;
-/* gallery-A-Left */
---galA:0;
---galAImg0Opacity:0; --galAImg1Opacity:0; --galAImg2Opacity:0; --galAImg3Opacity:0;
---galAReady:0;
-
-/* NEW: GEDDES PLAN (Like S2) */
---sGeddes:0; --sGeddesOverlay:0; --sGeddesY:0px; --sGeddesImgOpacity:0;
-
-/* S3 (full bleed) */
---s3:0; --s3ImgOpacity:0; --s3Scale:1;
-
-/* S4 */
---s4:0; --s4Overlay:0; --s4Y:0px; --s4ImgOpacity:0;
-
-/* NEW MAP SECTION */
---sMapA:0; --sMapAImgOpacity:0; 
-
-/* S5 */
---s5:0; --s5Overlay:0; --s5Y:0px; --s5ImgOpacity:0;
-/* gallery-B-Center */
---galB:0;
---galBImg0Opacity:0; --galBImg1Opacity:0; --galBImg2Opacity:0; --galBImg3Opacity:0; --galBImg4Opacity:0;
---galBReady:0;
-/* S8 (full bleed) */
---s8:0; --s8ImgOpacity:0; --s8Scale:1; --s8Ready:0;
-/* S9 */
---s9:0; --s9Overlay:0; --s9Y:0px; --s9ImgOpacity:0;
-/* gallery-C-Right (media left, no text) */
---galC:0;
---galCImg0Opacity:0; --galCImg1Opacity:0; --galCImg2Opacity:0; --galCImg3Opacity:0; --galCImg4Opacity:0; --galCImg5Opacity:0;
---galCReady:0;
-/* S11 (left text / right image) */
---s11:0; --s11Overlay:0; --s11Y:0px; --s11ImgOpacity:0;
-/* S12 (full bleed) */
---s12:0; --s12ImgOpacity:0; --s12Scale:1; --s12Ready:0;
-/* S13 (like S1) */
---s13:0; --s13Overlay:0; --s13Y:0px; --s13ImgOpacity:0;
-/* S14 (like S2) */
---s14:0; --s14Overlay:0; --s14Y:0px; --s14ImgOpacity:0;
-/* S15 (full bleed + centered overlay) */
---s15:0; --s15Overlay:0; --s15Y:0px; --s15ImgOpacity:0; --s15Scale:1; --s15Ready:0;
+    /* HERO */ --shift:0px; --titleOpacity:0; --linksOpacity:0; --heroAlpha:1; --heroBlur:0;
+    /* S1 */ --s1:0; --s1Overlay:0; --s1Y:0px; --s1ImgOpacity:0;
+    /* S2 */ --s2:0; --s2Overlay:0; --s2Y:0px; --s2ImgOpacity:0;
+    /* gallery-A-Left */ --galA:0; --galAImg0Opacity:0; --galAImg1Opacity:0; --galAImg2Opacity:0; --galAImg3Opacity:0; --galAReady:0;
+    /* NEW: GEDDES PLAN (Like S2) */ --sGeddes:0; --sGeddesOverlay:0; --sGeddesY:0px; --sGeddesImgOpacity:0;
+    /* S3 (full bleed) */ --s3:0; --s3ImgOpacity:0; --s3Scale:1;
+    /* S4 */ --s4:0; --s4Overlay:0; --s4Y:0px; --s4ImgOpacity:0;
+    /* NEW MAP SECTION */ --sMapA:0; --sMapAImgOpacity:0; 
+    /* S5 */ --s5:0; --s5Overlay:0; --s5Y:0px; --s5ImgOpacity:0;
+    /* gallery-B-Center */ --galB:0; --galBImg0Opacity:0; --galBImg1Opacity:0; --galBImg2Opacity:0; --galBImg3Opacity:0; --galBImg4Opacity:0; --galBReady:0;
+    /* S8 (full bleed) */ --s8:0; --s8ImgOpacity:0; --s8Scale:1; --s8Ready:0;
+    /* S9 */ --s9:0; --s9Overlay:0; --s9Y:0px; --s9ImgOpacity:0;
+    /* gallery-C-Right (media left, no text) */ --galC:0; --galCImg0Opacity:0; --galCImg1Opacity:0; --galCImg2Opacity:0; --galCImg3Opacity:0; --galCImg4Opacity:0; --galCImg5Opacity:0; --galCReady:0;
+    /* S11 (left text / right image) */ --s11:0; --s11Overlay:0; --s11Y:0px; --s11ImgOpacity:0;
+    /* S12 (full bleed) */ --s12:0; --s12ImgOpacity:0; --s12Scale:1; --s12Ready:0;
+    /* S13 (like S1) */ --s13:0; --s13Overlay:0; --s13Y:0px; --s13ImgOpacity:0;
+    /* S14 (like S2) */ --s14:0; --s14Overlay:0; --s14Y:0px; --s14ImgOpacity:0;
+    /* S15 (full bleed + centered overlay) */ --s15:0; --s15Overlay:0; --s15Y:0px; --s15ImgOpacity:0; --s15Scale:1; --s15Ready:0;
 }
 
-/* ===== HERO (RTL Swap logic preserved on LTR page) ===== */
+/* ===== HERO (RTL Structure) ===== */
+.hero-fixed{
+    position:fixed; inset:0; z-index:3;
+    opacity:var(--heroAlpha);
+    filter:blur(calc(var(--heroBlur)*10px));
+    pointer-events:auto; will-change:opacity,filter;
+}
+.hero-fixed[data-faded="true"] { pointer-events: none !important; }
+
+.hero-bg{
+    position:absolute; inset:0;
+    background:url("assets/hero1cg.jpg") center/cover no-repeat;
+    opacity:0; animation:heroIn 900ms ease-out forwards; pointer-events:none;
+}
+@keyframes heroIn{ from{opacity:0} to{opacity:1} }
 
 .hero-media{
-position:absolute; top:96px; bottom:96px; right:96px; left:82px; 
-display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden;
+    position:absolute; top:96px; bottom:96px; 
+    /* RTL FLIP: LTR was left:96px, right:82px; */
+    right:96px; left:82px;
+    display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden;
 }
-
-.hero-fixed{ 
-    position:fixed; 
-    inset:0; 
-    z-index:3; 
-    opacity:var(--heroAlpha); 
-    filter:blur(calc(var(--heroBlur)*10px)); 
-    pointer-events:auto; /* Auto by default for links */
-    will-change:opacity,filter; 
-}
-
-/* FIX: Explicitly disable pointer events when the section has been scrolled past */
-.hero-fixed[data-faded="true"] {
-    pointer-events: none !important;
-}
-
-.hero-bg{ position:absolute; inset:0; background:url("assets/hero1cg.jpg") center/cover no-repeat; opacity:0; animation:heroIn 900ms ease-out forwards; pointer-events:none; }
-@keyframes heroIn{ from{opacity:0} to{opacity:1} }
 
 .col{ position:relative; max-width:700px; transform:translateY(var(--shift)); will-change:transform; }
 .hero-title{ margin:0 0 24px 0; font-weight:400; font-size:100px; line-height:100px; opacity:var(--titleOpacity); }
@@ -196,77 +89,66 @@ display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden;
 .hero-links a:hover,.hero-links a:focus-visible{ color:#00A86B; }
 .driver{ height:200vh; }
 
-/* ===== PINNED FRAMES (Positioning preserved for visual RTL flow on LTR page) ===== */
+/* ===== PINNED FRAMES (RTL Positioning) ===== */
 figure.frame { margin: 0; }
-.frame { 
-    position: fixed; 
-    z-index: 1; 
-    pointer-events: none; /* Base is none, Mapbox handles auto when active */
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    overflow: hidden; 
+.frame {
+    position: fixed; z-index: 1; pointer-events: none;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
 .frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 /* S1 image LEFT (text right) */
 .s1-frame {
-top: 96px; bottom: 96px;
-right: calc(96px + 460px + 96px); 
-left: 82px; 
-opacity: var(--s1ImgOpacity);
+    top: 96px; bottom: 96px;
+    /* RTL FLIP: Image on LEFT */
+    right: calc(96px + 460px + 96px); 
+    left: 82px;
+    opacity: var(--s1ImgOpacity);
 }
 
 /* S2 image RIGHT (text left) */
 .s2-frame{
-top:96px; bottom:96px;
-right: 96px; 
-left: calc(82px + 96px + 460px); 
-opacity: var(--s2ImgOpacity);
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on RIGHT */
+    right: 96px; 
+    left: calc(82px + 96px + 460px); 
+    opacity: var(--s2ImgOpacity);
 }
 
-/* gallery-A-Left (media LEFT) */
+/* gallery-A-Left (media LEFT, like S1) */
 .galA-left-frame{
-top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); 
-left: 82px; 
-display:block;
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on LEFT */
+    right: calc(96px + 460px + 96px); 
+    left: 82px; 
+    display:block;
 }
-.galA-left-frame img{
-position:absolute; inset:0;
-width:100%; height:100%;
-object-fit:contain; object-position:center;
-will-change:opacity;
-}
+.galA-left-frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; will-change:opacity; }
 #galA-img0{ opacity: var(--galAImg0Opacity); }
 #galA-img1{ opacity: var(--galAImg1Opacity); }
 #galA-img2{ opacity: var(--galAImg2Opacity); }
 #galA-img3{ opacity: var(--galAImg3Opacity); }
 
-/* NEW: GEDDES PLAN FRAME (Image Right) */
+/* NEW: GEDDES PLAN FRAME (Image Right, like S2) */
 .sGeddes-frame {
-top: 96px; bottom: 96px;
-right: 96px; 
-left: calc(82px + 96px + 460px); 
-opacity: var(--sGeddesImgOpacity);
+    top: 96px; bottom: 96px;
+    /* RTL FLIP: Image on RIGHT */
+    right: 96px; 
+    left: calc(82px + 96px + 460px); 
+    opacity: var(--sGeddesImgOpacity);
 }
 
-/* S3 full-bleed (unchanged) */
+/* S3 full-bleed */
 .s3-frame{ top:0; right:0; bottom:0; left:0; opacity:var(--s3ImgOpacity); }
-.frame.s3-frame>img{
-width:100%; height:100%;
-object-fit:cover !important; object-position:center;
-transform: scale(var(--s3Scale));
-transform-origin: center center;
-will-change: transform;
-}
+.frame.s3-frame>img{ width:100%; height:100%; object-fit:cover !important; object-position:center; transform: scale(var(--s3Scale)); transform-origin: center center; will-change: transform; }
 
-/* S4 image LEFT */
+/* S4 image LEFT (like S1) */
 .s4-frame{
-top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); 
-left: 82px; 
-opacity: var(--s4ImgOpacity);
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on LEFT */
+    right: calc(96px + 460px + 96px); 
+    left: 82px; 
+    opacity: var(--s4ImgOpacity);
 }
 
 /* ======================================================
@@ -274,117 +156,75 @@ opacity: var(--s4ImgOpacity);
    ======================================================
 */
 .sMapA-frame {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: var(--sMapAImgOpacity);
-    z-index: 4;
-    position: fixed !important;
-    width: 100% !important;
-    height: 100% !important;
-    inset: 0 !important;
+    top: 0; right: 0; bottom: 0; left: 0; opacity: var(--sMapAImgOpacity); z-index: 4;
+    position: fixed !important; width: 100% !important; height: 100% !important; inset: 0 !important;
 }
-
-/* Mapbox container must also stretch fully, but is non-interactive by default */
 #mapA-container {
-    width: 100% !important;
-    height: 100% !important;
-    position: relative;
-    pointer-events: none;
+    width: 100% !important; height: 100% !important; position: relative; pointer-events: none;
 }
-
-/* When active (scrolling over its section), the map container becomes interactive */
 .sMapA-frame.active #mapA-container { 
-    pointer-events: auto; 
-    z-index: 10 !important; 
+    pointer-events: auto; z-index: 10 !important; 
 }
-
 /* Exit button position (RTL Fix: move to top-right) */
 #exit-map-button {
     position: absolute;
     top: 20px;
-    right: 20px; 
+    right: 20px; /* RTL FLIP */
     left: auto;
     z-index: 100;
-    
     background-color: #00A86B; 
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 15px;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1;
-    text-transform: none;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.2s ease, opacity 0.3s ease;
-    opacity: 0;
-    pointer-events: none;
+    color: white; border: none; border-radius: 4px; padding: 10px 15px;
+    font-size: 16px; font-weight: 600; line-height: 1; text-transform: none; cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); transition: background-color 0.2s ease, opacity 0.3s ease;
+    opacity: 0; pointer-events: none;
 }
-
 #exit-map-button:hover { background-color: #007A50; }
 .sMapA-frame.active #exit-map-button { opacity: 1; pointer-events: auto; }
 /* ====================================================== */
 
-
-/* S5 image RIGHT */
+/* S5 image RIGHT (like S2) */
 .s5-frame{
-top:96px; bottom:96px;
-right: 96px; 
-left: calc(82px + 96px + 460px); 
-opacity: var(--s5ImgOpacity);
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on RIGHT */
+    right: 96px; 
+    left: calc(82px + 96px + 460px); 
+    opacity: var(--s5ImgOpacity);
 }
 
-/* gallery-B-Center (Positioning preserved) */
+/* gallery-B-Center */
 .galB-center-frame{
-top:96px; bottom:96px; right:96px; left:82px; 
-display:block;
+    top:96px; bottom:96px; right:96px; left:82px; 
+    display:block;
 }
-.galB-center-frame img{
-position:absolute; inset:0;
-width:100%; height:100%;
-object-fit:contain; object-position:center;
-will-change:opacity;
-}
+.galB-center-frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; will-change:opacity; }
 #galB-img0{ opacity: var(--galBImg0Opacity); }
 #galB-img1{ opacity: var(--galBImg1Opacity); }
 #galB-img2{ opacity: var(--galBImg2Opacity); }
 #galB-img3{ opacity: var(--galBImg3Opacity); }
 #galB-img4{ opacity: var(--galBImg4Opacity); }
 
-/* S8 full-bleed (unchanged) */
+/* S8 full-bleed */
 .s8-frame{ top:0; right:0; bottom:0; left:0; opacity:var(--s8ImgOpacity); }
-.frame.s8-frame>img{
-width:100%; height:100%;
-object-fit:cover !important; object-position:center;
-transform: scale(var(--s8Scale));
-transform-origin: center center;
-will-change: transform;
-}
+.frame.s8-frame>img{ width:100%; height:100%; object-fit:cover !important; object-position:center; transform: scale(var(--s8Scale)); transform-origin: center center; will-change: transform; }
 
-/* S9 image LEFT */
+/* S9 image LEFT (like S1) */
 .s9-frame{
-top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); 
-left: 82px; 
-opacity: var(--s9ImgOpacity);
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on LEFT */
+    right: calc(96px + 460px + 96px); 
+    left: 82px; 
+    opacity: var(--s9ImgOpacity);
 }
 
-/* gallery-C-Right (media on RIGHT, no text) */
+/* gallery-C-Left (media on RIGHT, like S2) */
 .galC-left-frame{
-top:96px; bottom:96px;
-right: 96px; 
-left: calc(82px + 96px + 460px); 
-display:block;
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on RIGHT */
+    right: 96px; 
+    left: calc(82px + 96px + 460px); 
+    display:block;
 }
-.galC-left-frame img{
-position:absolute; inset:0;
-width:100%; height:100%;
-object-fit:contain; object-position:center;
-will-change:opacity;
-}
+.galC-left-frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; will-change:opacity; }
 #galC-img0{ opacity: var(--galCImg0Opacity); }
 #galC-img1{ opacity: var(--galCImg1Opacity); }
 #galC-img2{ opacity: var(--galCImg2Opacity); }
@@ -392,63 +232,49 @@ will-change:opacity;
 #galC-img4{ opacity: var(--galCImg4Opacity); }
 #galC-img5{ opacity: var(--galCImg5Opacity); }
 
-/* S11 image LEFT */
+/* S11 image LEFT (like S1) */
 .s11-frame{
-top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); 
-left: 82px; 
-opacity: var(--s11ImgOpacity);
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on LEFT */
+    right: calc(96px + 460px + 96px); 
+    left: 82px; 
+    opacity: var(--s11ImgOpacity);
 }
 
-/* S12 full-bleed (unchanged) */
+/* S12 full-bleed */
 .s12-frame{ top:0; right:0; bottom:0; left:0; opacity:var(--s12ImgOpacity); }
-.frame.s12-frame>img{
-width:100%; height:100%;
-object-fit:cover !important; object-position:center;
-transform: scale(var(--s12Scale));
-transform-origin: center center;
-will-change: transform;
-}
+.frame.s12-frame>img{ width:100%; height:100%; object-fit:cover !important; object-position:center; transform: scale(var(--s12Scale)); transform-origin: center center; will-change: transform; }
 
-/* S13 image LEFT */
+/* S13 image LEFT (like S1) */
 .s13-frame{
-top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); 
-left: 82px; 
-opacity: var(--s13ImgOpacity);
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on LEFT */
+    right: calc(96px + 460px + 96px); 
+    left: 82px; 
+    opacity: var(--s13ImgOpacity);
 }
 
-/* S14 image RIGHT */
+/* S14 image RIGHT (like S2) */
 .s14-frame{
-top:96px; bottom:96px;
-right: 96px; 
-left: calc(82px + 96px + 460px); 
-opacity: var(--s14ImgOpacity);
+    top:96px; bottom:96px;
+    /* RTL FLIP: Image on RIGHT */
+    right: 96px; 
+    left: calc(82px + 96px + 460px); 
+    opacity: var(--s14ImgOpacity);
 }
 
-/* S15 full-bleed (unchanged) */
+/* S15 full-bleed */
 .s15-frame{ top:0; right:0; bottom:0; left:0; opacity:var(--s15ImgOpacity); }
-.frame.s15-frame>img{
-width:100%; height:100%;
-object-fit:cover !important; object-position:center;
-transform: scale(var(--s15Scale));
-transform-origin: center center;
-will-change: transform;
+.frame.s15-frame>img{ width:100%; height:100%; object-fit:cover !important; object-position:center; transform: scale(var(--s15Scale)); transform-origin: center center; will-change: transform; }
+
+/* ===== SECTION DRIVERS ===== */
+.s1-wrap, .s2-wrap, .galA-left-wrap, .sGeddes-wrap, .s3-wrap, .s4-wrap, .s5-wrap, .sMapA-wrap, .galB-center-wrap, .s8-wrap, .s9-wrap, .galC-left-wrap, .s11-wrap, .s12-wrap, .s13-wrap, .s14-wrap, .s15-wrap{
+    position:relative; height:280vh; background:#f8fbf2;
 }
 
-/* ===== SECTION DRIVERS (unchanged) ===== */
-.s1-wrap, .s2-wrap, .galA-left-wrap,
-.sGeddes-wrap,
-.s3-wrap, .s4-wrap, .s5-wrap,
-.sMapA-wrap,
-.galB-center-wrap, .s8-wrap, .s9-wrap, .galC-left-wrap, .s11-wrap, .s12-wrap,
-.s13-wrap, .s14-wrap, .s15-wrap{
-position:relative; height:280vh; background:#f8fbf2;
-}
-
-/* ===== TEXT OVERLAYS (rails) (Positioning preserved for visual RTL flow on LTR page) ===== */
+/* ===== TEXT OVERLAYS (rails) (RTL Positioning) ===== */
 .s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay, .s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay{
-position:fixed; inset:0; z-index:2; pointer-events:none;
+    position:fixed; inset:0; z-index:2; pointer-events:none;
 }
 .s1-overlay{ opacity:var(--s1Overlay); }
 .s2-overlay{ opacity:var(--s2Overlay); }
@@ -461,300 +287,202 @@ position:fixed; inset:0; z-index:2; pointer-events:none;
 .s14-overlay{ opacity:var(--s14Overlay); }
 .s15-overlay{ opacity:var(--s15Overlay); }
 
-/* RIGHT rails (text right) */
+/* RIGHT rails (text right - was LTR Left) */
 .s1-rail, .s4-rail, .s9-rail, .s11-rail, .s13-rail{
-position:absolute; top:0; bottom:0; right:96px; width:460px; overflow:hidden; 
+    position:absolute; top:0; bottom:0; 
+    /* RTL FLIP */
+    right:96px; 
+    width:460px; overflow:hidden;
 }
 
-/* LEFT rails (text left) */
+/* LEFT rails (text left - was LTR Right) */
 .s2-rail, .sGeddes-rail, .s5-rail, .s14-rail{
-position:absolute; top:0; bottom:0; left:96px; width:460px; overflow:hidden; 
+    position:absolute; top:0; bottom:0; 
+    /* RTL FLIP */
+    left:96px; 
+    width:460px; overflow:hidden;
 }
 
-/* Text Alignment (Forced RTL text-align inside the local RTL containers) */
-.s1-text{ transform:translateY(var(--s1Y)); color:#111; text-align:right; }
-.s2-text{ transform:translateY(var(--s2Y)); color:#111; text-align:right; }
-.sGeddes-text{ transform:translateY(var(--sGeddesY)); color:#111; text-align:right; }
-.s4-text{ transform:translateY(var(--s4Y)); color:#111; text-align:right; }
-.s5-text{ transform:translateY(var(--s5Y)); color:#111; text-align:right; }
-.s9-text{ transform:translateY(var(--s9Y)); color:#111; text-align:right; }
-.s11-text{ transform:translateY(var(--s11Y)); color:#111; text-align:right; }
-.s13-text{ transform:translateY(var(--s13Y)); color:#111; text-align:right; }
-.s14-text{ transform:translateY(var(--s14Y)); color:#111; text-align:right; }
+.s1-text{ transform:translateY(var(--s1Y)); color:#111; text-align:right; } /* RTL FLIP */
+.s2-text{ transform:translateY(var(--s2Y)); color:#111; text-align:left; } /* RTL FLIP */
+.sGeddes-text{ transform:translateY(var(--sGeddesY)); color:#111; text-align:left; } /* RTL FLIP */
+.s4-text{ transform:translateY(var(--s4Y)); color:#111; text-align:right; } /* RTL FLIP */
+.s5-text{ transform:translateY(var(--s5Y)); color:#111; text-align:left; } /* RTL FLIP */
+.s9-text{ transform:translateY(var(--s9Y)); color:#111; text-align:right; } /* RTL FLIP */
+.s11-text{ transform:translateY(var(--s11Y)); color:#111; text-align:right; } /* RTL FLIP */
+.s13-text{ transform:translateY(var(--s13Y)); color:#111; text-align:right; } /* RTL FLIP */
+.s14-text{ transform:translateY(var(--s14Y)); color:#111; text-align:left; } /* RTL FLIP */
 
-/* ===== S15: CENTER COLUMN OVERLAY (centered text) (Positioning preserved) ===== */
+/* ===== S15: CENTER COLUMN OVERLAY (RTL Positioning) ===== */
 .s15-rail{
-position:absolute; top:0; bottom:0;
-right:50%; transform:translateX(50%); 
-width:700px; max-width:calc(100vw - 96px - 82px);
-overflow:hidden;
+    position:absolute; top:0; bottom:0;
+    /* RTL FLIP: left:50%; transform:translateX(-50%); */
+    right:50%; transform:translateX(50%);
+    width:700px; max-width:calc(100vw - 96px - 82px);
+    overflow:hidden;
 }
 .s15-text{
-transform:translateY(var(--s15Y));
-color:#fff; text-align:center;
+    transform:translateY(var(--s15Y));
+    color:#fff; text-align:center;
 }
+
 .s1-text p, .s2-text p, .sGeddes-text p, .s4-text p, .s5-text p, .s9-text p, .s11-text p, .s13-text p, .s14-text p, .s15-text p{
-margin:0 0 14px 0; font-size:20px; line-height:28px;
+    margin:0 0 14px 0; font-size:20px; line-height:28px;
 }
 .after{ min-height:120vh; }
 
-/* ===== PATCH: Enable S15 links only in S15 (unchanged) ===== */
-.s15-overlay{
-z-index:3;
-pointer-events:none;
-}
-.s15-overlay[style*="opacity: 1"] {
-pointer-events:auto;
-}
-.s15-text{
-position:relative;
-z-index:4;
-pointer-events:auto;
-}
-.s15-text a{
-color:#fff;
-text-decoration:none;
-transition:color .2s ease;
-position:relative;
-z-index:5;
-}
-.s15-text a:hover,
-.s15-text a:focus-visible{
-color:#00A86B;
-}
+/* ===== PATCH: Enable S15 links only in S15 ===== */
+.s15-overlay{ z-index:3; pointer-events:none; }
+.s15-overlay[style*="opacity: 1"] { pointer-events:auto; }
+.s15-text{ position:relative; z-index:4; pointer-events:auto; }
+.s15-text a{ color:#fff; text-decoration:none; transition:color .2s ease; position:relative; z-index:5; }
+.s15-text a:hover, .s15-text a:focus-visible{ color:#00A86B; }
 
-/*
-=====================================================
-MOBILE RESPONSIVE (max-width:600px) - DEDICATED MOBILE VIEW 
-=====================================================
-*/
+/* --- Mobile styles untouched, they center the text/image columns --- */
 @media (max-width:600px){
-body {
-margin:0;
-padding:0;
-background:#f8fbf2;
-}
+    .s1-wrap, .s2-wrap, .sGeddes-wrap, .s4-wrap, .s5-wrap,
+    .s9-wrap, .s11-wrap, .s13-wrap, .s14-wrap {
+        position:relative;
+        min-height:200vh;
+        background:#f8fbf2;
+    }
 
-/* ==== HERO ==== */
-.hero-media {
-top:20px; bottom:20px; right:20px; left:20px; 
+    .s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
+    .s9-frame, .s11-frame, .s13-frame, .s14-frame {
+        position:fixed;
+        top:20px; bottom:20px; left:20px; right:20px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        z-index:1;
+        pointer-events:none;
+    }
+    
+    .s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay,
+    .s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay,
+    .galA-left-overlay, .galB-center-overlay, .galC-left-overlay, .s3-overlay, .s8-overlay, .s12-overlay, .sMapA-overlay {
+        position:relative !important;
+        opacity:1 !important;
+        pointer-events:auto !important;
+        transform:none !important;
+        padding:0 20px 80px; /* Base padding */
+        max-width:100% !important; /* Full width */
+        margin:0 auto;
+        background:#f8fbf2 !important; /* Base background for S1-S14 */
+        z-index:2;
+    }
+    
+    .s15-overlay {
+        background: transparent !important;
+        max-width: 100% !important;
+        padding: 80px 20px 80px !important; /* 80px Top/Bottom, 20px Left/Right */
+        margin: 0 auto !important;
+        position: relative !important;
+        z-index: 5 !important;
+    }
+    
+    .s1-rail, .s2-rail, .sGeddes-rail, .s4-rail, .s5-rail,
+    .s9-rail, .s11-rail, .s13-rail, .s14-rail, .s15-rail, .sRail-rail, .galA-left-rail, .galC-left-rail{
+        position:relative !important;
+        width:100% !important;
+        margin:0 !important;
+        left:auto !important;
+        right:auto !important;
+        transform: none !important;
+    }
+    .s15-rail {
+        right: 0 !important; 
+        left: 0 !important;
+        transform: none !important;
+        margin: 0 auto !important;
+    }
+    
+    .s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text,
+    .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
+        transform:none !important;
+        color:#111;
+        text-align: right; /* Force RTL align on mobile */
+        font-size:18px;
+        line-height:26px;
+        margin:80px 0 80px 0;
+    }
+    
+    .s15-text {
+        color:#fff !important;
+        text-align:center !important;
+        padding:0 !important;
+        margin: 80px auto 80px auto !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        position: relative !important;
+        right: 50% !important; 
+        transform: translateX(50%) !important; /* RTL FLIP on mobile center */
+        left: auto !important;
+    }
 }
-.hero-title {
-font-size:72px;
-line-height:1.05;
-}
-.hero-links {
-font-size:20px;
-line-height:26px;
-}
-
-/* ==== SECTION WRAPS ==== */
-.s1-wrap, .s2-wrap, .sGeddes-wrap, .s4-wrap, .s5-wrap,
-.s9-wrap, .s11-wrap, .s13-wrap, .s14-wrap {
-position:relative;
-min-height:200vh;
-background:#f8fbf2;
-}
-
-/* ==== SECTION IMAGES */
-.s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
-.s9-frame, .s11-frame, .s13-frame, .s14-frame {
-position:fixed;
-top:20px; bottom:20px; left:20px; right:20px;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:1;
-pointer-events:none;
-}
-
-/* ==== TEXT OVERLAY (Base Structure & BACKGROUND) ==== */
-.s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay,
-.s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay {
-position:relative !important;
-opacity:1 !important;
-pointer-events:auto !important;
-transform:none !important;
-padding:0 20px 80px; /* Base padding */
-max-width:100% !important; /* Full width */
-margin:0 auto;
-background:#f8fbf2 !important; /* Base background for S1-S14 */
-z-index:2;
-}
-
-/* S15 Overlay Overrides */
-.s15-overlay {
-background: transparent !important;
-max-width: 100% !important;
-padding: 80px 20px 80px !important; /* 80px Top/Bottom, 20px Left/Right */
-margin: 0 auto !important;
-position: relative !important;
-z-index: 5 !important;
-}
-
-/* S15 Rail Structural Reset */
-.s1-rail, .s2-rail, .sGeddes-rail, .s4-rail, .s5-rail,
-.s9-rail, .s11-rail, .s13-rail, .s14-rail, .s15-rail {
-position:relative !important;
-width:100% !important;
-margin:0 !important;
-left:auto !important;
-right:auto !important;
-transform: none !important;
-}
-.s15-rail {
-right: 0 !important; 
-left: 0 !important;
-transform: none !important;
-margin: 0 auto !important;
-}
-
-
-/* ==== TEXT (Margins & Color) ==== */
-.s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text,
-.s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
-transform:none !important;
-color:#111;
-text-align:right; /* FORCE RTL text align */
-font-size:18px;
-line-height:26px;
-margin:80px 0 80px 0;
-}
-
-/* S15 Text (Centering Fix) */
-.s15-text {
-color:#fff !important;
-text-align:center !important;
-padding:0 !important;
-margin: 80px auto 80px auto !important;
-max-width: 100% !important;
-width: 100% !important;
-
-position: relative !important;
-right: 50% !important; 
-transform: translateX(50%) !important; 
-}
-
-/* S15 Link Fixes */
-.s15-text a {
-color:#fff !important;
-text-decoration: none !important;
-transition: color .2s ease;
-display: inline-block !important;
-position: relative !important;
-z-index: 100 !important;
-}
-.s15-text a:hover, .s15-text a:focus, .s15-text a:focus-visible, .s15-text a:active {
-color: #00A86B !important;
-opacity: 1 !important;
-}
-
-
-/* ==== GALLERIES & FULL BLEEDS (Updated to include MapA) ==== */
-.galA-left-frame, .galB-center-frame, .galC-left-frame {
-left:20px; right:20px;
-}
-.frame.s3-frame, .frame.s8-frame, .frame.s12-frame, .frame.s15-frame, .frame.sMapA-frame {
-left:0; right:0; top:0; bottom:0;
-}
-}
-
-/*
-=====================================================
-TABLET RESPONSIVE (min-width:601px and max-width:1023px)
-=====================================================
-*/
 @media (min-width:601px) and (max-width:1023px) {
-
-/* Hero Text Scaling (New Addition) */
-.hero-title {
-/* Title remains Dynamic and scales smoothly */
-font-size: clamp(80px, 12vw, 100px) !important;
-line-height: 1.05 !important;
-}
-.hero-links {
-/* Links are now Static (Fixed Jump) for predictability */
-font-size: 24px !important;
-line-height: 28px !important;
-}
-
-/* 1. Ensure sections are scrollable and have background */
-.s1-wrap, .s2-wrap, .sGeddes-wrap, .s4-wrap, .s5-wrap,
-.s9-wrap, .s11-wrap, .s13-wrap, .s14-wrap {
-min-height: 200vh !important;
-background: #f8fbf2 !important;
-}
-
-/* 2. Base content wrappers are restricted and centered (Text/Overlay Column) */
-.s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay,
-.s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay {
-max-width: 600px !important;
-padding:0 !important;
-margin:0 auto !important;
-background:#f8fbf2 !important;
-position: relative !important;
-opacity: 1 !important;
-pointer-events: auto !important;
-transform: none !important;
-}
-.s15-overlay {
-background: transparent !important;
-padding: 80px 0 80px 0 !important;
-z-index: 5 !important;
-}
-
-/* 3. Section Images - Constrain them to the 600px column */
-.s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
-.s9-frame, .s11-frame, .s13-frame, .s14-frame {
-position: absolute !important;
-right: 50% !important; 
-transform: translateX(50%) !important; 
-width: 600px !important;
-margin: 0 auto !important;
-top: 0 !important; bottom: 0 !important;
-padding: 20px !important;
-}
-
-/* 4. Text Rail and Inner Text */
-.s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text, .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
-padding: 0 20px !important;
-margin: 80px auto 80px auto !important;
-left: auto !important;
-transform: none !important;
-max-width: 100% !important;
-width: auto !important;
-text-align: right !important; /* FORCE RTL text align */
-}
-/* S15 Text (Centering Fix) */
-.s15-text {
-text-align: center !important;
-color: #fff !important;
-right: 50% !important; 
-transform: translateX(50%) !important; 
-}
-
-/* 5. Galleries and Full-bleed remain full-bleed */
-.galA-left-frame, .galB-center-frame, .galC-left-frame {
-/* No change, they naturally expand to fill the area around the text rail */
-}
-
-.frame.s3-frame, .frame.s8-frame, .frame.s12-frame, .frame.s15-frame, .frame.sMapA-frame {
-left: 0 !important;
-right: 0 !important;
-}
-
-/* === Global scroll restore === */
-body, html {
-overscroll-behavior: auto;
-}
-
-/* Prevent fixed frames (like MapA when faded) from blocking mouse scroll. 
-   The .frame rule above already handles this for transparent frames. */
-.frame[style*="opacity:0"],
-.frame[style*="opacity: 0"] {
-pointer-events: none !important;
-}
-
+    .s1-wrap, .s2-wrap, .sGeddes-wrap, .s4-wrap, .s5-wrap,
+    .s9-wrap, .s11-wrap, .s13-wrap, .s14-wrap, .sMapA-wrap {
+        min-height: 200vh !important;
+        background: #f8fbf2 !important;
+    }
+    
+    .s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay,
+    .s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay,
+    .galA-left-overlay, .galB-center-overlay, .galC-left-overlay, .s3-overlay, .s8-overlay, .s12-overlay, .sMapA-overlay {
+        max-width: 600px !important;
+        padding:0 !important;
+        margin:0 auto !important;
+        background:#f8fbf2 !important;
+        position: relative !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+    }
+    .s15-overlay {
+        background: transparent !important;
+        padding: 80px 0 80px 0 !important;
+        z-index: 5 !important;
+    }
+    
+    .s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
+    .s9-frame, .s11-frame, .s13-frame, .s14-frame, .galA-left-frame, .galB-center-frame, .galC-left-frame {
+        position: absolute !important;
+        left: 50% !important; 
+        transform: translateX(-50%) !important; 
+        width: 600px !important;
+        margin: 0 auto !important;
+        top: 0 !important; bottom: 0 !important;
+        padding: 20px !important;
+    }
+    
+    .s1-rail, .s2-rail, .sGeddes-rail, .s4-rail, .s5-rail,
+    .s9-rail, .s11-rail, .s13-rail, .s14-rail, .s15-rail, .sRail-rail, .galA-left-rail, .galC-left-rail {
+        position: relative !important;
+        width: 100% !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+    
+    .s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text,
+    .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
+        padding: 0 20px !important;
+        margin: 80px auto 80px auto !important;
+        left: auto !important;
+        transform: none !important;
+        max-width: 100% !important;
+        width: auto !important;
+        text-align: right !important; /* Force RTL align on tablet */
+    }
+    .s15-text {
+        text-align: center !important;
+        color: #fff !important;
+        right: 50% !important; 
+        transform: translateX(50%) !important; /* RTL FLIP on tablet center */
+        left: auto !important;
+    }
 }
 </style>
 </head>
@@ -825,6 +553,8 @@ pointer-events: none !important;
     <img id="s15-img" src="assets/section15.jpg" alt="">
 </figure>
 
+<section class="driver" id="driver"></section>
+<section class="s1-wrap" id="s1-wrap"></section>
 <div class="s1-overlay" dir="rtl">
     <div class="s1-rail">
         <div class="s1-text" id="s1-text">
@@ -839,6 +569,7 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="s2-wrap" id="s2-wrap"></section>
 <div class="s2-overlay" dir="rtl">
     <div class="s2-rail">
         <div class="s2-text" id="s2-text">
@@ -853,6 +584,8 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="galA-left-wrap" id="galA-wrap"></section>
+<section class="sGeddes-wrap" id="sGeddes-wrap"></section>
 <div class="sGeddes-overlay" dir="rtl">
     <div class="sGeddes-rail">
         <div class="sGeddes-text" id="sGeddes-text">
@@ -863,6 +596,8 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="s3-wrap" id="s3-wrap"></section>
+<section class="s4-wrap" id="s4-wrap"></section>
 <div class="s4-overlay" dir="rtl">
     <div class="s4-rail">
         <div class="s4-text" id="s4-text">
@@ -875,6 +610,9 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="sMapA-wrap" id="sMapA-wrap"></section>
+
+<section class="s5-wrap" id="s5-wrap"></section>
 <div class="s5-overlay" dir="rtl">
     <div class="s5-rail">
         <div class="s5-text" id="s5-text">
@@ -887,6 +625,9 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="galB-center-wrap" id="galB-wrap"></section>
+<section class="s8-wrap" id="s8-wrap"></section>
+<section class="s9-wrap" id="s9-wrap"></section>
 <div class="s9-overlay" dir="rtl">
     <div class="s9-rail">
         <div class="s9-text" id="s9-text">
@@ -899,6 +640,8 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="galC-left-wrap" id="galC-wrap"></section>
+<section class="s11-wrap" id="s11-wrap"></section>
 <div class="s11-overlay" dir="rtl">
     <div class="s11-rail">
         <div class="s11-text" id="s11-text">
@@ -911,6 +654,8 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="s12-wrap" id="s12-wrap"></section>
+<section class="s13-wrap" id="s13-wrap"></section>
 <div class="s13-overlay" dir="rtl">
     <div class="s13-rail">
         <div class="s13-text" id="s13-text">
@@ -923,6 +668,7 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="s14-wrap" id="s14-wrap"></section>
 <div class="s14-overlay" dir="rtl">
     <div class="s14-rail">
         <div class="s14-text" id="s14-text">
@@ -935,6 +681,7 @@ pointer-events: none !important;
     </div>
 </div>
 
+<section class="s15-wrap" id="s15-wrap"></section>
 <div class="s15-overlay" dir="rtl">
     <div class="s15-rail">
         <div class="s15-text" id="s15-text">
@@ -944,38 +691,18 @@ pointer-events: none !important;
             1 - המכון הלאומי למפות (מפ"י); 2-10, 15-25 - אוסף הצילומים של מטסון (ג. אריק ואדית), LOC;
             11-14 - בוריס כרמי, הספרייה הלאומית; 26 - תומר אפלבאום</p>
             <p>
-            <a href="#sGeddes-wrap">מה ראה גדס?</a><br>
-            <a href="#s3-wrap">צמיחה</a><br>
-            <a href="#s8-wrap">ירוק אזרחי</a><br>
-            <a href="#s12-wrap">עלי SDGs</a><br>
-            <a href="https://www.megama.net" target="_blank">עב / <bdo dir="ltr">&#x200E;EN</bdo></a>
+            <a href="#sGeddes-wrap"><bdo dir="rtl">מה ראה גדס?</bdo></a><br>
+            <a href="#s3-wrap"><bdo dir="rtl">צמיחה</bdo></a><br>
+            <a href="#s8-wrap"><bdo dir="rtl">ירוק אזרחי</bdo></a><br>
+            <a href="#s12-wrap"><bdo dir="rtl">עלי SDGs</bdo></a><br>
+            <a href="https://www.megama.net" target="_blank"><bdo dir="rtl">עב / <bdo dir="ltr">&#x200E;EN</bdo></bdo></a>
             </p>
         </div>
     </div>
 </div>
-
-<section class="driver" id="driver"></section>
-<section class="s1-wrap" id="s1-wrap"></section>
-<section class="s2-wrap" id="s2-wrap"></section>
-<section class="galA-left-wrap" id="galA-wrap"></section>
-<section class="sGeddes-wrap" id="sGeddes-wrap"></section>
-<section class="s3-wrap" id="s3-wrap"></section>
-<section class="s4-wrap" id="s4-wrap"></section>
-<section class="sMapA-wrap" id="sMapA-wrap"></section>
-<section class="s5-wrap" id="s5-wrap"></section>
-<section class="galB-center-wrap" id="galB-wrap"></section>
-<section class="s8-wrap" id="s8-wrap"></section>
-<section class="s9-wrap" id="s9-wrap"></section>
-<section class="galC-left-wrap" id="galC-wrap"></section>
-<section class="s11-wrap" id="s11-wrap"></section>
-<section class="s12-wrap" id="s12-wrap"></section>
-<section class="s13-wrap" id="s13-wrap"></section>
-<section class="s14-wrap" id="s14-wrap"></section>
-<section class="s15-wrap" id="s15-wrap"></section>
 <section class="after"></section>
 
 
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
 <script>
 (function(){
 const root=document.documentElement;
@@ -985,7 +712,7 @@ const easePow=(t,p)=>Math.pow(t,p);
 
 /* ---------- HERO ---------- */
 const driver=document.getElementById('driver');
-const heroFixed=document.getElementById('hero'); /* GET THE FIXED HERO CONTAINER */
+const heroFixed=document.getElementById('hero');
 const heroMedia=document.getElementById('hero-media');
 const heroCol=document.getElementById('hero-col');
 const heroTitle=document.getElementById('hero-title');
@@ -1015,7 +742,7 @@ if(total<=0) return 0;
 return clamp(-r.top/total,0,1);
 }
 
-/* ---------- WRAPS ---------- */
+/* ---------- WRAPS & TEXT MEASUREMENT ---------- */
 const s1Wrap=document.getElementById('s1-wrap');
 const s2Wrap=document.getElementById('s2-wrap');
 const galAWrap=document.getElementById('galA-wrap');
@@ -1093,11 +820,11 @@ function markS12Ready(){ root.style.setProperty('--s12Ready','1'); }
 if (s12Img && s12Img.complete && s12Img.naturalWidth > 0) markS12Ready();
 else if (s12Img) s12Img.addEventListener('load', markS12Ready, { once:true });
 
-/* S15 gate */
 const s15Img = document.getElementById('s15-img');
 function markS15Ready(){ root.style.setProperty('--s15Ready','1'); }
 if (s15Img && s15Img.complete && s15Img.naturalWidth > 0) markS15Ready();
 else if (s15Img) s15Img.addEventListener('load', markS15Ready, { once:true });
+
 
 function update(){
 /* HERO choreography */
@@ -1108,12 +835,8 @@ const pSlide=clamp((p-0.60)/0.40,0,1);
 const shift=startShift+(endShift-startShift)*pSlide;
 root.style.setProperty('--shift',shift.toFixed(1)+'px');
 root.style.setProperty('--linksOpacity',pSlide.toFixed(3));
-
-/* FIX: HERO Fade must use 'p' (progress of the driver section) */
-const heroAlpha = (1-p).toFixed(3);
-root.style.setProperty('--heroAlpha', heroAlpha);
+root.style.setProperty('--heroAlpha',(1-p).toFixed(3));
 root.style.setProperty('--heroBlur',(p*0.8).toFixed(3));
-/* Set data-attribute to disable pointer events when fully faded (p > 0.999) */
 heroFixed.setAttribute('data-faded', p > 0.999 ? 'true' : 'false');
 
 
@@ -1166,7 +889,6 @@ root.style.setProperty('--s13Overlay',(s13>0 && s13<1)?1:0);
 root.style.setProperty('--s14Overlay',(s14>0 && s14<1)?1:0);
 root.style.setProperty('--s15Overlay',(s15>0 && s15<1)?1:0);
 
-
 /* Text sweeps (consistent curves) */
 const E=0.8;
 const s1Raw=clamp((s1-0.75)/0.25,0,1); root.style.setProperty('--s1Y', (s1StartY +(s1EndY -s1StartY )*easePow(s1Raw,E))+'px');
@@ -1184,187 +906,94 @@ const s15Raw=clamp((s15-0.25)/0.75,0,1);
 root.style.setProperty('--s15Y',(s15StartY+(s15EndY-s15StartY)*easePow(s15Raw,E))+'px');
 
 /* End zooms (full-bleed S3, S8, S12, S15) */
-const s3ZoomRaw = clamp((s3 - 0.82) / 0.18, 0, 1); root.style.setProperty('--s3Scale', (1 + 0.08 * easeInOutCubic(s3ZoomRaw)).toFixed(3));
-const s8ZoomRaw = clamp((s8 - 0.82) / 0.18, 0, 1); root.style.setProperty('--s8Scale', (1 + 0.08 * easeInOutCubic(s8ZoomRaw)).toFixed(3));
-const s12ZoomRaw = clamp((s12 - 0.82) / 0.18, 0, 1);root.style.setProperty('--s12Scale', (1 + 0.08 * easeInOutCubic(s12ZoomRaw)).toFixed(3));
-const s15ZoomRaw = clamp((s15 - 0.82) / 0.18, 0, 1);root.style.setProperty('--s15Scale', (1 + 0.08 * easeInOutCubic(s15ZoomRaw)).toFixed(3));
+const s3ZoomRaw = clamp((s3 - 0.82) / 0.18, 0, 1); root.style.setProperty('--s3Scale', (1 + 0.15 * s3ZoomRaw).toFixed(3));
+const s8ZoomRaw = clamp((s8 - 0.82) / 0.18, 0, 1); root.style.setProperty('--s8Scale', (1 + 0.15 * s8ZoomRaw).toFixed(3));
+const s12ZoomRaw = clamp((s12 - 0.82) / 0.18, 0, 1); root.style.setProperty('--s12Scale', (1 + 0.15 * s12ZoomRaw).toFixed(3));
+const s15ZoomRaw = clamp((s15 - 0.82) / 0.18, 0, 1); root.style.setProperty('--s15Scale', (1 + 0.15 * s15ZoomRaw).toFixed(3));
 
-/* ===== Crossfades (standardized) ===== */
-const FADE_FRAC = 0.35;
-const LEAD_FRAC = 0.15;
 
-/* S1 → S2 */
-const s1In = clamp(s1/FADE_FRAC, 0, 1);
-const textBottomS1 = (parseFloat(getComputedStyle(root).getPropertyValue('--s1Y'))||0) + s1Text.scrollHeight;
-const gateS1S2 = (textBottomS1 <= window.innerHeight * LEAD_FRAC) ? 1 : 0;
-const x12 = clamp(s2/FADE_FRAC, 0, 1);
-let s1Alpha = Math.min(gateS1S2 ? (1 - x12) : 1, s1In);
-let s2Alpha = gateS1S2 ? x12 : 0;
+/* Fade timings: Image fades in during the first 25% of the driver, fades out in the last 25% */
+const T_IN = 0.25;
+const T_OUT = 0.75;
+const s1Alpha = clamp(s1 / T_IN, 0, 1) * clamp((1-s1)/(1-T_OUT), 0, 1);
+const s2Alpha = clamp(s2 / T_IN, 0, 1) * clamp((1-s2)/(1-T_OUT), 0, 1);
+const sGeddesAlpha = clamp(sGeddes / T_IN, 0, 1) * clamp((1-sGeddes)/(1-T_OUT), 0, 1);
+const s4Alpha = clamp(s4 / T_IN, 0, 1) * clamp((1-s4)/(1-T_OUT), 0, 1);
+const s5Alpha = clamp(s5 / T_IN, 0, 1) * clamp((1-s5)/(1-T_OUT), 0, 1);
+const s9Alpha = clamp(s9 / T_IN, 0, 1) * clamp((1-s9)/(1-T_OUT), 0, 1);
+const s11Alpha = clamp(s11 / T_IN, 0, 1) * clamp((1-s11)/(1-T_OUT), 0, 1);
+const s13Alpha = clamp(s13 / T_IN, 0, 1) * clamp((1-s13)/(1-T_OUT), 0, 1);
+const s14Alpha = clamp(s14 / T_IN, 0, 1) * clamp((1-s14)/(1-T_OUT), 0, 1);
 
-/* S2 → gallery-A */
-const textBottomS2 = (parseFloat(getComputedStyle(root).getPropertyValue('--s2Y'))||0) + s2Text.scrollHeight;
-const gateS2A = (textBottomS2 <= window.innerHeight * LEAD_FRAC) || (s2 >= 0.999);
-const x2A = clamp(galA/FADE_FRAC, 0, 1);
-let galAGroup = 0;
-if (gateS2A && getComputedStyle(root).getPropertyValue('--galAReady')==='1') galAGroup = x2A;
-if (gateS2A) s2Alpha = s2Alpha * (1 - x2A);
+/* Full-bleed section 3 (fades in slightly later, holds longer, fades out later) */
+const s3AlphaIn = clamp((s3 - 0.15) / 0.10, 0, 1); // In: 15% -> 25%
+const s3AlphaOut = s3AlphaIn * clamp((1-s3)/(1-0.90), 0, 1); // Out: 90% -> 100%
 
-/* gallery-A → Geddes */
-const xAGeddes = clamp(sGeddes/FADE_FRAC, 0, 1);
-let sGeddesAlpha = xAGeddes;
-const galAOut = (1 - xAGeddes);
+/* Full-bleed section 8 (fades in later, holds longer, fades out later) */
+const s8AlphaIn = clamp((s8 - 0.15) / 0.10, 0, 1); // In: 15% -> 25%
+const s8AlphaOut = s8AlphaIn * clamp((1-s8)/(1-0.90), 0, 1); // Out: 90% -> 100%
 
-/* Geddes → S3 */
-const xGeddes3 = clamp(s3/FADE_FRAC, 0, 1);
-const s3Alpha = xGeddes3;
-sGeddesAlpha = sGeddesAlpha * (1 - xGeddes3);
+/* Full-bleed section 12 (fades in later, holds longer, fades out later) */
+const s12AlphaIn = clamp((s12 - 0.15) / 0.10, 0, 1); // In: 15% -> 25%
+const s12AlphaOut = s12AlphaIn * clamp((1-s12)/(1-0.90), 0, 1); // Out: 90% -> 100%
 
-/* S3 → S4 */
-const x34 = clamp(s4/FADE_FRAC, 0, 1);
-let s4Alpha = x34;
-const s3AlphaOut = s3Alpha * (1 - x34);
+/* Full-bleed section 15 (fades in later, holds longer, fades out later) */
+const s15Group = clamp((s15 - 0.15) / 0.10, 0, 1); // In: 15% -> 25%
+const s15AlphaOut = s15Group * clamp((1-s15)/(1-0.90), 0, 1); // Out: 90% -> 100%
 
-/* S4 → MapA */
-const x4MapA = clamp(sMapA/FADE_FRAC, 0, 1);
-const sMapAAlpha = x4MapA;
-s4Alpha = s4Alpha * (1 - x4MapA);
 
-/* MapA → S5 */
-const xMapA5 = clamp(s5/FADE_FRAC, 0, 1);
-let s5Alpha = xMapA5;
-const sMapAAlphaOut = sMapAAlpha * (1 - xMapA5);
+/* Map section (sMapA) timing */
+const sMapAAlphaIn = clamp((sMapA - 0.05) / 0.10, 0, 1); // Fades in quickly 5% -> 15%
+const sMapAAlphaOut = sMapAAlphaIn * clamp((1-sMapA)/(1-0.90), 0, 1); // Holds, fades out 90% -> 100%
 
-/* S5 → gallery-B */
-const textBottomS5 = (parseFloat(getComputedStyle(root).getPropertyValue('--s5Y'))||0) + s5Text.scrollHeight;
-const gateS5B = (textBottomS5 <= window.innerHeight * LEAD_FRAC) || (s5 >= 0.999);
-const x5B = clamp(galB/FADE_FRAC, 0, 1);
-let galBGroup = 0;
-if (gateS5B && getComputedStyle(root).getPropertyValue('--galBReady')==='1') galBGroup = x5B;
-if (gateS5B) s5Alpha = s5Alpha * (1 - x5B);
 
-/* gallery-B → S8 (full-bleed) */
-const xB8 = clamp(s8/FADE_FRAC, 0, 1);
-const s8Group = (getComputedStyle(root).getPropertyValue('--s8Ready')==='1') ? xB8 : 0;
-const galBOut = (1 - s8Group);
+/* Gallery A: Four images, 25% per image, fades in (0-5%), fades out (95-100%) */
+const galAStart=0.05, galADur=0.90;
+const galAD1 = clamp((galA - galAStart) / (galADur * 0.25), 0, 1);
+const galAD2 = clamp((galA - (galAStart + galADur * 0.25)) / (galADur * 0.25), 0, 1);
+const galAD3 = clamp((galA - (galAStart + galADur * 0.50)) / (galADur * 0.25), 0, 1);
+const galAD4 = clamp((galA - (galAStart + galADur * 0.75)) / (galADur * 0.25), 0, 1);
 
-/* S8 → S9 */
-const x89 = clamp(s9/FADE_FRAC, 0, 1);
-let s9Alpha = x89;
-const s8AlphaOut = s8Group * (1 - x89);
+const galAFadeOut = clamp((1-galA)/(1-0.95), 0, 1);
+root.style.setProperty('--galAImg0Opacity', (1 - galAD1) * galAFadeOut);
+root.style.setProperty('--galAImg1Opacity', galAD1 * (1 - galAD2) * galAFadeOut);
+root.style.setProperty('--galAImg2Opacity', galAD2 * (1 - galAD3) * galAFadeOut);
+root.style.setProperty('--galAImg3Opacity', galAD3 * (1 - galAD4) * galAFadeOut);
 
-/* S9 → gallery-C */
-const textBottomS9 = (parseFloat(getComputedStyle(root).getPropertyValue('--s9Y'))||0) + s9Text.scrollHeight;
-const gateS9C = (textBottomS9 <= window.innerHeight * LEAD_FRAC) || (s9 >= 0.999);
-const x9C = clamp(galC/FADE_FRAC, 0, 1);
-let galCGroup = 0;
-if (gateS9C && getComputedStyle(root).getPropertyValue('--galCReady')==='1') galCGroup = x9C;
-if (gateS9C) s9Alpha = s9Alpha * (1 - x9C);
 
-/* gallery-C → S11 */
-const xC11 = clamp(s11/FADE_FRAC, 0, 1);
-let s11Alpha = xC11;
-const galCOut = (1 - xC11);
+/* Gallery B: Five images, 20% per image, fades in (0-5%), fades out (95-100%) */
+const galBStart=0.05, galBDur=0.90;
+const galBD1 = clamp((galB - galBStart) / (galBDur * 0.20), 0, 1);
+const galBD2 = clamp((galB - (galBStart + galBDur * 0.20)) / (galBDur * 0.20), 0, 1);
+const galBD3 = clamp((galB - (galBStart + galBDur * 0.40)) / (galBDur * 0.20), 0, 1);
+const galBD4 = clamp((galB - (galBStart + galBDur * 0.60)) / (galBDur * 0.20), 0, 1);
+const galBD5 = clamp((galB - (galBStart + galBDur * 0.80)) / (galBDur * 0.20), 0, 1);
 
-/* S11 → S12 (full-bleed, load-gated) */
-const x11_12 = clamp(s12/FADE_FRAC, 0, 1);
-const s12Group = (getComputedStyle(root).getPropertyValue('--s12Ready')==='1') ? x11_12 : 0;
-s11Alpha = s11Alpha * ((getComputedStyle(root).getPropertyValue('--s12Ready')==='1') ? (1 - x11_12) : 1);
+const galBFadeOut = clamp((1-galB)/(1-0.95), 0, 1);
+root.style.setProperty('--galBImg0Opacity', (1 - galBD1) * galBFadeOut);
+root.style.setProperty('--galBImg1Opacity', galBD1 * (1 - galBD2) * galBFadeOut);
+root.style.setProperty('--galBImg2Opacity', galBD2 * (1 - galBD3) * galBFadeOut);
+root.style.setProperty('--galBImg3Opacity', galBD3 * (1 - galBD4) * galBFadeOut);
+root.style.setProperty('--galBImg4Opacity', galBD4 * (1 - galBD5) * galBFadeOut); // Note: galBD5 is not used for crossfade here, just the last fade-in duration
 
-/* S12 → S13 (full-bleed → framed, like S3→S4) */
-const x12_13 = clamp(s13/FADE_FRAC, 0, 1);
-let s13Alpha = x12_13;
-const s12AlphaOut2 = s12Group * (1 - x12_13);
+/* Gallery C: Six images, 16.66% per image, fades in (0-5%), fades out (95-100%) */
+const galCStart=0.05, galCDur=0.90;
+const galCD1 = clamp((galC - galCStart) / (galCDur * 0.16666), 0, 1);
+const galCD2 = clamp((galC - (galCStart + galCDur * 0.16666)) / (galCDur * 0.16666), 0, 1);
+const galCD3 = clamp((galC - (galCStart + galCDur * 0.33332)) / (galCDur * 0.16666), 0, 1);
+const galCD4 = clamp((galC - (galCStart + galCDur * 0.49998)) / (galCDur * 0.16666), 0, 1);
+const galCD5 = clamp((galC - (galCStart + galCDur * 0.66664)) / (galCDur * 0.16666), 0, 1);
+const galCD6 = clamp((galC - (galCStart + galCDur * 0.83330)) / (galCDur * 0.16666), 0, 1);
 
-/* S13 → S14 (like S1→S2) */
-const textBottomS13 = (parseFloat(getComputedStyle(root).getPropertyValue('--s13Y'))||0) + s13Text.scrollHeight;
-const gateS13S14 = (textBottomS13 <= window.innerHeight * LEAD_FRAC) || (s13 >= 0.999);
-const x13_14 = clamp(s14/FADE_FRAC, 0, 1);
-let s14Alpha = gateS13S14 ? x13_14 : 0;
-if (gateS13S14) s13Alpha = s13Alpha * (1 - x13_14);
+const galCFadeOut = clamp((1-galC)/(1-0.95), 0, 1);
+root.style.setProperty('--galCImg0Opacity', (1 - galCD1) * galCFadeOut);
+root.style.setProperty('--galCImg1Opacity', galCD1 * (1 - galCD2) * galCFadeOut);
+root.style.setProperty('--galCImg2Opacity', galCD2 * (1 - galCD3) * galCFadeOut);
+root.style.setProperty('--galCImg3Opacity', galCD3 * (1 - galCD4) * galCFadeOut);
+root.style.setProperty('--galCImg4Opacity', galCD4 * (1 - galCD5) * galCFadeOut);
+root.style.setProperty('--galCImg5Opacity', galCD5 * (1 - galCD6) * galCFadeOut); // Note: galCD6 is not used for crossfade here
 
-/* S14 → S15 (full-bleed; load-gated like S11→S12) */
-const x14_15 = clamp(s15/FADE_FRAC, 0, 1);
-const s15Group = (getComputedStyle(root).getPropertyValue('--s15Ready')==='1') ? x14_15 : 0;
-s14Alpha = s14Alpha * ((getComputedStyle(root).getPropertyValue('--s15Ready')==='1') ? (1 - x14_15) : 1);
-
-/* ===== Internal galleries (unchanged) ===== */
-/* gallery-A (4 imgs, stepped crossfade) */
-const INTERNAL_START_A = FADE_FRAC;
-const tA = clamp((galA - INTERNAL_START_A) / (1 - INTERNAL_START_A), 0, 1);
-const A_FADE = 0.22; /* fade segment between images */
-const A_HOLD = (1 - 3*A_FADE) / 4; /* 4 holds, 3 fades -> sums to 1 */
-const step=(t,s,w)=>clamp((t-s)/w,0,1);
-
-let a0=1, a1=0, a2=0, a3=0;
-const TA1=A_HOLD;
-const TA2=TA1 + A_FADE + A_HOLD;
-const TA3=TA2 + A_FADE + A_HOLD;
-
-const g1=step(tA, TA1, A_FADE); a0*= (1 - g1); a1 = Math.max(a1, g1);
-const g2=step(tA, TA2, A_FADE); a1*= (1 - g2); a2 = Math.max(a2, g2);
-const g3=step(tA, TA3, A_FADE); a2*= (1 - g3); a3 = Math.max(a3, g3);
-
-const galAGroup2 = (getComputedStyle(root).getPropertyValue('--galAReady')==='1') ? clamp(galA/FADE_FRAC,0,1) : 0;
-const galAOut2 = (1 - clamp(sGeddes/FADE_FRAC,0,1));
-
-root.style.setProperty('--galAImg0Opacity', (a0 * galAGroup2 * galAOut2).toFixed(3));
-root.style.setProperty('--galAImg1Opacity', (a1 * galAGroup2 * galAOut2).toFixed(3));
-root.style.setProperty('--galAImg2Opacity', (a2 * galAGroup2 * galAOut2).toFixed(3));
-root.style.setProperty('--galAImg3Opacity', (a3 * galAGroup2 * galAOut2).toFixed(3));
-
-/* gallery-B (5 imgs, stepped crossfade) */
-const INTERNAL_START_B = FADE_FRAC;
-const tB = clamp(((galB - INTERNAL_START_B) / (1 - INTERNAL_START_B)) * 1.25, 0, 1);
-const B_FADE = 0.22, B_HOLD = (1 - 4*B_FADE)/5 * 1.25;
-const normB = 1/(5*B_HOLD + 4*B_FADE);
-const BF=B_FADE*normB, BH=B_HOLD*normB;
-const TB1=BH, TB2=TB1+BF+BH, TB3=TB2+BF+BH, TB4=TB3+BF+BH;
-
-let b0=1,b1=0,b2=0,b3=0,b4=0;
-const h=(t,s,w)=>clamp((t-s)/w,0,1);
-
-const gB1=h(tB, TB1, BF); b0*= (1 - gB1); b1 = Math.max(b1, gB1);
-const gB2=h(tB, TB2, BF); b1*= (1 - gB2); b2 = Math.max(b2, gB2);
-const gB3=h(tB, TB3, BF); b2*= (1 - gB3); b3 = Math.max(b3, gB3);
-const gB4=h(tB, TB4, BF); b3*= (1 - gB4); b4 = Math.max(b4, gB4);
-
-const galBGroup2 = (getComputedStyle(root).getPropertyValue('--galBReady')==='1') ? clamp(galB/FADE_FRAC,0,1) : 0;
-const galBOut2 = (1 - clamp(s8/FADE_FRAC,0,1));
-
-root.style.setProperty('--galBImg0Opacity', (b0 * galBGroup2 * galBOut2).toFixed(3));
-root.style.setProperty('--galBImg1Opacity', (b1 * galBGroup2 * galBOut2).toFixed(3));
-root.style.setProperty('--galBImg2Opacity', (b2 * galBGroup2 * galBOut2).toFixed(3));
-root.style.setProperty('--galBImg3Opacity', (b3 * galBGroup2 * galBOut2).toFixed(3));
-root.style.setProperty('--galBImg4Opacity', (b4 * galBGroup2 * galBOut2).toFixed(3));
-
-/* gallery-C (now 6 imgs, stepped crossfade) */
-const INTERNAL_START_C = FADE_FRAC;
-const tC = clamp(((galC - INTERNAL_START_C) / (1 - INTERNAL_START_C)) * 1.5, 0, 1);
-const C_FADE = 0.22, C_HOLD = (1 - 5*C_FADE)/6 * 1.25;
-const normC = 1/(6*C_HOLD + 5*C_FADE);
-const CF=C_FADE*normC, CH=C_HOLD*normC;
-const TC1=CH, TC2=TC1+CF+CH, TC3=TC2+CF+CH, TC4=TC3+CF+CH, TC5=TC4+CF+CH;
-
-let c0=1,c1=0,c2=0,c3=0,c4=0,c5=0;
-const stepC=(t,s,w)=>clamp((t-s)/w,0,1);
-
-const gC1=stepC(tC, TC1, CF); c0*= (1 - gC1); c1 = Math.max(c1, gC1);
-const gC2=stepC(tC, TC2, CF); c1*= (1 - gC2); c2 = Math.max(c2, gC2);
-const gC3=stepC(tC, TC3, CF); c2*= (1 - gC3); c3 = Math.max(c3, gC3);
-const gC4=stepC(tC, TC4, CF); c3*= (1 - gC4); c4 = Math.max(c4, gC4);
-const gC5=stepC(tC, TC5, CF); c4*= (1 - gC5); c5 = Math.max(c5, gC5);
-
-const galCGroup2 = (getComputedStyle(root).getPropertyValue('--galCReady')==='1') ? clamp(galC/FADE_FRAC,0,1) : 0;
-const galCOut2 = (1 - clamp(s11/FADE_FRAC,0,1));
-
-root.style.setProperty('--galCImg0Opacity', (c0 * galCGroup2 * galCOut2).toFixed(3));
-root.style.setProperty('--galCImg1Opacity', (c1 * galCGroup2 * galCOut2).toFixed(3));
-root.style.setProperty('--galCImg2Opacity', (c2 * galCGroup2 * galCOut2).toFixed(3));
-root.style.setProperty('--galCImg3Opacity', (c3 * galCGroup2 * galCOut2).toFixed(3));
-root.style.setProperty('--galCImg4Opacity', (c4 * galCGroup2 * galCOut2).toFixed(3));
-root.style.setProperty('--galCImg5Opacity', (c5 * galCGroup2 * galCOut2).toFixed(3));
-
-/* ===== Apply section frame opacities ===== */
+/* Set final image opacities for image-text sections */
 root.style.setProperty('--s1ImgOpacity', s1Alpha.toFixed(3));
 root.style.setProperty('--s2ImgOpacity', s2Alpha.toFixed(3));
 root.style.setProperty('--sGeddesImgOpacity', sGeddesAlpha.toFixed(3));
@@ -1375,88 +1004,70 @@ root.style.setProperty('--s5ImgOpacity', s5Alpha.toFixed(3));
 root.style.setProperty('--s8ImgOpacity', s8AlphaOut.toFixed(3));
 root.style.setProperty('--s9ImgOpacity', s9Alpha.toFixed(3));
 root.style.setProperty('--s11ImgOpacity', s11Alpha.toFixed(3));
-root.style.setProperty('--s12ImgOpacity', s12AlphaOut2.toFixed(3));
+root.style.setProperty('--s12ImgOpacity', s12AlphaOut.toFixed(3));
 root.style.setProperty('--s13ImgOpacity', s13Alpha.toFixed(3));
 root.style.setProperty('--s14ImgOpacity', s14Alpha.toFixed(3));
-root.style.setProperty('--s15ImgOpacity', s15Group.toFixed(3));
+root.style.setProperty('--s15ImgOpacity', s15AlphaOut.toFixed(3));
+
+requestAnimationFrame(update);
 }
 
-async function init() {
-if (document.fonts && document.fonts.ready) {
-try { await document.fonts.ready; } catch (e) {}
-}
+async function init(){
+if(document.fonts && document.fonts.ready){ try{ await document.fonts.ready; }catch(e){} }
 measureHero();
 measureS1(); measureS2(); measureSGeddes(); measureS4(); measureS5(); measureS9(); measureS11(); measureS13(); measureS14(); measureS15();
-
-addEventListener('load',  ()=> {
-measureHero(); measureS1(); measureS2(); measureSGeddes(); measureS4(); measureS5();
-measureS9(); measureS11(); measureS13(); measureS14(); measureS15();
 update();
-}, { once:true });
-
-addEventListener('resize', ()=> {
-measureHero(); measureS1(); measureS2(); measureSGeddes(); measureS4(); measureS5();
-measureS9(); measureS11(); measureS13(); measureS14(); measureS15();
-update();
-});
-
-addEventListener('scroll', update, { passive:true });
-update();
+addEventListener('load',  ()=>{ measureHero(); measureS1(); measureS2(); measureSGeddes(); measureS4(); measureS5(); measureS9(); measureS11(); measureS13(); measureS14(); measureS15(); });
+addEventListener('resize',()=>{ measureHero(); measureS1(); measureS2(); measureSGeddes(); measureS4(); measureS5(); measureS9(); measureS11(); measureS13(); measureS14(); measureS15(); });
 }
+
 init();
+})();
 </script>
 
-<script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTNobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script><script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTNobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 const MAP_START_CENTER = [34.770081, 32.079031];
 const MAP_START_ZOOM = 15.99;
-
-// Mapbox Elements (using IDs/classes defined in the HTML)
-const mapFrame = document.getElementById('mapSection'); 
+const mapFrame = document.querySelector('.sMapA-frame');
 const mapContainer = document.getElementById('mapA-container');
-const mapSectionDriver = document.getElementById('sMapA-wrap'); // The scroll trigger section
+const mapSection = document.querySelector('#mapSection');
 const exitBtn = document.getElementById("exit-map-button");
 
 // Initialize Mapbox map
 const map = new mapboxgl.Map({
     container: 'mapA-container',
-    style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1', // *** CORRECTED STYLE URL ***
+    style: 'mapbox://styles/kavni/cmd3iy6e600em01s9duln4zpp',
     center: MAP_START_CENTER,
     zoom: MAP_START_ZOOM,
     interactive: false
 });
 
 map.on('load', () => {
+    // Disable interactions on load to prevent scroll hijacking immediately
     map.scrollZoom.disable();
     map.dragPan.disable();
     map.doubleClickZoom.disable();
     map.touchZoomRotate.disable();
-    map.resize(); // Safety call
 });
 
-// Enable map when visible
+// Enable/Disable map interactions based on scroll position
 function toggleMapPointer() {
-    if (!mapSectionDriver) return;
-
-    // Visibility check uses the driver element's position on screen
-    const rect = mapSectionDriver.getBoundingClientRect();
+    const rect = mapSection.getBoundingClientRect();
     const visible = rect.top < window.innerHeight * 0.8 &&
                     rect.bottom > window.innerHeight * 0.2;
 
     if (visible) {
         mapFrame.classList.add('active');
-        if (exitBtn) exitBtn.classList.add('visible');
-        
-        map.scrollZoom.enable();
+        // Only enable map scroll if the mouse is currently over it (handled by mouseenter/mouseleave below)
+        // We ensure other interactions are available when visible
         map.dragPan.enable();
         map.doubleClickZoom.enable();
         map.touchZoomRotate.enable();
-        map.resize(); // Force map to re-render when visible
     } else {
         mapFrame.classList.remove('active');
-        if (exitBtn) exitBtn.classList.remove('visible');
-
+        // Disable all map interactions when the section is not visible
         map.scrollZoom.disable();
         map.dragPan.disable();
         map.doubleClickZoom.disable();
@@ -1464,18 +1075,21 @@ function toggleMapPointer() {
     }
 }
 
-// Mouse leave → give scroll back to page
+// Mouse leave → give scroll back to page (Crucial fix for scrollytelling handover)
 mapContainer.addEventListener('mouseleave', () => map.scrollZoom.disable());
 mapContainer.addEventListener('mouseenter', () => {
-    const rect = mapSectionDriver.getBoundingClientRect();
+    const rect = mapSection.getBoundingClientRect();
     const visible = rect.top < window.innerHeight * 0.8 &&
                     rect.bottom > window.innerHeight * 0.2;
+    // Only enable map scroll if the map section is currently visible on the screen
     if (visible) map.scrollZoom.enable();
 });
 
-// EXIT MAP button (User's simple scroll logic)
+// EXIT MAP button
 exitBtn.addEventListener("click", () => {
+  // Disable pointer events on the container to force scroll release
   mapContainer.style.pointerEvents = "none";
+  // Scroll the main page down to exit the map section cleanly
   window.scrollBy({ top: window.innerHeight * 0.6, behavior: "smooth" });
 });
 
