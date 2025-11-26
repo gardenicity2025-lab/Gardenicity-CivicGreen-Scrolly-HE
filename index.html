@@ -135,10 +135,9 @@ html, body {
 /* S4 */
 --s4:0; --s4Overlay:0; --s4Y:0px; --s4ImgOpacity:0;
 
-/* NEW MAP SECTION */
-/* --- MODIFIED FOR TEST: FORCE MAP VISIBLE --- */
+/* NEW MAP SECTION (REVERTED TO DEFAULT) */
 --sMapA:0; 
---sMapAImgOpacity:1 !important; /* <--- TEST OVERRIDE */
+--sMapAImgOpacity:0; 
 
 /* S5 */
 --s5:0; --s5Overlay:0; --s5Y:0px; --s5ImgOpacity:0;
@@ -268,7 +267,7 @@ opacity: var(--s4ImgOpacity);
 }
 
 /* ======================================================
-   MapA: Original LTR CSS/HTML (CRITICAL FIX: LTR override)
+   MapA: Map Section CSS (CRITICAL FIX: LTR override)
    ======================================================
 */
 .sMapA-frame {
@@ -276,7 +275,7 @@ top: 0;
 right: 0;
 bottom: 0;
 left: 0;
-opacity: var(--sMapAImgOpacity);
+opacity: var(--sMapAImgOpacity); /* Back to dynamic opacity */
 z-index: 4;
 position: fixed !important;
 width: 100% !important;
@@ -293,35 +292,13 @@ pointer-events: none;
 direction: ltr !important; /* CRITICAL FIX: Ensure map environment is LTR */
 }
 
-/* Exit button stays above everything */
+/* Exit button stays above everything (Fixed for RTL top-right) */
 #exit-map-button {
 position: absolute;
 top: 20px;
-left: 20px; 
-right: auto;
+right: 20px; /* FIXED: Top right for RTL user experience */
+left: auto;
 z-index: 200 !important;
-}
-
-/* === When map active (visible) === */
-.sMapA-frame.active #mapA-container {
-pointer-events: auto;
-z-index: 10 !important;
-visibility: visible !important; 
-}
-
-/* === Disable map when faded === */
-.sMapA-frame[style*="opacity:0"], 
-.sMapA-frame[style*="opacity: 0"] {
-pointer-events: none !important;
-}
-
-/* Map Exit Button CSS (ORIGINAL LTR POSITION) */
-#exit-map-button {
-position: absolute;
-top: 20px;
-left: 20px; 
-right: auto;
-z-index: 100;
 
 background-color: #00A86B; /* Civic Green */
 color: white;
@@ -344,10 +321,23 @@ pointer-events: none;
 background-color: #007A50;
 }
 
-/* Only show when map section is active */
+/* === When map active (visible) === */
+.sMapA-frame.active #mapA-container {
+pointer-events: auto;
+z-index: 10 !important;
+visibility: visible !important; 
+}
+
+/* Only show button when map section is active */
 .sMapA-frame.active #exit-map-button {
 opacity: 1;
 pointer-events: auto;
+}
+
+/* === Disable map when faded === */
+.sMapA-frame[style*="opacity:0"], 
+.sMapA-frame[style*="opacity: 0"] {
+pointer-events: none !important;
 }
 /* ====================================================== */
 
@@ -1139,7 +1129,7 @@ const galA=progressOf(galAWrap);
 const sGeddes=progressOf(sGeddesWrap);
 const s3=progressOf(s3Wrap);
 const s4=progressOf(s4Wrap);
-const sMapA=progressOf(sMapAWrap); // Keep calculation for S4/S5 crossfade timing
+const sMapA=progressOf(sMapAWrap);
 const s5=progressOf(s5Wrap);
 const galB=progressOf(galBWrap);
 const s8=progressOf(s8Wrap);
@@ -1157,7 +1147,7 @@ root.style.setProperty('--galA',galA.toFixed(3));
 root.style.setProperty('--sGeddes',sGeddes.toFixed(3));
 root.style.setProperty('--s3',s3.toFixed(3));
 root.style.setProperty('--s4',s4.toFixed(3));
-root.style.setProperty('--sMapA',sMapA.toFixed(3)); // Not used for map opacity in this test
+root.style.setProperty('--sMapA',sMapA.toFixed(3));
 root.style.setProperty('--s5',s5.toFixed(3));
 root.style.setProperty('--galB',galB.toFixed(3));
 root.style.setProperty('--s8',s8.toFixed(3));
@@ -1243,13 +1233,13 @@ const s3AlphaOut = s3Alpha * (1 - x34);
 
 /* S4 → MapA */
 const x4MapA = clamp(sMapA/FADE_FRAC, 0, 1);
-// const sMapAAlpha = x4MapA; // Map opacity is now forced to 1 in CSS
+const sMapAAlpha = x4MapA; // Re-enabled dynamic opacity
 s4Alpha = s4Alpha * (1 - x4MapA);
 
 /* MapA → S5 */
 const xMapA5 = clamp(s5/FADE_FRAC, 0, 1);
 let s5Alpha = xMapA5;
-// const sMapAAlphaOut = sMapAAlpha * (1 - xMapA5); // Map opacity is now forced to 1 in CSS
+const sMapAAlphaOut = sMapAAlpha * (1 - xMapA5); // Re-enabled dynamic opacity
 
 /* S5 → gallery-B */
 const textBottomS5 = (parseFloat(getComputedStyle(root).getPropertyValue('--s5Y'))||0) + s5Text.scrollHeight;
@@ -1367,9 +1357,9 @@ const stepC=(t,s,w)=>clamp((t-s)/w,0,1);
 
 const gC1=stepC(tC, TC1, CF); c0*= (1 - gC1); c1 = Math.max(c1, gC1);
 const gC2=stepC(tC, TC2, CF); c1*= (1 - gC2); c2 = Math.max(c2, gC2);
-const gC3=stepC(tC, TC3, CF); c2*= (1 - gC3); c3 = Math.max(c3, gC3);
-const gC4=stepC(tC, TC4, CF); c3*= (1 - gC4); c4 = Math.max(c4, gC4);
-const gC5=stepC(tC, TC5, CF); c4*= (1 - gC5); c5 = Math.max(c4, gC5); // Bugfix: was c4 = Math.max(c4, gC5);
+const gC3=stepC(tC, TC3, CF); c2*= (1 - gC3); c3 = Math.max(c2, gC3);
+const gC4=stepC(tC, TC4, CF); c3*= (1 - gC4); c4 = Math.max(c3, gC4);
+const gC5=stepC(tC, TC5, CF); c4*= (1 - gC5); c5 = Math.max(c4, gC5);
 
 const galCGroup2 = (getComputedStyle(root).getPropertyValue('--galCReady')==='1') ? clamp(galC/FADE_FRAC,0,1) : 0;
 const galCOut2 = (1 - clamp(s11/FADE_FRAC,0,1));
@@ -1381,13 +1371,13 @@ root.style.setProperty('--galCImg3Opacity', (c3 * galCGroup2 * galCOut2).toFixed
 root.style.setProperty('--galCImg4Opacity', (c4 * galCGroup2 * galCOut2).toFixed(3));
 root.style.setProperty('--galCImg5Opacity', (c5 * galCGroup2 * galCOut2).toFixed(3));
 
-/* ===== Apply section frame opacities ===== */
+/* ===== Apply section frame opacities (MapA re-enabled) ===== */
 root.style.setProperty('--s1ImgOpacity', s1Alpha.toFixed(3));
 root.style.setProperty('--s2ImgOpacity', s2Alpha.toFixed(3));
 root.style.setProperty('--sGeddesImgOpacity', sGeddesAlpha.toFixed(3));
 root.style.setProperty('--s3ImgOpacity', s3AlphaOut.toFixed(3));
 root.style.setProperty('--s4ImgOpacity', s4Alpha.toFixed(3));
-// root.style.setProperty('--sMapAImgOpacity', sMapAAlphaOut.toFixed(3)); // COMMENTED OUT FOR TEST
+root.style.setProperty('--sMapAImgOpacity', sMapAAlphaOut.toFixed(3)); // Re-enabled dynamic opacity
 root.style.setProperty('--s5ImgOpacity', s5Alpha.toFixed(3));
 root.style.setProperty('--s8ImgOpacity', s8AlphaOut.toFixed(3));
 root.style.setProperty('--s9ImgOpacity', s9Alpha.toFixed(3));
@@ -1421,12 +1411,11 @@ addEventListener('scroll', update, { passive:true });
 update();
 }
 init();
-})();
 </script>
 
 <script>
 /* ---------------------------------------------------- */
-/* MAPBOX GL JS ORIGINAL ENGLISH LOGIC (Untouched) */
+/* MAPBOX GL JS (Final RTL/Scrollytelling Logic) */
 /* ---------------------------------------------------- */
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
@@ -1476,19 +1465,53 @@ exitButton.classList.remove('visible');
 }
 }
 
-map.on('load', () => {
-map.scrollZoom.disable();
-map.dragPan.disable();
-map.doubleClickZoom.disable();
-map.touchZoomRotate.disable();
+// ** Re-enabled: Main Scrollytelling Map Control Logic **
+function toggleMapPointer() {
+    const rect = mapSection.getBoundingClientRect();
+    // Check if the map section is centered/visible enough to be the focus
+    const isCentered = rect.top < window.innerHeight * 0.45 && rect.bottom > window.innerHeight * 0.55;
 
-// *** CRITICAL TEST CODE: FORCE RESIZE/ACTIVE ON LOAD ***
-// This is the simplest fix if the issue is initialization within an invisible container.
-// If the map is still blank after this, the issue is more fundamental (RTL conflict).
-map.resize(); 
-if (mapFrame) mapFrame.classList.add('active'); 
-if (exitButton) exitButton.classList.add('visible');
-// *******************************************************
+    if (isCentered) {
+        // Only if not already active and the map is initialized
+        if (!mapFrame.classList.contains('active')) {
+            // *** CRITICAL FIX: Force WebGL map to redraw/resize when container becomes visible ***
+            if (map) map.resize(); 
+            mapFrame.classList.add('active');
+            if(exitButton) exitButton.classList.add('visible');
+
+            // Set map to be draggable/zoomable
+            map.getCanvas().style.cursor = 'grab';
+            map.dragPan.enable();
+            map.doubleClickZoom.enable();
+            map.touchZoomRotate.enable();
+            
+        }
+
+    } else {
+        if (mapFrame.classList.contains('active')) {
+            mapFrame.classList.remove('active');
+            if(exitButton) exitButton.classList.remove('visible');
+
+            // Disable map interactions
+            map.scrollZoom.disable();
+            map.dragPan.disable();
+            map.doubleClickZoom.disable();
+            map.touchZoomRotate.disable();
+            map.getCanvas().style.cursor = '';
+        }
+    }
+}
+
+
+map.on('load', () => {
+    // Disable controls on load
+    map.scrollZoom.disable();
+    map.dragPan.disable();
+    map.doubleClickZoom.disable();
+    map.touchZoomRotate.disable();
+
+    // Call the toggle function once on load to ensure initial state is set
+    toggleMapPointer();
 });
 
 
@@ -1496,31 +1519,28 @@ if (exitButton) {
 exitButton.addEventListener('click', handleExitClick);
 }
 
-// Original toggleMapPointer function (DISABLED FOR TEST, but kept for future reference)
-function toggleMapPointer() {
-    // THIS FUNCTIONALITY IS DISABLED FOR THE TEST
-}
-
-// Original Map Handover Logic (Re-enabled after map load in the test code above)
+// Map Handover Logic (Re-enable scrollZoom only on mouse enter)
 mapContainer.addEventListener('mouseenter', () => {
-    // The previous check (isCentered) is bypassed since the map is always visible in this test setup
-    if (map) {
+    // Check if the map section is visible enough before enabling scroll zoom
+    const rect = mapSection.getBoundingClientRect();
+    const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+    if (map && isVisible) {
         map.scrollZoom.enable();
     }
 });
 mapContainer.addEventListener('mouseleave', () => {
-if (map) {
-map.scrollZoom.disable();
-}
+    if (map) {
+        map.scrollZoom.disable();
+    }
 });
 
 
-// Add listeners for the main scrollytelling control (COMMENTED OUT FOR TEST)
-// window.addEventListener('scroll', toggleMapPointer, { passive: true });
-// window.addEventListener('resize', toggleMapPointer);
+// Add listeners for the main scrollytelling control
+window.addEventListener('scroll', toggleMapPointer, { passive: true });
+window.addEventListener('resize', toggleMapPointer);
 
-// Initial call to set the correct state (REPLACED BY MANUAL CALL IN map.on('load'))
-// toggleMapPointer(); 
+// Initial call to set the correct state
+toggleMapPointer();
 </script>
 
 </body>
