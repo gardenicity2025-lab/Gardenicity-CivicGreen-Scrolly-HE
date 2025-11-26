@@ -135,7 +135,7 @@ html, body {
 /* S4 */
 --s4:0; --s4Overlay:0; --s4Y:0px; --s4ImgOpacity:0;
 
-/* NEW MAP SECTION (REVERTED TO DEFAULT) */
+/* NEW MAP SECTION */
 --sMapA:0; 
 --sMapAImgOpacity:0; 
 
@@ -267,77 +267,73 @@ opacity: var(--s4ImgOpacity);
 }
 
 /* ======================================================
-   MapA: Map Section CSS (CRITICAL FIX: LTR override)
+   MapA: Map Section CSS (CRITICAL FIX: LTR override & Pointer-Events)
    ======================================================
 */
 .sMapA-frame {
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-opacity: var(--sMapAImgOpacity); /* Back to dynamic opacity */
-z-index: 4;
-position: fixed !important;
-width: 100% !important;
-height: 100% !important;
-inset: 0 !important;
+    top: 0; right: 0; bottom: 0; left: 0;
+    opacity: var(--sMapAImgOpacity); /* Back to dynamic opacity */
+    z-index: 4;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    inset: 0 !important;
+    pointer-events: none !important; /* CRITICAL FIX: Ensure full frame does not block scroll by default */
 }
 
 /* Mapbox container must also stretch fully */
 #mapA-container {
-width: 100% !important;
-height: 100% !important;
-position: relative;
-pointer-events: none;
-direction: ltr !important; /* CRITICAL FIX: Ensure map environment is LTR */
+    width: 100% !important;
+    height: 100% !important;
+    position: relative;
+    pointer-events: none; /* Mapbox container is non-interactive by default */
+    direction: ltr !important; /* CRITICAL FIX: Ensure map environment is LTR */
 }
 
 /* Exit button stays above everything (Fixed for RTL top-right) */
 #exit-map-button {
-position: absolute;
-top: 20px;
-right: 20px; /* FIXED: Top right for RTL user experience */
-left: auto;
-z-index: 200 !important;
+    position: absolute;
+    top: 20px;
+    right: 20px; /* FIXED: Top right for RTL user experience */
+    left: auto;
+    z-index: 200 !important;
 
-background-color: #00A86B; /* Civic Green */
-color: white;
-border: none;
-border-radius: 4px;
-padding: 10px 15px;
-font-size: 16px;
-font-weight: 600;
-line-height: 1;
-text-transform: none;
-cursor: pointer;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-transition: background-color 0.2s ease, opacity 0.3s ease;
+    background-color: #00A86B; /* Civic Green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s ease, opacity 0.3s ease;
 
-opacity: 0;
-pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 #exit-map-button:hover {
-background-color: #007A50;
+    background-color: #007A50;
 }
 
-/* === When map active (visible) === */
+/* === When map active (visible/centered) === */
+.sMapA-frame.active {
+    pointer-events: auto !important; /* CRITICAL: The full frame becomes interactive */
+    z-index: 10 !important; /* Brings it above fixed text overlays (z-index 2-3) */
+}
+
 .sMapA-frame.active #mapA-container {
-pointer-events: auto;
-z-index: 10 !important;
-visibility: visible !important; 
+    pointer-events: auto; /* Map container becomes interactive (for mouseenter/mouseleave) */
+    visibility: visible !important; 
 }
 
 /* Only show button when map section is active */
 .sMapA-frame.active #exit-map-button {
-opacity: 1;
-pointer-events: auto;
-}
-
-/* === Disable map when faded === */
-.sMapA-frame[style*="opacity:0"], 
-.sMapA-frame[style*="opacity: 0"] {
-pointer-events: none !important;
+    opacity: 1;
+    pointer-events: auto;
 }
 /* ====================================================== */
 
@@ -768,11 +764,12 @@ body, html {
 overscroll-behavior: auto;
 }
 
-/* Prevent invisible fixed frames (like MapA when faded) from blocking mouse scroll (unchanged) */
-.frame[style*="opacity:0"],
+/* The below rule is now handled robustly by .sMapA-frame and .sMapA-frame.active */
+/* .frame[style*="opacity:0"],
 .frame[style*="opacity: 0"] {
 pointer-events: none !important;
-}
+} 
+*/
 
 }
 </style>
@@ -1233,13 +1230,13 @@ const s3AlphaOut = s3Alpha * (1 - x34);
 
 /* S4 → MapA */
 const x4MapA = clamp(sMapA/FADE_FRAC, 0, 1);
-const sMapAAlpha = x4MapA; // Re-enabled dynamic opacity
+const sMapAAlpha = x4MapA; // Fade IN
 s4Alpha = s4Alpha * (1 - x4MapA);
 
 /* MapA → S5 */
 const xMapA5 = clamp(s5/FADE_FRAC, 0, 1);
-let s5Alpha = xMapA5;
-const sMapAAlphaOut = sMapAAlpha * (1 - xMapA5); // Re-enabled dynamic opacity
+let s5Alpha = xMapA5; // Fade IN of S5
+const sMapAAlphaOut = sMapAAlpha * (1 - xMapA5); // FINAL Map Opacity (Fade in * Fade out)
 
 /* S5 → gallery-B */
 const textBottomS5 = (parseFloat(getComputedStyle(root).getPropertyValue('--s5Y'))||0) + s5Text.scrollHeight;
@@ -1332,8 +1329,8 @@ const h=(t,s,w)=>clamp((t-s)/w,0,1);
 
 const gB1=h(tB, TB1, BF); b0*= (1 - gB1); b1 = Math.max(b1, gB1);
 const gB2=h(tB, TB2, BF); b1*= (1 - gB2); b2 = Math.max(b2, gB2);
-const gB3=h(tB, TB3, BF); b2*= (1 - gB3); b3 = Math.max(b3, gB3);
-const gB4=h(tB, TB4, BF); b3*= (1 - gB4); b4 = Math.max(b4, gB4);
+const gB3=h(tB, TB3, BF); b2*= (1 - gB3); b3 = Math.max(b2, gB3);
+const gB4=h(tB, TB4, BF); b3*= (1 - gB4); b4 = Math.max(b3, gB4);
 
 const galBGroup2 = (getComputedStyle(root).getPropertyValue('--galBReady')==='1') ? clamp(galB/FADE_FRAC,0,1) : 0;
 const galBOut2 = (1 - clamp(s8/FADE_FRAC,0,1));
@@ -1377,7 +1374,7 @@ root.style.setProperty('--s2ImgOpacity', s2Alpha.toFixed(3));
 root.style.setProperty('--sGeddesImgOpacity', sGeddesAlpha.toFixed(3));
 root.style.setProperty('--s3ImgOpacity', s3AlphaOut.toFixed(3));
 root.style.setProperty('--s4ImgOpacity', s4Alpha.toFixed(3));
-root.style.setProperty('--sMapAImgOpacity', sMapAAlphaOut.toFixed(3)); // Re-enabled dynamic opacity
+root.style.setProperty('--sMapAImgOpacity', sMapAAlphaOut.toFixed(3)); 
 root.style.setProperty('--s5ImgOpacity', s5Alpha.toFixed(3));
 root.style.setProperty('--s8ImgOpacity', s8AlphaOut.toFixed(3));
 root.style.setProperty('--s9ImgOpacity', s9Alpha.toFixed(3));
@@ -1476,6 +1473,8 @@ function toggleMapPointer() {
         if (!mapFrame.classList.contains('active')) {
             // *** CRITICAL FIX: Force WebGL map to redraw/resize when container becomes visible ***
             if (map) map.resize(); 
+            
+            // Activate the frame. This also enables pointer-events: auto on .sMapA-frame
             mapFrame.classList.add('active');
             if(exitButton) exitButton.classList.add('visible');
 
@@ -1489,6 +1488,7 @@ function toggleMapPointer() {
 
     } else {
         if (mapFrame.classList.contains('active')) {
+            // Deactivate the frame. This removes pointer-events: auto from .sMapA-frame
             mapFrame.classList.remove('active');
             if(exitButton) exitButton.classList.remove('visible');
 
@@ -1521,7 +1521,7 @@ exitButton.addEventListener('click', handleExitClick);
 
 // Map Handover Logic (Re-enable scrollZoom only on mouse enter)
 mapContainer.addEventListener('mouseenter', () => {
-    // Check if the map section is visible enough before enabling scroll zoom
+    // Check if the map section is visible/active enough before enabling scroll zoom
     const rect = mapSection.getBoundingClientRect();
     const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
     if (map && isVisible) {
