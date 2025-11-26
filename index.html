@@ -286,7 +286,7 @@ opacity: var(--s4ImgOpacity);
     width: 100% !important;
     height: 100% !important;
     position: relative;
-    pointer-events: none; /* Mapbox container is non-interactive by default */
+    pointer-events: none; /* Mapbox container is non-interactive by default, but inherited from sMapA-frame */
     direction: ltr !important; /* CRITICAL FIX: Ensure map environment is LTR */
 }
 
@@ -323,11 +323,6 @@ opacity: var(--s4ImgOpacity);
 .sMapA-frame.active {
     pointer-events: auto !important; /* CRITICAL: The full frame becomes interactive */
     z-index: 10 !important; /* Brings it above fixed text overlays (z-index 2-3) */
-}
-
-.sMapA-frame.active #mapA-container {
-    pointer-events: auto; /* Map container becomes interactive (for mouseenter/mouseleave) */
-    visibility: visible !important; 
 }
 
 /* Only show button when map section is active */
@@ -763,14 +758,6 @@ right: 0 !important;
 body, html {
 overscroll-behavior: auto;
 }
-
-/* The below rule is now handled robustly by .sMapA-frame and .sMapA-frame.active */
-/* .frame[style*="opacity:0"],
-.frame[style*="opacity: 0"] {
-pointer-events: none !important;
-} 
-*/
-
 }
 </style>
 </head>
@@ -1462,7 +1449,7 @@ exitButton.classList.remove('visible');
 }
 }
 
-// ** Re-enabled: Main Scrollytelling Map Control Logic **
+// ** SIMPLIFIED & ROBUST: Main Scrollytelling Map Control Logic **
 function toggleMapPointer() {
     const rect = mapSection.getBoundingClientRect();
     // Check if the map section is centered/visible enough to be the focus
@@ -1471,33 +1458,38 @@ function toggleMapPointer() {
     if (isCentered) {
         // Only if not already active and the map is initialized
         if (!mapFrame.classList.contains('active')) {
-            // *** CRITICAL FIX: Force WebGL map to redraw/resize when container becomes visible ***
+            // *** CRITICAL: Force WebGL map to redraw/resize on transition in ***
             if (map) map.resize(); 
             
-            // Activate the frame. This also enables pointer-events: auto on .sMapA-frame
+            // 1. Activate the frame. This enables pointer-events: auto on .sMapA-frame
             mapFrame.classList.add('active');
             if(exitButton) exitButton.classList.add('visible');
 
-            // Set map to be draggable/zoomable
-            map.getCanvas().style.cursor = 'grab';
-            map.dragPan.enable();
-            map.doubleClickZoom.enable();
-            map.touchZoomRotate.enable();
+            // 2. Set map to be fully interactive
+            if (map) {
+                map.getCanvas().style.cursor = 'grab';
+                map.scrollZoom.enable(); // Now controlled directly by scroll position
+                map.dragPan.enable();
+                map.doubleClickZoom.enable();
+                map.touchZoomRotate.enable();
+            }
             
         }
 
     } else {
         if (mapFrame.classList.contains('active')) {
-            // Deactivate the frame. This removes pointer-events: auto from .sMapA-frame
+            // 1. Deactivate the frame. This reverts to pointer-events: none
             mapFrame.classList.remove('active');
             if(exitButton) exitButton.classList.remove('visible');
 
-            // Disable map interactions
-            map.scrollZoom.disable();
-            map.dragPan.disable();
-            map.doubleClickZoom.disable();
-            map.touchZoomRotate.disable();
-            map.getCanvas().style.cursor = '';
+            // 2. Disable map interactions
+            if (map) {
+                map.scrollZoom.disable(); // Now controlled directly by scroll position
+                map.dragPan.disable();
+                map.doubleClickZoom.disable();
+                map.touchZoomRotate.disable();
+                map.getCanvas().style.cursor = '';
+            }
         }
     }
 }
@@ -1519,21 +1511,8 @@ if (exitButton) {
 exitButton.addEventListener('click', handleExitClick);
 }
 
-// Map Handover Logic (Re-enable scrollZoom only on mouse enter)
-mapContainer.addEventListener('mouseenter', () => {
-    // Check if the map section is visible/active enough before enabling scroll zoom
-    const rect = mapSection.getBoundingClientRect();
-    const isVisible = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
-    if (map && isVisible) {
-        map.scrollZoom.enable();
-    }
-});
-mapContainer.addEventListener('mouseleave', () => {
-    if (map) {
-        map.scrollZoom.disable();
-    }
-});
-
+// *** REMOVED mouseenter/mouseleave SCROLLZOOM LOGIC ***
+// All map interactivity is now managed purely by the scroll position check in toggleMapPointer()
 
 // Add listeners for the main scrollytelling control
 window.addEventListener('scroll', toggleMapPointer, { passive: true });
