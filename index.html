@@ -1496,6 +1496,76 @@ window.addEventListener('resize', toggleMapPointer);
 // Initial call to set the correct state
 toggleMapPointer();
 </script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTNobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
+
+const MAP_START_CENTER = [34.770081, 32.079031];
+const MAP_START_ZOOM = 15.99;
+
+const mapFrame = document.querySelector('.sMapA-frame');
+const mapContainer = document.getElementById('mapA-container');
+const mapSection = document.querySelector('#mapSection');
+const exitBtn = document.getElementById("exit-map-button");
+
+// Initialize Mapbox map
+const map = new mapboxgl.Map({
+    container: 'mapA-container',
+    style: 'mapbox://styles/kavni/cmd3iy6e600em01s9duln4zpp',
+    center: MAP_START_CENTER,
+    zoom: MAP_START_ZOOM,
+    interactive: false
+});
+
+map.on('load', () => {
+    map.scrollZoom.disable();
+    map.dragPan.disable();
+    map.doubleClickZoom.disable();
+    map.touchZoomRotate.disable();
+});
+
+// Enable map when visible
+function toggleMapPointer() {
+    const rect = mapSection.getBoundingClientRect();
+    const visible = rect.top < window.innerHeight * 0.8 &&
+                    rect.bottom > window.innerHeight * 0.2;
+
+    if (visible) {
+        mapFrame.classList.add('active');
+        map.scrollZoom.enable();
+        map.dragPan.enable();
+        map.doubleClickZoom.enable();
+        map.touchZoomRotate.enable();
+    } else {
+        mapFrame.classList.remove('active');
+        map.scrollZoom.disable();
+        map.dragPan.disable();
+        map.doubleClickZoom.disable();
+        map.touchZoomRotate.disable();
+    }
+}
+
+// Mouse leave → give scroll back to page
+mapContainer.addEventListener('mouseleave', () => map.scrollZoom.disable());
+mapContainer.addEventListener('mouseenter', () => {
+    const rect = mapSection.getBoundingClientRect();
+    const visible = rect.top < window.innerHeight * 0.8 &&
+                    rect.bottom > window.innerHeight * 0.2;
+    if (visible) map.scrollZoom.enable();
+});
+
+// EXIT MAP button
+exitBtn.addEventListener("click", () => {
+  mapContainer.style.pointerEvents = "none";
+  window.scrollBy({ top: window.innerHeight * 0.6, behavior: "smooth" });
+});
+
+window.addEventListener('scroll', toggleMapPointer, { passive: true });
+window.addEventListener('resize', toggleMapPointer);
+toggleMapPointer();
+</script>
+
 
 </body>
 </html>
