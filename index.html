@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="he" dir="rtl" data-baseline="stable-2025-10-01__rails-460px__galC-6-only">
+<html lang="he" data-baseline="stable-2025-10-01__rails-460px__galC-6-only">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -101,7 +101,7 @@
     line-height: 1.35 !important;
 }
 
-/* ===== Base (RTL Fix) ===== */
+/* ===== Base (RTL Global Removal) ===== */
 html, body {
     margin: 0;
     padding: 0;
@@ -109,7 +109,7 @@ html, body {
     background: #f8fbf2;
     color: #fff;
     font-family: "Liebling Pro", "Acumin Pro", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    direction: rtl; /* RTL GLOBAL FIX */
+    /* direction: rtl; <-- REMOVED GLOBAL RTL FIX */
 }
 
 :root{
@@ -162,10 +162,10 @@ html, body {
 --s15:0; --s15Overlay:0; --s15Y:0px; --s15ImgOpacity:0; --s15Scale:1; --s15Ready:0;
 }
 
-/* ===== HERO (RTL Swap) ===== */
+/* ===== HERO (RTL Swap logic preserved on LTR page) ===== */
 
 .hero-media{
-position:absolute; top:96px; bottom:96px; right:96px; left:82px; /* SWAP: left/right */
+position:absolute; top:96px; bottom:96px; right:96px; left:82px; /* Layout is LTR based, positions are fixed for visual RTL flow */
 display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden;
 }
 
@@ -181,32 +181,32 @@ display:flex; align-items:flex-end; justify-content:flex-start; overflow:hidden;
 .hero-links a:hover,.hero-links a:focus-visible{ color:#00A86B; }
 .driver{ height:200vh; }
 
-/* ===== PINNED FRAMES (RTL Swaps) ===== */
+/* ===== PINNED FRAMES (Positioning preserved for visual RTL flow on LTR page) ===== */
 figure.frame { margin: 0; }
 .frame { position: fixed; z-index: 1; pointer-events: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-/* S1 image LEFT (text right) (RTL Fix) */
+/* S1 image LEFT (text right) */
 .s1-frame {
 top: 96px; bottom: 96px;
-right: calc(96px + 460px + 96px); /* SWAP: left position becomes right */
-left: 82px; /* SWAP: right position becomes left */
+right: calc(96px + 460px + 96px); 
+left: 82px; 
 opacity: var(--s1ImgOpacity);
 }
 
-/* S2 image RIGHT (text left) (RTL Fix) */
+/* S2 image RIGHT (text left) */
 .s2-frame{
 top:96px; bottom:96px;
-right: 96px; /* SWAP: left position becomes right */
-left: calc(82px + 96px + 460px); /* SWAP: right position becomes left */
+right: 96px; 
+left: calc(82px + 96px + 460px); 
 opacity: var(--s2ImgOpacity);
 }
 
-/* gallery-A-Left (media LEFT) (RTL Fix) */
+/* gallery-A-Left (media LEFT) */
 .galA-left-frame{
 top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); /* SWAP: left position becomes right */
-left: 82px; /* SWAP: right position becomes left */
+right: calc(96px + 460px + 96px); 
+left: 82px; 
 display:block;
 }
 .galA-left-frame img{
@@ -220,11 +220,11 @@ will-change:opacity;
 #galA-img2{ opacity: var(--galAImg2Opacity); }
 #galA-img3{ opacity: var(--galAImg3Opacity); }
 
-/* NEW: GEDDES PLAN FRAME (Right Image, matches S2) (RTL Fix) */
+/* NEW: GEDDES PLAN FRAME (Image Right) */
 .sGeddes-frame {
 top: 96px; bottom: 96px;
-right: 96px; /* SWAP: left position becomes right */
-left: calc(82px + 96px + 460px); /* SWAP: right position becomes left */
+right: 96px; 
+left: calc(82px + 96px + 460px); 
 opacity: var(--sGeddesImgOpacity);
 }
 
@@ -238,17 +238,17 @@ transform-origin: center center;
 will-change: transform;
 }
 
-/* S4 image LEFT (RTL Fix) */
+/* S4 image LEFT */
 .s4-frame{
 top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); /* SWAP: left position becomes right */
-left: 82px; /* SWAP: right position becomes left */
+right: calc(96px + 460px + 96px); 
+left: 82px; 
 opacity: var(--s4ImgOpacity);
 }
 
 /* ======================================================
-   MapA: Map Section CSS (LEFT UNTOUCHED - LTR BASE CODE)
-   The global dir="rtl" will apply, but no specific L/R swaps are done here.
+   MapA: Map Section CSS (UNCHANGED LTR BASE CODE)
+   Map is now guaranteed to load in an LTR context
    ======================================================
 */
 .sMapA-frame {
@@ -303,17 +303,17 @@ opacity: var(--s4ImgOpacity);
 /* ====================================================== */
 
 
-/* S5 image RIGHT (RTL Fix) */
+/* S5 image RIGHT */
 .s5-frame{
 top:96px; bottom:96px;
-right: 96px; /* SWAP: left position becomes right */
-left: calc(82px + 96px + 460px); /* SWAP: right position becomes left */
+right: 96px; 
+left: calc(82px + 96px + 460px); 
 opacity: var(--s5ImgOpacity);
 }
 
-/* gallery-B-Center (RTL Fix - Unaffected by RTL swap due to symmetry) */
+/* gallery-B-Center (Positioning preserved) */
 .galB-center-frame{
-top:96px; bottom:96px; right:96px; left:82px; /* SWAP: left/right */
+top:96px; bottom:96px; right:96px; left:82px; 
 display:block;
 }
 .galB-center-frame img{
@@ -338,19 +338,19 @@ transform-origin: center center;
 will-change: transform;
 }
 
-/* S9 image LEFT (RTL Fix) */
+/* S9 image LEFT */
 .s9-frame{
 top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); /* SWAP: left position becomes right */
-left: 82px; /* SWAP: right position becomes left */
+right: calc(96px + 460px + 96px); 
+left: 82px; 
 opacity: var(--s9ImgOpacity);
 }
 
-/* gallery-C-Right (media on RIGHT, no text) (RTL Fix) */
+/* gallery-C-Right (media on RIGHT, no text) */
 .galC-left-frame{
 top:96px; bottom:96px;
-right: 96px; /* SWAP: left position becomes right */
-left: calc(82px + 96px + 460px); /* SWAP: right position becomes left */
+right: 96px; 
+left: calc(82px + 96px + 460px); 
 display:block;
 }
 .galC-left-frame img{
@@ -366,11 +366,11 @@ will-change:opacity;
 #galC-img4{ opacity: var(--galCImg4Opacity); }
 #galC-img5{ opacity: var(--galCImg5Opacity); }
 
-/* S11 image LEFT (RTL Fix) */
+/* S11 image LEFT */
 .s11-frame{
 top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); /* SWAP: left position becomes right */
-left: 82px; /* SWAP: right position becomes left */
+right: calc(96px + 460px + 96px); 
+left: 82px; 
 opacity: var(--s11ImgOpacity);
 }
 
@@ -384,19 +384,19 @@ transform-origin: center center;
 will-change: transform;
 }
 
-/* S13 image LEFT (RTL Fix) */
+/* S13 image LEFT */
 .s13-frame{
 top:96px; bottom:96px;
-right: calc(96px + 460px + 96px); /* SWAP: left position becomes right */
-left: 82px; /* SWAP: right position becomes left */
+right: calc(96px + 460px + 96px); 
+left: 82px; 
 opacity: var(--s13ImgOpacity);
 }
 
-/* S14 image RIGHT (RTL Fix) */
+/* S14 image RIGHT */
 .s14-frame{
 top:96px; bottom:96px;
-right: 96px; /* SWAP: left position becomes right */
-left: calc(82px + 96px + 460px); /* SWAP: right position becomes left */
+right: 96px; 
+left: calc(82px + 96px + 460px); 
 opacity: var(--s14ImgOpacity);
 }
 
@@ -420,7 +420,7 @@ will-change: transform;
 position:relative; height:280vh; background:#f8fbf2;
 }
 
-/* ===== TEXT OVERLAYS (rails) (RTL Fix) ===== */
+/* ===== TEXT OVERLAYS (rails) (Positioning preserved for visual RTL flow on LTR page) ===== */
 .s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay, .s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay{
 position:fixed; inset:0; z-index:2; pointer-events:none;
 }
@@ -435,17 +435,17 @@ position:fixed; inset:0; z-index:2; pointer-events:none;
 .s14-overlay{ opacity:var(--s14Overlay); }
 .s15-overlay{ opacity:var(--s15Overlay); }
 
-/* RIGHT rails (text right) (RTL Fix) */
+/* RIGHT rails (text right) */
 .s1-rail, .s4-rail, .s9-rail, .s11-rail, .s13-rail{
-position:absolute; top:0; bottom:0; right:96px; width:460px; overflow:hidden; /* SWAP: left->right */
+position:absolute; top:0; bottom:0; right:96px; width:460px; overflow:hidden; 
 }
 
-/* LEFT rails (text left) (RTL Fix) */
+/* LEFT rails (text left) */
 .s2-rail, .sGeddes-rail, .s5-rail, .s14-rail{
-position:absolute; top:0; bottom:0; left:96px; width:460px; overflow:hidden; /* SWAP: right->left */
+position:absolute; top:0; bottom:0; left:96px; width:460px; overflow:hidden; 
 }
 
-/* Text Alignment (RTL Fix) */
+/* Text Alignment (Forced RTL text-align inside the local RTL containers) */
 .s1-text{ transform:translateY(var(--s1Y)); color:#111; text-align:right; }
 .s2-text{ transform:translateY(var(--s2Y)); color:#111; text-align:right; }
 .sGeddes-text{ transform:translateY(var(--sGeddesY)); color:#111; text-align:right; }
@@ -456,10 +456,10 @@ position:absolute; top:0; bottom:0; left:96px; width:460px; overflow:hidden; /* 
 .s13-text{ transform:translateY(var(--s13Y)); color:#111; text-align:right; }
 .s14-text{ transform:translateY(var(--s14Y)); color:#111; text-align:right; }
 
-/* ===== S15: CENTER COLUMN OVERLAY (centered text) (RTL Fix) ===== */
+/* ===== S15: CENTER COLUMN OVERLAY (centered text) (Positioning preserved) ===== */
 .s15-rail{
 position:absolute; top:0; bottom:0;
-right:50%; transform:translateX(50%); /* SWAP: left->right, translateX(-50%)->(50%) */
+right:50%; transform:translateX(50%); 
 width:700px; max-width:calc(100vw - 96px - 82px);
 overflow:hidden;
 }
@@ -499,7 +499,7 @@ color:#00A86B;
 
 /*
 =====================================================
-MOBILE RESPONSIVE (max-width:600px) - DEDICATED MOBILE VIEW (RTL Fixes)
+MOBILE RESPONSIVE (max-width:600px) - DEDICATED MOBILE VIEW (Positioning preserved)
 =====================================================
 */
 @media (max-width:600px){
@@ -509,9 +509,9 @@ padding:0;
 background:#f8fbf2;
 }
 
-/* ==== HERO (RTL Fix) ==== */
+/* ==== HERO ==== */
 .hero-media {
-top:20px; bottom:20px; right:20px; left:20px; /* SWAP: left/right */
+top:20px; bottom:20px; right:20px; left:20px; 
 }
 .hero-title {
 font-size:72px;
@@ -566,7 +566,7 @@ position: relative !important;
 z-index: 5 !important;
 }
 
-/* S15 Rail Structural Reset (RTL Fix) */
+/* S15 Rail Structural Reset */
 .s1-rail, .s2-rail, .sGeddes-rail, .s4-rail, .s5-rail,
 .s9-rail, .s11-rail, .s13-rail, .s14-rail, .s15-rail {
 position:relative !important;
@@ -577,14 +577,14 @@ right:auto !important;
 transform: none !important;
 }
 .s15-rail {
-right: 0 !important; /* SWAP */
+right: 0 !important; 
 left: 0 !important;
 transform: none !important;
 margin: 0 auto !important;
 }
 
 
-/* ==== TEXT (Margins & Color) (RTL Fix) ==== */
+/* ==== TEXT (Margins & Color) (Text alignment forced right) ==== */
 .s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text,
 .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
 transform:none !important;
@@ -595,7 +595,7 @@ line-height:26px;
 margin:80px 0 80px 0;
 }
 
-/* S15 Text and Link Styling (RTL Fix) */
+/* S15 Text (Centering Fix) */
 .s15-text {
 color:#fff !important;
 text-align:center !important;
@@ -605,8 +605,8 @@ max-width: 100% !important;
 width: 100% !important;
 
 position: relative !important;
-right: 50% !important; /* SWAP */
-transform: translateX(50%) !important; /* SWAP */
+right: 50% !important; 
+transform: translateX(50%) !important; 
 }
 
 /* S15 Link Fixes (unchanged) */
@@ -635,7 +635,7 @@ left:0; right:0; top:0; bottom:0;
 
 /*
 =====================================================
-TABLET RESPONSIVE (min-width:601px and max-width:1023px) - FINAL FIXES + DYNAMIC HERO TEXT (RTL Fixes)
+TABLET RESPONSIVE (min-width:601px and max-width:1023px) - FINAL FIXES + DYNAMIC HERO TEXT (Positioning preserved)
 =====================================================
 */
 @media (min-width:601px) and (max-width:1023px) {
@@ -679,19 +679,19 @@ padding: 80px 0 80px 0 !important;
 z-index: 5 !important;
 }
 
-/* 3. Section Images - Constrain them to the 600px column (RTL Fix) */
+/* 3. Section Images - Constrain them to the 600px column */
 .s1-frame, .s2-frame, .sGeddes-frame, .s4-frame, .s5-frame,
 .s9-frame, .s11-frame, .s13-frame, .s14-frame {
 position: absolute !important;
-right: 50% !important; /* SWAP: left->right */
-transform: translateX(50%) !important; /* SWAP: -50%->50% */
+right: 50% !important; 
+transform: translateX(50%) !important; 
 width: 600px !important;
 margin: 0 auto !important;
 top: 0 !important; bottom: 0 !important;
 padding: 20px !important;
 }
 
-/* 4. Text Rail and Inner Text (RTL Fix) */
+/* 4. Text Rail and Inner Text (Text alignment forced right) */
 .s1-text, .s2-text, .sGeddes-text, .s4-text, .s5-text, .s9-text, .s11-text, .s13-text, .s14-text, .s15-text {
 padding: 0 20px !important;
 margin: 80px auto 80px auto !important;
@@ -701,15 +701,15 @@ max-width: 100% !important;
 width: auto !important;
 text-align: right !important; /* FORCE RTL text align */
 }
-/* S15 Text (Centering Fix) (RTL Fix) */
+/* S15 Text (Centering Fix) */
 .s15-text {
 text-align: center !important;
 color: #fff !important;
-right: 50% !important; /* SWAP: left->right */
-transform: translateX(50%) !important; /* SWAP: -50%->50% */
+right: 50% !important; 
+transform: translateX(50%) !important; 
 }
 
-/* 5. Galleries and Full-bleed remain full-bleed (RTL Fix) */
+/* 5. Galleries and Full-bleed remain full-bleed (unchanged) */
 .galA-left-frame, .galB-center-frame, .galC-left-frame {
 /* No change, they naturally expand to fill the area around the text rail */
 }
@@ -735,7 +735,7 @@ pointer-events: none !important;
 </head>
 <body>
 
-<div class="hero-fixed" id="hero">
+<div class="hero-fixed" id="hero" dir="rtl">
 <div class="hero-bg" aria-hidden="true"></div>
 <div class="hero-media" id="hero-media">
 <div class="col" id="hero-col">
@@ -768,7 +768,7 @@ pointer-events: none !important;
 
 <figure class="frame sMapA-frame" aria-hidden="true" id="mapSection">
     <div id="mapA-container"></div>
-    <button id="exit-map-button"><bdo dir="rtl">יציאה מהמפה ↓</bdo></button>
+    <button id="exit-map-button" dir="rtl"><bdo dir="rtl">יציאה מהמפה ↓</bdo></button>
 </figure>
 <figure class="frame s5-frame" aria-hidden="true"><img id="s5-img" src="assets/section5.jpg" alt=""></figure>
 <figure class="frame galB-center-frame" aria-hidden="true">
@@ -800,130 +800,130 @@ pointer-events: none !important;
     <img id="s15-img" src="assets/section15.jpg" alt="">
 </figure>
 
-<div class="s1-overlay">
+<div class="s1-overlay" dir="rtl">
     <div class="s1-rail">
         <div class="s1-text" id="s1-text">
-            <p><bdo dir="rtl"><strong>כותרת חלק ראשון.</strong> הטקסט במסילה הימנית זורם...</bdo></p>
-            <p><bdo dir="rtl">הטקסט ממלא את הפס הרחב על ידי גלילת חלון התצוגה...</bdo></p>
-            <p><bdo dir="rtl">בצד שמאל התמונה מקובעת, עוברת בינתיים שינוי מבוקר ושקוף.</bdo></p>
-            <p><bdo dir="rtl">כאשר הטקסט מסיים להיגלל, אנו עוברים לקטע הבא.</bdo></p>
-            <p><bdo dir="rtl">זהו טקסט ארוך להדגמת גלילה: לורם איפסום דולור סיט אמט, קונסקטטור אדיפיסינג אלית. אליקום ואריוס, מטוס נק טינצידונט טינצידונט, נונק אראט טינצידונט סאפיאן, ול לאורט לקוס ניסי אגט ג'וסטו. נולאם אוט פלסראט אודיו.</bdo></p>
-            <p><bdo dir="rtl">נולא ויטא ארוס נק מי רוטרום אליפנד אט נק דואי. דואיס אולטריסס קונסקוואט לובורטיס.</bdo></p>
-            <p><bdo dir="rtl">פוסצ'ה אה אליקום לורם, אק לקיניה אסט. פראסנט רוטרום אודיו אגט טלוס מאטיס, אט מאלסואדה לורם דאפבוס. פללנטסקה אקומסאן דואי אה לקטוס פורטיטור וסטיבולום. נאם וננאטיס אורנה אליט, אט קונדימנטום ארוס אלמנטום אינטרדום. פרוין סד סמפר נולא. מאוריס פלסראט נון דואי אט פרטיום. אוט אליקום טלוס איפסום, נון פורטא אקס קונגוא אה. וסטיבולום מולסטי אגסטאס טלוס, ויטא טינצידונט ניבה מוליס נק. פוסצ'ה קויס מאגנה אליט. אנאן מי טלוס, פרמנטום או פהארטרא איד, פרמנטום נון טורפיס.</bdo></p>
+            <p><strong>כותרת חלק ראשון.</strong> הטקסט במסילה הימנית זורם...</p>
+            <p>הטקסט ממלא את הפס הרחב על ידי גלילת חלון התצוגה...</p>
+            <p>בצד שמאל התמונה מקובעת, עוברת בינתיים שינוי מבוקר ושקוף.</p>
+            <p>כאשר הטקסט מסיים להיגלל, אנו עוברים לקטע הבא.</p>
+            <p>זהו טקסט ארוך להדגמת גלילה: לורם איפסום דולור סיט אמט, קונסקטטור אדיפיסינג אלית. אליקום ואריוס, מטוס נק טינצידונט טינצידונט, נונק אראט טינצידונט סאפיאן, ול לאורט לקוס ניסי אגט ג'וסטו. נולאם אוט פלסראט אודיו.</p>
+            <p>נולא ויטא ארוס נק מי רוטרום אליפנד אט נק דואי. דואיס אולטריסס קונסקוואט לובורטיס.</p>
+            <p>פוסצ'ה אה אליקום לורם, אק לקיניה אסט. פראסנט רוטרום אודיו אגט טלוס מאטיס, אט מאלסואדה לורם דאפבוס. פללנטסקה אקומסאן דואי אה לקטוס פורטיטור וסטיבולום. נאם וננאטיס אורנה אליט, אט קונדימנטום ארוס אלמנטום אינטרדום. פרוין סד סמפר נולא. מאוריס פלסראט נון דואי אט פרטיום. אוט אליקום טלוס איפסום, נון פורטא אקס קונגוא אה. וסטיבולום מולסטי אגסטאס טלוס, ויטא טינצידונט ניבה מוליס נק. פוסצ'ה קויס מאגנה אליט. אנאן מי טלוס, פרמנטום או פהארטרא איד, פרמנטום נון טורפיס.</p>
         </div>
     </div>
 </div>
 
-<div class="s2-overlay">
+<div class="s2-overlay" dir="rtl">
     <div class="s2-rail">
         <div class="s2-text" id="s2-text">
-            <p><bdo dir="rtl"><strong>כותרת חלק שני.</strong> הקטע השני הופך את התמונה והטקסט...</bdo></p>
-            <p><bdo dir="rtl">המסילה הופכת לצד שמאל (שוליים שמאליים), כשהתמונה משתלבת בימין.</bdo></p>
-            <p><bdo dir="rtl">זה שומר על דפוס ויזואלי ברור, לסירוגין מצד לצד.</bdo></p>
-            <p><bdo dir="rtl">וממשיך לשמור על קצב קבוע.</bdo></p>
-            <p><bdo dir="rtl">זהו טקסט ארוך להדגמת גלילה: לורם איפסום דולור סיט אמט, קונסקטטור אדיפיסינג אלית. אליקום ואריוס, מטוס נק טינצידונט טינצידונט, נונק אראט טינצידונט סאפיאן, ול לאורט לקוס ניסי אגט ג'וסטו. נולאם אוט פלסראט אודיו.</bdo></p>
-            <p><bdo dir="rtl">נולא ויטא ארוס נק מי רוטרום אליפנד אט נק דואי. דואיס אולטריסס קונסקוואט לובורטיס.</bdo></p>
-            <p><bdo dir="rtl">פוסצ'ה אה אליקום לורם, אק לקיניה אסט. פראסנט רוטרום אודיו אגט טלוס מאטיס, אט מאלסואדה לורם דאפבוס. פללנטסקה אקומסאן דואי אה לקטוס פורטיטור וסטיבולום. נאם וננאטיס אורנה אליט, אט קונדימנטום ארוס אלמנטום אינטרדום. פרוין סד סמפר נולא. מאוריס פלסראט נון דואי אט פרטיום. אוט אליקום טלוס איפסום, נון פורטא אקס קונגוא אה. וסטיבולום מולסטי אגסטאס טלוס, ויטא טינצידונט ניבה מוליס נק. פוסצ'ה קויס מאגנה אליט. אנאן מי טלוס, פרמנטום או פהארטרא איד, פרמנטום נון טורפיס.</bdo></p>
+            <p><strong>כותרת חלק שני.</strong> הקטע השני הופך את התמונה והטקסט...</p>
+            <p>המסילה הופכת לצד שמאל (שוליים שמאליים), כשהתמונה משתלבת בימין.</p>
+            <p>זה שומר על דפוס ויזואלי ברור, לסירוגין מצד לצד.</p>
+            <p>וממשיך לשמור על קצב קבוע.</p>
+            <p>זהו טקסט ארוך להדגמת גלילה: לורם איפסום דולור סיט אמט, קונסקטטור אדיפיסינג אלית. אליקום ואריוס, מטוס נק טינצידונט טינצידונט, נונק אראט טינצידונט סאפיאן, ול לאורט לקוס ניסי אגט ג'וסטו. נולאם אוט פלסראט אודיו.</p>
+            <p>נולא ויטא ארוס נק מי רוטרום אליפנד אט נק דואי. דואיס אולטריסס קונסקוואט לובורטיס.</p>
+            <p>פוסצ'ה אה אליקום לורם, אק לקיניה אסט. פראסנט רוטרום אודיו אגט טלוס מאטיס, אט מאלסואדה לורם דאפבוס. פללנטסקה אקומסאן דואי אה לקטוס פורטיטור וסטיבולום. נאם וננאטיס אורנה אליט, אט קונדימנטום ארוס אלמנטום אינטרדום. פרוין סד סמפר נולא. מאוריס פלסראט נון דואי אט פרטיום. אוט אליקום טלוס איפסום, נון פורטא אקס קונגוא אה. וסטיבולום מולסטי אגסטאס טלוס, ויטא טינצידונט ניבה מוליס נק. פוסצ'ה קויס מאגנה אליט. אנאן מי טלוס, פרמנטום או פהארטרא איד, פרמנטום נון טורפיס.</p>
         </div>
     </div>
 </div>
 
-<div class="sGeddes-overlay">
+<div class="sGeddes-overlay" dir="rtl">
     <div class="sGeddes-rail">
         <div class="sGeddes-text" id="sGeddes-text">
-            <p><bdo dir="rtl"><strong>תוכנית גדס</strong></bdo></p>
-            <p><bdo dir="rtl">תוכן הטקסט שלך לתוכנית גדס נמצא כאן. הוא ממוקם במסילה השמאלית (text left/image right) בדיוק כמו קטע 2.</bdo></p>
-            <p><bdo dir="rtl">יש להבטיח כי יש מספיק טקסט כדי ליצור גלילה חלקה באזור זה.</bdo></p>
+            <p><strong>תוכנית גדס</strong></p>
+            <p>תוכן הטקסט שלך לתוכנית גדס נמצא כאן. הוא ממוקם במסילה השמאלית (text left/image right) בדיוק כמו קטע 2.</p>
+            <p>יש להבטיח כי יש מספיק טקסט כדי ליצור גלילה חלקה באזור זה.</p>
         </div>
     </div>
 </div>
 
-<div class="s4-overlay">
+<div class="s4-overlay" dir="rtl">
     <div class="s4-rail">
         <div class="s4-text" id="s4-text">
-            <p><bdo dir="rtl"><strong>חלק רביעי</strong> חוזר למסגרת הצפופה...</bdo></p>
-            <p><bdo dir="rtl">הנרטיב של המסילה הימנית ממשיך את החוט...</bdo></p>
-            <p><bdo dir="rtl">התמונה האופקית יושבת יציבה משמאל...</bdo></p>
-            <p><bdo dir="rtl">השוליים והקצב תואמים לחלק הראשון...</bdo></p>
-            <p><bdo dir="rtl">ומחזור הנופים נמשך.</bdo></p>
+            <p><strong>חלק רביעי</strong> חוזר למסגרת הצפופה...</p>
+            <p>הנרטיב של המסילה הימנית ממשיך את החוט...</p>
+            <p>התמונה האופקית יושבת יציבה משמאל...</p>
+            <p>השוליים והקצב תואמים לחלק הראשון...</p>
+            <p>ומחזור הנופים נמשך.</p>
         </div>
     </div>
 </div>
 
-<div class="s5-overlay">
+<div class="s5-overlay" dir="rtl">
     <div class="s5-rail">
         <div class="s5-text" id="s5-text">
-            <p><bdo dir="rtl"><strong>חלק חמישי</strong> מחליף שוב את המסילה...</bdo></p>
-            <p><bdo dir="rtl">כעת הנרטיב מחבק את השוליים השמאליים...</bdo></p>
-            <p><bdo dir="rtl">בעוד התמונה מחזיקה את שדה הראייה הימני...</bdo></p>
-            <p><bdo dir="rtl">וממסגר את הפנייה הבאה בסיפור...</bdo></p>
-            <p><bdo dir="rtl">באותו קצב ומקצב.</bdo></p>
+            <p><strong>חלק חמישי</strong> מחליף שוב את המסילה...</p>
+            <p>כעת הנרטיב מחבק את השוליים השמאליים...</p>
+            <p>בעוד התמונה מחזיקה את שדה הראייה הימני...</p>
+            <p>וממסגר את הפנייה הבאה בסיפור...</p>
+            <p>באותו קצב ומקצב.</p>
         </div>
     </div>
 </div>
 
-<div class="s9-overlay">
+<div class="s9-overlay" dir="rtl">
     <div class="s9-rail">
         <div class="s9-text" id="s9-text">
-            <p><bdo dir="rtl"><strong>חלק תשיעי</strong> מחזיר אותנו למסגרת הצפופה...</bdo></p>
-            <p><bdo dir="rtl">המסילה הימנית נושאת את הנרטיב קדימה...</bdo></p>
-            <p><bdo dir="rtl">משמאל, התמונה מייצבת את הסצנה...</bdo></p>
-            <p><bdo dir="rtl">השוליים, הקצב והפעימות משקפים את חלק אחד...</bdo></p>
-            <p><bdo dir="rtl">כך שהסיפור נושם בקצב מוכר.</bdo></p>
+            <p><strong>חלק תשיעי</strong> מחזיר אותנו למסגרת הצפופה...</p>
+            <p>המסילה הימנית נושאת את הנרטיב קדימה...</p>
+            <p>משמאל, התמונה מייצבת את הסצנה...</p>
+            <p>השוליים, הקצב והפעימות משקפים את חלק אחד...</p>
+            <p>כך שהסיפור נושם בקצב מוכר.</p>
         </div>
     </div>
 </div>
 
-<div class="s11-overlay">
+<div class="s11-overlay" dir="rtl">
     <div class="s11-rail">
         <div class="s11-text" id="s11-text">
-            <p><bdo dir="rtl"><strong>חלק אחד עשר</strong> ממשיך את החוט...</bdo></p>
-            <p><bdo dir="rtl">חוזר למסילה הימנית; התמונה מעגנת את השמאל...</bdo></p>
-            <p><bdo dir="rtl">השוליים והקצב ללא שינוי...</bdo></p>
-            <p><bdo dir="rtl">קרוספיידים סטנדרטיים שומרים על הקצב...</bdo></p>
-            <p><bdo dir="rtl">כשהסיפור מתיישב במיקוד.</bdo></p>
+            <p><strong>חלק אחד עשר</strong> ממשיך את החוט...</p>
+            <p>חוזר למסילה הימנית; התמונה מעגנת את השמאל...</p>
+            <p>השוליים והקצב ללא שינוי...</p>
+            <p>קרוספיידים סטנדרטיים שומרים על הקצב...</p>
+            <p>כשהסיפור מתיישב במיקוד.</p>
         </div>
     </div>
 </div>
 
-<div class="s13-overlay">
+<div class="s13-overlay" dir="rtl">
     <div class="s13-rail">
         <div class="s13-text" id="s13-text">
-            <p><bdo dir="rtl"><strong>חלק שלוש עשרה</strong> חוזר למסגרת הצפופה...</bdo></p>
-            <p><bdo dir="rtl">הנרטיב של המסילה הימנית מושך אותנו קדימה...</bdo></p>
-            <p><bdo dir="rtl">התמונה השמאלית מייצבת את הסצנה...</bdo></p>
-            <p><bdo dir="rtl">השוליים והקצב מהדהדים את חלק אחד...</bdo></p>
-            <p><bdo dir="rtl">נושם בקצב המוכר.</bdo></p>
+            <p><strong>חלק שלוש עשרה</strong> חוזר למסגרת הצפופה...</p>
+            <p>הנרטיב של המסילה הימנית מושך אותנו קדימה...</p>
+            <p>התמונה השמאלית מייצבת את הסצנה...</p>
+            <p>השוליים והקצב מהדהדים את חלק אחד...</p>
+            <p>נושם בקצב המוכר.</p>
         </div>
     </div>
 </div>
 
-<div class="s14-overlay">
+<div class="s14-overlay" dir="rtl">
     <div class="s14-rail">
         <div class="s14-text" id="s14-text">
-            <p><bdo dir="rtl"><strong>חלק ארבעה עשר</strong> הופך את המסילה...</bdo></p>
-            <p><bdo dir="rtl">טקסט לשמאל, תמונה לימין...</bdo></p>
-            <p><bdo dir="rtl">הקצב והדהיות תואמים לחלק שני...</bdo></p>
-            <p><bdo dir="rtl">כשהנוף מתרחב ומתיישב...</bdo></p>
-            <p><bdo dir="rtl">אל הקצב הבא.</bdo></p>
+            <p><strong>חלק ארבעה עשר</strong> הופך את המסילה...</p>
+            <p>טקסט לשמאל, תמונה לימין...</p>
+            <p>הקצב והדהיות תואמים לחלק שני...</p>
+            <p>כשהנוף מתרחב ומתיישב...</p>
+            <p>אל הקצב הבא.</p>
         </div>
     </div>
 </div>
 
-<div class="s15-overlay">
+<div class="s15-overlay" dir="rtl">
     <div class="s15-rail">
         <div class="s15-text" id="s15-text">
-            <p><bdo dir="rtl"><strong>גרדניסיטי</strong> כתיבה, עיצוב, אוצרות:<br>
-            מגמה / רבקה שטרנברג, קרן אבני</bdo></p>
-            <p><bdo dir="rtl"><strong>קרדיטים לצילום:</strong><br>
+            <p><strong>גרדניסיטי</strong> כתיבה, עיצוב, אוצרות:<br>
+            מגמה / רבקה שטרנברג, קרן אבני</p>
+            <p><strong>קרדיטים לצילום:</strong><br>
             1 - המכון הלאומי למפות (מפ"י); 2-10, 15-25 - אוסף הצילומים של מטסון (ג. אריק ואדית), LOC;
-            11-14 - בוריס כרמי, הספרייה הלאומית; 26 - תומר אפלבאום</bdo></p>
+            11-14 - בוריס כרמי, הספרייה הלאומית; 26 - תומר אפלבאום</p>
             <p>
-            <a href="#sGeddes-wrap"><bdo dir="rtl">מה ראה גדס?</bdo></a><br>
-            <a href="#s3-wrap"><bdo dir="rtl">צמיחה</bdo></a><br>
-            <a href="#s8-wrap"><bdo dir="rtl">ירוק אזרחי</bdo></a><br>
-            <a href="#s12-wrap"><bdo dir="rtl">עלי SDGs</bdo></a><br>
-            <a href="https://www.megama.net" target="_blank"><bdo dir="rtl">עב / <bdo dir="ltr">&#x200E;EN</bdo></bdo></a>
+            <a href="#sGeddes-wrap">מה ראה גדס?</a><br>
+            <a href="#s3-wrap">צמיחה</a><br>
+            <a href="#s8-wrap">ירוק אזרחי</a><br>
+            <a href="#s12-wrap">עלי SDGs</a><br>
+            <a href="https://www.megama.net" target="_blank">עב / <bdo dir="ltr">&#x200E;EN</bdo></a>
             </p>
         </div>
     </div>
@@ -1372,7 +1372,6 @@ addEventListener('scroll', update, { passive:true });
 update();
 }
 init();
-})();
 </script>
 
 <script>
@@ -1434,6 +1433,8 @@ map.scrollZoom.disable();
 map.dragPan.disable();
 map.doubleClickZoom.disable();
 map.touchZoomRotate.disable();
+// Crucial: Manually trigger a map resize/render if it was hidden on load
+map.resize();
 });
 
 if (exitButton) {
@@ -1458,6 +1459,12 @@ function toggleMapPointer() {
         map.dragPan.enable();
         map.doubleClickZoom.enable();
         map.touchZoomRotate.enable();
+
+        // Critical: Force Mapbox to check its size and re-render if it enters a previously hidden state
+        if (map) {
+             map.resize();
+        }
+
     } else {
         mapFrame.classList.remove('active');
         
