@@ -1380,21 +1380,22 @@ init();
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
 
 <script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTNobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
+mapboxgl.accessToken =
+'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTNobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
 const MAP_START_CENTER = [34.770081, 32.079031];
 const MAP_START_ZOOM = 15.99;
 
 const mapFrame = document.querySelector('.sMapA-frame');
 const mapContainer = document.getElementById('mapA-container');
-const mapSection = document.querySelector('#sMapA-wrap');
-const exitBtn = document.getElementById("exit-mapA");
+const mapSection = document.getElementById('sMapA-wrap');  
+const exitBtn = document.getElementById('exit-mapA');
 
 
-// === Initialize the Mapbox GL JS Map ===
+// === Initialize Map (RESTORED WORKING VERSION) ===
 const map = new mapboxgl.Map({
     container: 'mapA-container',
-    style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1',  // ✔ Correct CIVIC GREEN map
+    style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1',   // ✔ CIVIC GREEN (correct map)
     center: MAP_START_CENTER,
     zoom: MAP_START_ZOOM,
     interactive: false
@@ -1410,7 +1411,7 @@ map.on('load', () => {
 });
 
 
-// === Enable/disable map interaction depending on visibility ===
+// === Toggle interaction based on visibility (RESTORED) ===
 function toggleMapPointer() {
     const rect = mapSection.getBoundingClientRect();
     const visible =
@@ -1433,11 +1434,13 @@ function toggleMapPointer() {
 }
 
 
-// === Smooth handoff to page scroll ===
+// === Mouse leave → release scroll back to the page (RESTORED) ===
 mapContainer.addEventListener('mouseleave', () => {
     map.scrollZoom.disable();
 });
 
+
+// === Mouse enter → only re-enable if map area is visible (RESTORED) ===
 mapContainer.addEventListener('mouseenter', () => {
     const rect = mapSection.getBoundingClientRect();
     const visible =
@@ -1450,23 +1453,24 @@ mapContainer.addEventListener('mouseenter', () => {
 });
 
 
-// === Exit map button ===
-exitBtn.addEventListener("click", () => {
-    mapContainer.style.pointerEvents = "none";
+// === Exit button (RESTORED) ===
+exitBtn.addEventListener('click', () => {
+    mapContainer.style.pointerEvents = 'none';
     window.scrollBy({
         top: window.innerHeight * 0.6,
-        behavior: "smooth"
+        behavior: 'smooth'
     });
 });
 
 
-// === Apply scroll listeners ===
+// === Bind scroll + resize ===
 window.addEventListener('scroll', toggleMapPointer, { passive: true });
 window.addEventListener('resize', toggleMapPointer);
 
-// Initial check
+// Initial state check
 toggleMapPointer();
 </script>
+
 
 
 </body>
