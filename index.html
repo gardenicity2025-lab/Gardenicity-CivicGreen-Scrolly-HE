@@ -285,6 +285,7 @@ inset: 0 !important; /* Equivalent to top/right/bottom/left = 0 */
 width: 100% !important;
 height: 100% !important;
 position: relative;
+pointer-events: none;
 }
 
 /* Exit button stays above everything */
@@ -294,19 +295,6 @@ top: 20px;
 left: 20px; /* REVERTED to LTR Position (Top-Left) as requested */
 right: auto;
 z-index: 200 !important;
-}
-
-/* === Map container (GL JS DIV) === */
-#mapA-container {
-width: 100%;
-height: 100%;
-position: relative;
-pointer-events: none;
-}
-/* IMPORTANT: Mapbox GL JS map container must have a fixed size */
-.sMapA-frame, #mapA-container {
-width: 100%;
-height: 100%;
 }
 
 /* === When map active (visible) === */
@@ -730,8 +718,8 @@ margin:0 auto !important;
 background:#f8fbf2 !important;
 position: relative !important;
 opacity: 1 !important;
-pointer-events: auto !important;
 transform: none !important;
+pointer-events: auto !important;
 }
 .s15-overlay {
 background: transparent !important;
@@ -790,6 +778,7 @@ overscroll-behavior: auto;
 pointer-events: none !important;
 }
 
+}
 </style>
 </head>
 <body>
@@ -1127,6 +1116,10 @@ if (s15Img && s15Img.complete && s15Img.naturalWidth > 0) markS15Ready();
 else if (s15Img) s15Img.addEventListener('load', markS15Ready, { once:true });
 
 
+// MAPBOX CONTROL VARIABLES
+const mapFrame = document.querySelector('.sMapA-frame');
+let isMapActive = false; // State flag for map interaction
+
 function update(){
 /* HERO choreography */
 const p=progressOf(driver);
@@ -1144,7 +1137,7 @@ const galA=progressOf(galAWrap);
 const sGeddes=progressOf(sGeddesWrap);
 const s3=progressOf(s3Wrap);
 const s4=progressOf(s4Wrap);
-const sMapA=progressOf(sMapAWrap);
+const sMapA=progressOf(sMapAWrap); // Map section progress
 const s5=progressOf(s5Wrap);
 const galB=progressOf(galBWrap);
 const s8=progressOf(s8Wrap);
@@ -1309,6 +1302,40 @@ const x14_15 = clamp(s15/FADE_FRAC, 0, 1);
 const s15Group = (getComputedStyle(root).getPropertyValue('--s15Ready')==='1') ? x14_15 : 0;
 s14Alpha = s14Alpha * ((getComputedStyle(root).getPropertyValue('--s15Ready')==='1') ? (1 - x14_15) : 1);
 
+/* ===== MAPBOX INTERACTION FIX (CLEANED-UP LOGIC) ===== */
+const isMapActiveNow = sMapA > 0.01 && sMapA < 0.99; // Map is considered "in focus" when in its section
+
+if (window.map) { // Ensure map object exists
+    if (isMapActiveNow && !isMapActive) {
+        // Map just entered the center of the screen
+        isMapActive = true;
+        mapFrame.classList.add('active'); // Enables pointer events (CSS)
+
+        // THE CRITICAL FIX: Force Mapbox to redraw itself
+        window.map.resize();
+
+        // Enable interaction controls
+        window.map.interactive = true;
+        window.map.scrollZoom.enable();
+        window.map.dragPan.enable();
+        window.map.doubleClickZoom.enable();
+        window.map.touchZoomRotate.enable();
+
+    } else if (!isMapActiveNow && isMapActive) {
+        // Map just left the center of the screen
+        isMapActive = false;
+        mapFrame.classList.remove('active');
+
+        // Disable interaction controls
+        window.map.interactive = false;
+        window.map.scrollZoom.disable();
+        window.map.dragPan.disable();
+        window.map.doubleClickZoom.disable();
+        window.map.touchZoomRotate.disable();
+    }
+}
+/* ===== END MAPBOX FIX ===== */
+
 /* ===== Internal galleries (unchanged) ===== */
 /* gallery-A (4 imgs, stepped crossfade) */
 const INTERNAL_START_A = FADE_FRAC;
@@ -1426,24 +1453,19 @@ addEventListener('scroll', update, { passive:true });
 update();
 }
 init();
-})();
 </script>
 
 <script>
 /* ---------------------------------------------------- */
-/* MAPBOX LOGIC (REVERTED TO ORIGINAL ENGLISH LTR LOGIC) */
+/* MAPBOX GL JS INITIALIZATION */
 /* ---------------------------------------------------- */
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
-const MAP_START_CENTER = [34.770081, 32.079031]; // Lon, Lat
+const MAP_START_CENTER = [34.770081, 32.079031]; // Lon, Lat (Tel Aviv)
 const MAP_START_ZOOM = 15.99;
 
-const mapFrame = document.querySelector('.sMapA-frame');
-const mapContainer = document.getElementById('mapA-container');
-const exitButton = document.getElementById('exit-map-button');
-const mapSection = document.querySelector('#sMapA-wrap');
-
-const map = new mapboxgl.Map({
+// Expose map object globally so it can be accessed by the update loop
+window.map = new mapboxgl.Map({
 container: 'mapA-container', // HTML element ID
 style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1', // Your Style URL
 center: MAP_START_CENTER,
@@ -1451,99 +1473,19 @@ zoom: MAP_START_ZOOM,
 interactive: false // Start non-interactive
 });
 
-// Original handleExitClick function
-function handleExitClick() {
-if (!map) return;
-const nextSectionElement = document.getElementById('s5-wrap');
-
-// Disable ALL map controls
-map.scrollZoom.disable();
-map.dragPan.disable();
-map.doubleClickZoom.disable();
-map.touchZoomRotate.disable();
-map.getCanvas().style.cursor = ''; // Reset cursor
-
-// Force scroll down to the next section (S5)
-if (nextSectionElement) {
-window.scrollTo({
-top: nextSectionElement.offsetTop,
-behavior: 'smooth'
-});
-
-// Safety: Remove 'active' class from map frame
-if (mapFrame) {
-mapFrame.classList.remove('active');
-}
-// Hide the button immediately on click
-if (exitButton) {
-exitButton.classList.remove('visible');
-}
-}
-}
-
-map.on('load', () => {
-map.scrollZoom.disable();
-map.dragPan.disable();
-map.doubleClickZoom.disable();
-map.touchZoomRotate.disable();
-});
-
-
-if (exitButton) {
-exitButton.addEventListener('click', handleExitClick);
-}
-
-// Original toggleMapPointer function
-function toggleMapPointer() {
-if (!mapFrame || !mapSection) return;
-
-// Check visibility based on the map's driver element
-const rect = mapSection.getBoundingClientRect();
-const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
-
-if (isCentered) {
-mapFrame.classList.add('active');
-// Show button
-if(exitButton) exitButton.classList.add('visible');
-// Enable map interactions (scrollZoom only, pan/drag on mouseenter)
-map.scrollZoom.enable();
-} else {
-mapFrame.classList.remove('active');
-// Hide button
-if(exitButton) exitButton.classList.remove('visible');
-// Disable map interactions
-map.scrollZoom.disable();
-}
-}
-
-// Original Map Handover Logic (For drag/pan control)
-mapContainer.addEventListener('mouseenter', () => {
-    const rect = mapSection.getBoundingClientRect();
-    const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
-    if (map && isCentered) {
-        // Enable drag/pan on mouseenter (scroll zoom is enabled/disabled by scroll logic above)
-        map.dragPan.enable();
-        map.doubleClickZoom.enable();
-        map.touchZoomRotate.enable();
-        map.getCanvas().style.cursor = 'grab';
-    }
-});
-mapContainer.addEventListener('mouseleave', () => {
-    if (map) {
-        // Disable drag/pan on mouseleave
-        map.dragPan.disable();
-        map.doubleClickZoom.disable();
-        map.touchZoomRotate.disable();
-        map.getCanvas().style.cursor = ''; // Reset cursor
+// Exit button logic (when user clicks it)
+const exitButton = document.getElementById('exit-map-button');
+exitButton.addEventListener('click', () => {
+    // Scroll down past the map section, forcing the main scroll loop to deactivate the map
+    const mapWrap = document.getElementById('sMapA-wrap');
+    if (mapWrap) {
+        window.scrollTo({
+            top: mapWrap.offsetTop + mapWrap.offsetHeight,
+            behavior: 'smooth'
+        });
     }
 });
 
-// Add listeners for the main scrollytelling control
-window.addEventListener('scroll', toggleMapPointer, { passive: true });
-window.addEventListener('resize', toggleMapPointer);
-
-// Initial call to set the correct state
-toggleMapPointer();
 </script>
 
 </body>
