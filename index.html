@@ -1376,33 +1376,148 @@ init();
 })();
 </script>
 
-<!-- Mapbox JS -->
+<script>
+/* ---------------------------------------------------- */
+/* MAPBOX GL JS (UNTOUCHED LTR BASE CODE) */
+/* ---------------------------------------------------- */
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
+
+const MAP_START_CENTER = [34.770081, 32.079031]; // Lon, Lat
+const MAP_START_ZOOM = 15.99;
+
+const mapFrame = document.querySelector('.sMapA-frame');
+const mapContainer = document.getElementById('mapA-container');
+const exitButton = document.getElementById('exit-map-button');
+const mapSection = document.querySelector('#sMapA-wrap');
+
+// Initialize the Mapbox GL JS Map
+const map = new mapboxgl.Map({
+container: 'mapA-container', // HTML element ID
+style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1', // Your Style URL
+center: MAP_START_CENTER,
+zoom: MAP_START_ZOOM,
+interactive: false // Start non-interactive
+});
+
+// Original handleExitClick function
+function handleExitClick() {
+if (!map) return;
+const nextSectionElement = document.getElementById('s5-wrap');
+
+// Disable ALL map controls
+map.scrollZoom.disable();
+map.dragPan.disable();
+map.doubleClickZoom.disable();
+map.touchZoomRotate.disable();
+map.getCanvas().style.cursor = ''; // Reset cursor
+
+// Force scroll down to the next section (S5)
+if (nextSectionElement) {
+window.scrollTo({
+top: nextSectionElement.offsetTop,
+behavior: 'smooth'
+});
+
+// Safety: Remove 'active' class from map frame
+if (mapFrame) {
+mapFrame.classList.remove('active');
+}
+// Hide the button immediately on click
+if (exitButton) {
+exitButton.classList.remove('visible');
+}
+}
+}
+
+// Disable interaction methods initially
+map.on('load', () => {
+map.scrollZoom.disable();
+map.dragPan.disable();
+map.doubleClickZoom.disable();
+map.touchZoomRotate.disable();
+});
+
+if (exitButton) {
+exitButton.addEventListener('click', handleExitClick);
+}
+
+function toggleMapPointer() {
+    if (!mapFrame || !mapSection) return;
+
+    // Visibility check (same logic as used in the main JS)
+    const rect = mapSection.getBoundingClientRect();
+    const visible = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+
+    if (visible) {
+        mapFrame.classList.add('active');
+        
+        // Show button
+        if(exitButton) exitButton.classList.add('visible');
+
+        // Enable map interactions when visible
+        map.scrollZoom.enable();
+        map.dragPan.enable();
+        map.doubleClickZoom.enable();
+        map.touchZoomRotate.enable();
+    } else {
+        mapFrame.classList.remove('active');
+        
+        // Hide button
+        if(exitButton) exitButton.classList.remove('visible');
+
+        // Disable map interactions when hidden, releasing the scroll lock
+        map.scrollZoom.disable();
+        map.dragPan.disable();
+        map.doubleClickZoom.disable();
+        map.touchZoomRotate.disable();
+    }
+}
+
+// === HANDOVER FIX (Original LTR implementation) ===
+// The core fix: when the mouse leaves the map container, we immediately disable scrollZoom
+mapContainer.addEventListener('mouseleave', () => {
+    if (map) {
+        map.scrollZoom.disable();
+    }
+});
+// When the mouse enters, if the map section is visible, we re-enable scrollZoom
+mapContainer.addEventListener('mouseenter', () => {
+    const rect = mapSection.getBoundingClientRect();
+    const visible = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+    if (map && visible) {
+        map.scrollZoom.enable();
+    }
+});
+
+// Add listeners for the main scrollytelling control
+window.addEventListener('scroll', toggleMapPointer, { passive: true });
+window.addEventListener('resize', toggleMapPointer);
+
+// Initial call to set the correct state
+toggleMapPointer();
+</script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
 
 <script>
-mapboxgl.accessToken =
-'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTNobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTNobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
 const MAP_START_CENTER = [34.770081, 32.079031];
 const MAP_START_ZOOM = 15.99;
 
 const mapFrame = document.querySelector('.sMapA-frame');
 const mapContainer = document.getElementById('mapA-container');
-const mapSection = document.getElementById('sMapA-wrap');  
-const exitBtn = document.getElementById('exit-mapA');
+const mapSection = document.querySelector('#mapSection');
+const exitBtn = document.getElementById("exit-map-button");
 
-
-// === Initialize Map (RESTORED WORKING VERSION) ===
+// Initialize Mapbox map
 const map = new mapboxgl.Map({
     container: 'mapA-container',
-    style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1',   // ✔ CIVIC GREEN (correct map)
+    style: 'mapbox://styles/kavni/cmd3iy6e600em01s9duln4zpp',
     center: MAP_START_CENTER,
     zoom: MAP_START_ZOOM,
     interactive: false
 });
 
-
-// === Disable interaction initially ===
 map.on('load', () => {
     map.scrollZoom.disable();
     map.dragPan.disable();
@@ -1410,13 +1525,11 @@ map.on('load', () => {
     map.touchZoomRotate.disable();
 });
 
-
-// === Toggle interaction based on visibility (RESTORED) ===
+// Enable map when visible
 function toggleMapPointer() {
     const rect = mapSection.getBoundingClientRect();
-    const visible =
-        rect.top < window.innerHeight * 0.8 &&
-        rect.bottom > window.innerHeight * 0.2;
+    const visible = rect.top < window.innerHeight * 0.8 &&
+                    rect.bottom > window.innerHeight * 0.2;
 
     if (visible) {
         mapFrame.classList.add('active');
@@ -1433,44 +1546,25 @@ function toggleMapPointer() {
     }
 }
 
-
-// === Mouse leave → release scroll back to the page (RESTORED) ===
-mapContainer.addEventListener('mouseleave', () => {
-    map.scrollZoom.disable();
-});
-
-
-// === Mouse enter → only re-enable if map area is visible (RESTORED) ===
+// Mouse leave → give scroll back to page
+mapContainer.addEventListener('mouseleave', () => map.scrollZoom.disable());
 mapContainer.addEventListener('mouseenter', () => {
     const rect = mapSection.getBoundingClientRect();
-    const visible =
-        rect.top < window.innerHeight * 0.8 &&
-        rect.bottom > window.innerHeight * 0.2;
-
-    if (visible) {
-        map.scrollZoom.enable();
-    }
+    const visible = rect.top < window.innerHeight * 0.8 &&
+                    rect.bottom > window.innerHeight * 0.2;
+    if (visible) map.scrollZoom.enable();
 });
 
-
-// === Exit button (RESTORED) ===
-exitBtn.addEventListener('click', () => {
-    mapContainer.style.pointerEvents = 'none';
-    window.scrollBy({
-        top: window.innerHeight * 0.6,
-        behavior: 'smooth'
-    });
+// EXIT MAP button
+exitBtn.addEventListener("click", () => {
+  mapContainer.style.pointerEvents = "none";
+  window.scrollBy({ top: window.innerHeight * 0.6, behavior: "smooth" });
 });
 
-
-// === Bind scroll + resize ===
 window.addEventListener('scroll', toggleMapPointer, { passive: true });
 window.addEventListener('resize', toggleMapPointer);
-
-// Initial state check
 toggleMapPointer();
 </script>
-
 
 
 </body>
