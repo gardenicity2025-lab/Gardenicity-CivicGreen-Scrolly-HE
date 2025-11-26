@@ -1387,14 +1387,14 @@ const MAP_START_ZOOM = 15.99;
 
 const mapFrame = document.querySelector('.sMapA-frame');
 const mapContainer = document.getElementById('mapA-container');
-const mapSection = document.querySelector('#sMapA-wrap');  /* keep same ID as LTR */
+const mapSection = document.querySelector('#sMapA-wrap');
 const exitBtn = document.getElementById("exit-mapA");
 
 
 // === Initialize the Mapbox GL JS Map ===
 const map = new mapboxgl.Map({
     container: 'mapA-container',
-    style: 'mapbox://styles/kavni/cmd3iy6e600em01s9duln4zpp',  // ✔ Correct Civic Green style
+    style: 'mapbox://styles/kavni/cmhkpt4uz00et01pjheur1zc1',  // ✔ Correct CIVIC GREEN map
     center: MAP_START_CENTER,
     zoom: MAP_START_ZOOM,
     interactive: false
@@ -1467,7 +1467,6 @@ window.addEventListener('resize', toggleMapPointer);
 // Initial check
 toggleMapPointer();
 </script>
-
 
 
 </body>
