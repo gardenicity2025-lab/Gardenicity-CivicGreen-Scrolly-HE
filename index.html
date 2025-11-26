@@ -266,7 +266,7 @@ opacity: var(--s4ImgOpacity);
 }
 
 /* ======================================================
-   MapA: Original LTR CSS/HTML (ONLY Button Text Changed)
+   MapA: Original LTR CSS/HTML (ONLY Button Text Changed + LTR override)
    ======================================================
 */
 .sMapA-frame {
@@ -288,6 +288,7 @@ width: 100% !important;
 height: 100% !important;
 position: relative;
 pointer-events: none;
+direction: ltr !important; /* CRITICAL FIX: Ensure map environment is LTR */
 }
 
 /* Exit button stays above everything */
@@ -1134,7 +1135,7 @@ const galA=progressOf(galAWrap);
 const sGeddes=progressOf(sGeddesWrap);
 const s3=progressOf(s3Wrap);
 const s4=progressOf(s4Wrap);
-const sMapA=progressOf(sMapAWrap); // Map section progress
+const sMapA=progressOf(sMapAWrap);
 const s5=progressOf(s5Wrap);
 const galB=progressOf(galBWrap);
 const s8=progressOf(s8Wrap);
@@ -1421,7 +1422,7 @@ init();
 
 <script>
 /* ---------------------------------------------------- */
-/* MAPBOX GL JS ORIGINAL ENGLISH LOGIC (Untouched, except map initialization) */
+/* MAPBOX GL JS ORIGINAL ENGLISH LOGIC (Untouched, Only LTR fix in CSS) */
 /* ---------------------------------------------------- */
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
