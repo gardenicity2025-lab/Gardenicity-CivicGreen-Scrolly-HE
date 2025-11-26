@@ -266,7 +266,7 @@ opacity: var(--s4ImgOpacity);
 }
 
 /* ======================================================
-   MapA: Original LTR CSS/HTML (ONLY Button Text Changed + LTR override)
+   MapA: Original LTR CSS/HTML (CRITICAL FIX: LTR override + z-index)
    ======================================================
 */
 .sMapA-frame {
@@ -1422,7 +1422,7 @@ init();
 
 <script>
 /* ---------------------------------------------------- */
-/* MAPBOX GL JS ORIGINAL ENGLISH LOGIC (Untouched, Only LTR fix in CSS) */
+/* MAPBOX GL JS ORIGINAL ENGLISH LOGIC (WITH map.resize() FIX) */
 /* ---------------------------------------------------- */
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2F2bmkiLCJhIjoiY2s5YjBqNGY1MGV4aTnobnk0amJncWZweCJ9.gZK_r9CYmb6ZN_mZVmgjNg';
 
@@ -1484,7 +1484,7 @@ if (exitButton) {
 exitButton.addEventListener('click', handleExitClick);
 }
 
-// Original toggleMapPointer function
+// Map visibility and interaction toggle
 function toggleMapPointer() {
 if (!mapFrame || !mapSection) return;
 
@@ -1493,13 +1493,21 @@ const rect = mapSection.getBoundingClientRect();
 const isCentered = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
 
 if (isCentered) {
-mapFrame.classList.add('active');
-// Show button
-if(exitButton) exitButton.classList.add('visible');
+    // === CRITICAL FIX: map.resize() on first activation ===
+    if (!mapFrame.classList.contains('active')) {
+         if (map) {
+            map.resize(); // FORCES Mapbox to recalculate dimensions, resolving the zero-size bug
+         }
+    }
+    // =======================================================
+    
+    mapFrame.classList.add('active');
+    // Show button
+    if(exitButton) exitButton.classList.add('visible');
 } else {
-mapFrame.classList.remove('active');
-// Hide button
-if(exitButton) exitButton.classList.remove('visible');
+    mapFrame.classList.remove('active');
+    // Hide button
+    if(exitButton) exitButton.classList.remove('visible');
 }
 }
 
