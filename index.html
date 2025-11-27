@@ -62,35 +62,30 @@ html, body {
 figure.frame { margin: 0; }
 .frame { position: fixed; z-index: 1; pointer-events: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
 /* --------------------------------------------------------------------------------
    TYPE 1: Text Rail Right (Hebrew text) | Image Frame Left (Image column)
-   Sections: S1, S4, S9, S11, S13 
-   Image: Anchored to the LEFT margin (82px) 
+   Sections: S1, S4, S9, S11, S13, Gallery A 
+   Image: Anchored to the LEFT margin (82px) and ends at the LEFT Rail (96px + 460px)
    -------------------------------------------------------------------------------- */
-.s1-frame, .s4-frame, .s9-frame, .s11-frame, .s13-frame { 
+.s1-frame, .s4-frame, .s9-frame, .s11-frame, .s13-frame, .galA-left-frame { 
     top: 96px; bottom: 96px; 
-    /* RTL: Image on the LEFT, Rail on the RIGHT. Image Frame is on the LEFT. */
-    right: calc(96px + 460px + 96px); /* Right edge of image aligns with left edge of right rail */
     left: 82px; /* Left edge of image aligns with left margin */
+    right: calc(96px + 460px); /* Right edge of image aligns with the left side of the right text rail (96px margin + 460px rail width) */
     opacity: var(--s1ImgOpacity); /* Using S1 variable as placeholder for all Type 1 image opacities */
 }
+
 /* --------------------------------------------------------------------------------
    TYPE 2: Text Rail Left (Hebrew text) | Image Frame Right (Image column)
-   Sections: S2, SGeddes, S5, S14 
-   Image: Anchored to the RIGHT margin (96px)
+   Sections: S2, SGeddes, S5, S14, Gallery C 
+   Image: Anchored to the RIGHT margin (96px) and starts after the LEFT Rail (96px + 460px)
    -------------------------------------------------------------------------------- */
-.s2-frame, .sGeddes-frame, .s5-frame, .s14-frame { 
+.s2-frame, .sGeddes-frame, .s5-frame, .s14-frame, .galC-left-frame { 
     top: 96px; bottom: 96px; 
-    /* RTL: Image on the RIGHT, Rail on the LEFT. Image Frame is on the RIGHT. */
     right: 96px; /* Right edge of image aligns with right margin */
-    left: calc(82px + 96px + 460px); /* Left edge of image aligns with right edge of left rail */
+    left: calc(96px + 460px); /* Left edge of image aligns with the right side of the left text rail (96px margin + 460px rail width) */
     opacity: var(--s2ImgOpacity); /* Using S2 variable as placeholder for all Type 2 image opacities */
 }
-
-/* Gallery A/C frames use the same logic, applying the correct opacity variables */
-.galA-left-frame { top:96px; bottom:96px; right: calc(96px + 460px + 96px); left: 82px; } /* LEFT image */
-.galC-left-frame { top:96px; bottom:96px; right: 96px; left: calc(82px + 96px + 460px); display:block; } /* RIGHT image */
-
 
 /* MapA CSS is confirmed correct */
 .sMapA-frame { top: 0; right: 0; bottom: 0; left: 0; opacity: var(--sMapAImgOpacity); z-index: 4; position: fixed !important; width: 100% !important; height: 100% !important; inset: 0 !important; }
@@ -132,15 +127,8 @@ figure.frame { margin: 0; }
 }
 .s2-text, .sGeddes-text, .s5-text, .s14-text { 
     transform:translateY(var(--s2Y)); color:#111; 
-    text-align:left; /* Hebrew text alignment - should still be right for RTL text block */
+    text-align:left; /* Text aligned left within the left rail */
 } 
-/* **NOTE:** While the rail is physically on the left, the text inside should usually align right 
-   for Hebrew when reading left-to-right within the rail, but we'll stick to the original logic
-   of the English version (right text for right rail, left text for left rail) to keep the layout consistent. 
-   I will ensure the text-align is maintained based on the rail's side: right rail = right align, left rail = left align.
-   In Hebrew, 'text-align: left' for the left rail *might* look better for the overall composition.
-*/
-
 /* ===== S15: CENTER COLUMN OVERLAY (RTL Positioning) ===== */
 .s15-rail{ right:50%; transform:translateX(50%); position:absolute; top:0; bottom:0; width:700px; max-width:calc(100vw - 96px - 82px); overflow:hidden; }
 .s15-text{ transform:translateY(var(--s15Y)); color:#fff; text-align:center; }
