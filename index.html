@@ -33,7 +33,7 @@ html, body {
 }
 
 :root{
-    /* ... (All CSS variables are the same, removed for brevity) ... */
+    /* ... (CSS variables) ... */
     --s1:0; --s1Overlay:0; --s1Y:0px; --s1ImgOpacity:0;
     --s2:0; --s2Overlay:0; --s2Y:0px; --s2ImgOpacity:0;
     --sGeddes:0; --sGeddesOverlay:0; --sGeddesY:0px; --sGeddesImgOpacity:0;
@@ -58,33 +58,35 @@ html, body {
 .driver{ height:200vh; }
 
 
-/* ===== PINNED FRAMES (CRITICAL RTL FIXES HERE) ===== */
+/* ==========================================================
+   PINNED FRAMES (CRITICAL RTL FIXES)
+   ========================================================== */
 figure.frame { margin: 0; }
 .frame { position: fixed; z-index: 1; pointer-events: none; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 /* --------------------------------------------------------------------------------
-   TYPE 1: Text Rail Right (Hebrew text) | Image Frame Left (Image column)
+   TYPE 1: Text Rail Right | Image Frame Left 
    Sections: S1, S4, S9, S11, S13, Gallery A 
-   Image: Anchored to the LEFT margin (82px) and ends at the LEFT Rail (96px + 460px)
+   Image: Left side (82px) to Left edge of Right Rail (96px + 460px)
    -------------------------------------------------------------------------------- */
 .s1-frame, .s4-frame, .s9-frame, .s11-frame, .s13-frame, .galA-left-frame { 
     top: 96px; bottom: 96px; 
-    left: 82px; /* Left edge of image aligns with left margin */
-    right: calc(96px + 460px); /* Right edge of image aligns with the left side of the right text rail (96px margin + 460px rail width) */
-    opacity: var(--s1ImgOpacity); /* Using S1 variable as placeholder for all Type 1 image opacities */
+    left: 82px; 
+    right: calc(96px + 460px); 
+    opacity: var(--s1ImgOpacity); 
 }
 
 /* --------------------------------------------------------------------------------
-   TYPE 2: Text Rail Left (Hebrew text) | Image Frame Right (Image column)
+   TYPE 2: Text Rail Left | Image Frame Right 
    Sections: S2, SGeddes, S5, S14, Gallery C 
-   Image: Anchored to the RIGHT margin (96px) and starts after the LEFT Rail (96px + 460px)
+   Image: Right edge of Left Rail (96px + 460px) to Right side (96px)
    -------------------------------------------------------------------------------- */
 .s2-frame, .sGeddes-frame, .s5-frame, .s14-frame, .galC-left-frame { 
     top: 96px; bottom: 96px; 
-    right: 96px; /* Right edge of image aligns with right margin */
-    left: calc(96px + 460px); /* Left edge of image aligns with the right side of the left text rail (96px margin + 460px rail width) */
-    opacity: var(--s2ImgOpacity); /* Using S2 variable as placeholder for all Type 2 image opacities */
+    right: 96px; 
+    left: calc(96px + 460px); 
+    opacity: var(--s2ImgOpacity); 
 }
 
 /* MapA CSS is confirmed correct */
@@ -92,22 +94,20 @@ figure.frame { margin: 0; }
 #mapA-container { width: 100% !important; height: 100% !important; position: relative; pointer-events: none; }
 .sMapA-frame.active #mapA-container { pointer-events: auto; z-index: 10 !important; }
 #exit-map-button {
-    position: absolute; top: 20px; right: 20px; left: auto; z-index: 100; /* RTL POSITIONING */
-    /* ... (rest of button styling) ... */
+    position: absolute; top: 20px; right: 20px; left: auto; z-index: 100; 
 }
 
 
-/* ===== TEXT OVERLAYS (RTL Positioning) ===== */
+/* ==========================================================
+   TEXT OVERLAYS (RTL Positioning)
+   ========================================================== */
 .s1-overlay, .s2-overlay, .sGeddes-overlay, .s4-overlay, .s5-overlay, .s9-overlay, .s11-overlay, .s13-overlay, .s14-overlay, .s15-overlay{ position:fixed; inset:0; z-index:2; pointer-events:none; }
 
-/* --------------------------------------------------------------------------------
-   Text Rail Type 1: RIGHT Rail (Text aligned right)
-   Sections: S1, S4, S9, S11, S13
-   -------------------------------------------------------------------------------- */
+/* Text Rail Type 1: RIGHT Rail (Text aligned right) */
 .s1-rail, .s4-rail, .s9-rail, .s11-rail, .s13-rail{ 
     position:absolute; top:0; bottom:0; 
-    right:96px; /* Right edge aligned with right margin */
-    left: auto; /* Ensure no conflict */
+    right:96px; 
+    left: auto; 
     width:460px; overflow:hidden; 
 }
 .s1-text, .s4-text, .s9-text, .s11-text, .s13-text { 
@@ -115,26 +115,21 @@ figure.frame { margin: 0; }
     text-align:right; /* Hebrew text alignment */
 } 
 
-/* --------------------------------------------------------------------------------
-   Text Rail Type 2: LEFT Rail (Text aligned left)
-   Sections: S2, SGeddes, S5, S14
-   -------------------------------------------------------------------------------- */
+/* Text Rail Type 2: LEFT Rail (Text aligned left) */
 .s2-rail, .sGeddes-rail, .s5-rail, .s14-rail{ 
     position:absolute; top:0; bottom:0; 
-    left:96px; /* Left edge aligned with left margin */
-    right: auto; /* Ensure no conflict */
+    left:96px; 
+    right: auto; 
     width:460px; overflow:hidden; 
 }
 .s2-text, .sGeddes-text, .s5-text, .s14-text { 
     transform:translateY(var(--s2Y)); color:#111; 
     text-align:left; /* Text aligned left within the left rail */
 } 
-/* ===== S15: CENTER COLUMN OVERLAY (RTL Positioning) ===== */
+/* S15: CENTER COLUMN OVERLAY */
 .s15-rail{ right:50%; transform:translateX(50%); position:absolute; top:0; bottom:0; width:700px; max-width:calc(100vw - 96px - 82px); overflow:hidden; }
 .s15-text{ transform:translateY(var(--s15Y)); color:#fff; text-align:center; }
 .s1-text p, .s2-text p, .sGeddes-text p, .s4-text p, .s5-text p, .s9-text p, .s11-text p, .s13-text p, .s14-text p, .s15-text p{ margin:0 0 14px 0; font-size:20px; line-height:28px; }
-
-/* ... (Mobile/Tablet CSS remains the same, removed for brevity) ... */
 
 </style>
 </head>
@@ -238,7 +233,6 @@ figure.frame { margin: 0; }
 
 <script>
 (function(){
-// ... (All JS logic is the same, including init and measure functions) ...
 const root=document.documentElement;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const easeInOutCubic=t=>t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
@@ -253,10 +247,18 @@ const heroTitle=document.getElementById('hero-title');
 const heroLinks=document.getElementById('hero-links');
 let startShift=0,endShift=0;
 function measureHero(){
-// ... (measurement code) ...
+    const vh=window.innerHeight;
+    const h=heroCol.offsetHeight;
+    startShift=(vh-h)/2;
+    endShift=vh-h-96;
+    root.style.setProperty('--shift',startShift.toFixed(1)+'px');
 }
 function progressOf(el){
-// ... (progress code) ...
+    const rect=el.getBoundingClientRect();
+    const vh=window.innerHeight;
+    const duration=rect.height-vh;
+    const progress=-rect.top/duration;
+    return clamp(progress,0,1);
 }
 
 /* ---------- WRAPS & TEXT MEASUREMENT ---------- */
@@ -300,7 +302,6 @@ let s13StartY=0, s13EndY=0;
 let s14StartY=0, s14EndY=0;
 let s15StartY=0, s15EndY=0;
 
-// ... (All measurement functions like measureS1, measureS2, etc.) ...
 function measureS1(){ const vh=window.innerHeight; const h=s1Text.scrollHeight; s1StartY=vh; s1EndY=-h; root.style.setProperty('--s1Y', s1StartY+'px'); }
 function measureS2(){ const vh=window.innerHeight; const h=s2Text.scrollHeight; s2StartY=vh; s2EndY=-h; root.style.setProperty('--s2Y', s2StartY+'px'); }
 function measureSGeddes(){ const vh=window.innerHeight; const h=sGeddesText.scrollHeight; sGeddesStartY=vh; sGeddesEndY=-h; root.style.setProperty('--sGeddesY', sGeddesStartY+'px'); }
@@ -311,10 +312,8 @@ function measureS11(){ const vh=window.innerHeight; const h=s11Text.scrollHeight
 function measureS13(){ const vh=window.innerHeight; const h=s13Text.scrollHeight; s13StartY=vh; s13EndY=-h; root.style.setProperty('--s13Y', s13StartY+'px'); }
 function measureS14(){ const vh=window.innerHeight; const h=s14Text.scrollHeight; s14StartY=vh; s14EndY=-h; root.style.setProperty('--s14Y', s14StartY+'px'); }
 function measureS15(){ const vh=window.innerHeight; const h=s15Text.scrollHeight; s15StartY=vh; s15EndY=-h; root.style.setProperty('--s15Y', s15StartY+'px'); }
-// ... (Load gates for galleries and full-bleed sections) ...
 
 function update(){
-// ... (All progress, overlay, text sweep, zoom, and fade logic is the same) ...
     /* HERO choreography */
     const p=progressOf(driver);
     const pFade=easeInOutCubic(clamp(p/0.60,0,1));
